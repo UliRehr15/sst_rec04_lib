@@ -17,5 +17,4 @@ Structure of coding projects should be:
 November 2015, Hanover, Germany, Uli Rehr
 
 Versions <BR>
-20151117: 4.0 Empty project <BR>
-20151118: 4.1 Fork from sstRec03Lib <BR>
+20151117: 4.0 Fork from sstRec03 <BR>

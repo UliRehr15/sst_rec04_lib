@@ -112,12 +112,18 @@ int sstRec04InternCls::WritNewInt(int iKey, void* element, dREC04RECNUMTYP *inde
 //=============================================================================
 int sstRec04InternCls::WritNewVector(int iKey, void* vRecAdr, dREC04RECNUMTYP *dRecNo)
 {
+  int iStat = 0;
+
   // Set actual date into DateNew field
   this->poHeader->SetNewDate();
   this->poHeader->SetChangeDate();
 
+  // Reset full intern vector with all cargo packets
+  // no good idea, some cargo data are stored in vector
+  // this->poVector->ResetMem(0);
+
   // write record into vector memory
-  int iStat = this->poVector->WrtCargo( 0, this->poRecMemSysKey, this->poHeader);
+  iStat = this->poVector->WrtCargo( 0, this->poRecMemSysKey, this->poHeader);
 
   // write record into vector memory
   iStat = this->poVector->WrtCargo( 0, this->poRecMemUsrKey, vRecAdr);
@@ -355,6 +361,19 @@ int sstRec04InternCls::RedCargo ( int              iKey,
     iRet = iStat;
 
     return iRet;
+}
+//==============================================================================
+void* sstRec04InternCls::GetVectorAdr() const
+{
+  // return this->GetAdr();
+  return this->poVector->GetAdr();
+}
+//==============================================================================
+int sstRec04InternCls::GetCargoAdr (int                         iKey,
+                                    sstRec04CargoKeyInternCls  *oDataKey,
+                                    void                      **vCargoAdr)
+{
+  return this->poVector->GetCargoAdr( iKey, oDataKey, vCargoAdr);
 }
 //==============================================================================
 void sstRec04InternCls::SetNewDate()

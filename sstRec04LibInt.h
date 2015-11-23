@@ -802,6 +802,34 @@ class sstRec04InternCls
      int RedCargo ( int              iKey,
                     sstRec04CargoKeyInternCls *oDataKey,
                     void            *vCargoAdr);
+     //=============================================================================
+     /**
+     * @brief Get adress of vector
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     void* GetVectorAdr() const;
+     //=============================================================================
+     /**
+     * @brief Get Adress of cargo system
+     *
+     * @param iKey      [in]     For the moment 0
+     * @param oDataKey  [in out] Key of cargo object
+     * @param vCargoAdr [out]    Adress of cargo system
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int GetCargoAdr (int               iKey,
+                      sstRec04CargoKeyInternCls  *oDataKey,
+                      void            **vCargoAdr);
      //==============================================================================
      /**
      * @brief set date/time in new string of header object
@@ -1515,6 +1543,463 @@ class sstRec04InternCls
     sstRec04CargoKeyInternCls *poRecMemSysKey;   /**< Identification Kea for User Data Cargo */
     sstRec04TreeHeaderCls     *poTre;            /**< Array with all tree header data    */
     int           iTriAnz;    /**< Number of all defined trees            */
+};
+//==============================================================================
+/**
+* @brief Root or head object with entry infos for linked list
+*
+* Changed: 20.06.14  Re.
+*
+* @ingroup sstRecord04InternLib
+*
+* @author Re.
+*
+* @date 20.06.14
+*/
+// ----------------------------------------------------------------------------
+class sstRec04LiLstHedCls
+{
+  public:   // Öffentliche Funktionen
+     sstRec04LiLstHedCls();  // Konstruktor
+     //==============================================================================
+     /**
+     * @brief Set Entry 1: Beginn of linked list
+     *
+     * @param iKey    [in] For the moment 0
+     * @param dEntry1 [in] Entry 1
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetEntry1(int iKey,  dREC04RECNUMTYP dEntry1);
+     //==============================================================================
+     /**
+     * @brief Set Entry 2: Exit / End of linked list
+     *
+     * @param iKey    [in] For the moment 0
+     * @param dEntry2 [in] Entry 2
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetEntry2(int iKey,  dREC04RECNUMTYP dEntry2);
+     //==============================================================================
+     /**
+     * @brief Get Entry 1
+     *
+     * @return Entry1
+     */
+     // ----------------------------------------------------------------------------
+      dREC04RECNUMTYP GetEntry1();
+     //==============================================================================
+     /**
+     * @brief Get Entry 2
+     *
+     * @return Entry 2
+     */
+     // ----------------------------------------------------------------------------
+      dREC04RECNUMTYP GetEntry2();
+  private:  // Private Funktionen
+      dREC04RECNUMTYP chain_loc[2];  /**< Entry and exit in linked list */
+};
+//==============================================================================
+/**
+* @brief List Node Element class of Linked List
+*
+* List Element for Linked List
+*
+* Changed: 19.02.10  Re.
+*
+* @ingroup sstRecord04InternLib
+*
+* @author Re.
+*
+* @date 19.02.10
+*/
+// ----------------------------------------------------------------------------
+class sstRec04LiLstEleCls
+{
+  public:   // Öffentliche Funktionen
+     sstRec04LiLstEleCls();  // Konstruktor
+     //==============================================================================
+     /**
+     * @brief Set Head or master object for linked list
+     *
+     * @param iKey    [in] For the moment 0
+     * @param dMaster [in] For the moment 0
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetMaster(int iKey,  dREC04RECNUMTYP  dMaster);
+     //==============================================================================
+     /**
+     * @brief Set previous element for linked list object
+     *
+     * @param iKey  [in] For the moment 0
+     * @param dPrev [in] For the moment 0
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetPrev(int iKey,  dREC04RECNUMTYP  dPrev);
+     //==============================================================================
+     /**
+     * @brief Set Next element for linked list object
+     *
+     * @param iKey  [in] For the moment 0
+     * @param dNext [in] For the moment 0
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetNext(int iKey,  dREC04RECNUMTYP  dNext);
+     //==============================================================================
+     /**
+     * @brief Set Next element for linked list object
+     *
+     * @param iKey    [in] For the moment 0
+     * @param dTarget [in] For the moment 0
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetTarget(int iKey,  dREC04RECNUMTYP  dTarget);
+     //==============================================================================
+     /**
+     * @brief set all parameter for linked list object
+     *
+     * iStat = Set( iKey, dMaster, dPrev, dNext);
+     *
+     * @param iKey    [in] For the moment 0
+     * @param dMaster [in] Head or Master object
+     * @param dPrev   [in] Previous in linked list
+     * @param dNext   [in] Next in linked list
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int Set(int iKey,
+              dREC04RECNUMTYP  dMaster,
+              dREC04RECNUMTYP  dPrev,
+              dREC04RECNUMTYP  dNext);
+     //==============================================================================
+     /**
+     * @brief Get Master
+     *
+     * @return dMaster
+     */
+     // ----------------------------------------------------------------------------
+      dREC04RECNUMTYP GetMaster();
+     //==============================================================================
+     /**
+     * @brief Get Previous
+     *
+     * @return dPrev
+     */
+     // ----------------------------------------------------------------------------
+      dREC04RECNUMTYP GetPrev();
+     //==============================================================================
+     /**
+     * @brief Get Next
+     *
+     * @return dNext
+     */
+     // ----------------------------------------------------------------------------
+      dREC04RECNUMTYP GetNext();
+     //==============================================================================
+     /**
+     * @brief Get Next
+     *
+     * @return dNext
+     */
+     // ----------------------------------------------------------------------------
+      dREC04RECNUMTYP GetTarget();
+
+  private:  // Private Funktionen
+      dREC04RECNUMTYP master;    /**< Master or root object of list */
+      dREC04RECNUMTYP ulPrev;    /**< Previous element in list */
+      dREC04RECNUMTYP ulNext;    /**< Next element in list */
+      dREC04RECNUMTYP ulTarget;  /**< Element in Target list */
+
+};
+//==============================================================================
+/**
+* @brief target element class of linked list
+*
+* Changed: 19.02.10  Re.
+*
+* @ingroup sstRecord04InternLib
+*
+* @author Re.
+*
+* @date 19.02.10
+*/
+// ----------------------------------------------------------------------------
+class sstRec04LiLstTarCls
+{
+  public:   // Öffentliche Funktionen
+     sstRec04LiLstTarCls();  // Konstruktor
+     unsigned long ulNumEle;        /**< Number of linked elements */
+  private:  // Private Funktionen
+};
+//==============================================================================
+/**
+* @brief Definition Klasse sstRec04LiLstIntCls
+*
+* Linked List Class for Dss2 Library
+*
+* Changed: 19.02.10  Re.
+*
+* @ingroup sstRecord04InternLib
+*
+* @author Re.
+*
+* @date 19.02.10
+*/
+// ----------------------------------------------------------------------------
+class sstRec04LiLstIntCls
+{
+  public:   // Öffentliche Funktionen
+     sstRec04LiLstIntCls();  // Konstruktor
+     ~sstRec04LiLstIntCls();  // Destruktor
+
+     // ----------------------------------------------------------------------------
+     /**
+     * @brief Initialize Linked List
+     *
+     * @param iKey [in] For the moment 0
+     * @param Dss1 [in out] Target Dss
+     * @param Dss2 [in out] List Element Dss
+     * @param Dss3 [in out] Header Dss
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+//     int Define3(int                iKey,
+//                    sstRec04InternCls *Dss1,
+//                    sstRec04InternCls *Dss2,
+//                    sstRec04InternCls *Dss3);
+     int Define3(int          iKey,
+                    sstRec04Cls *Dss1,
+                    sstRec04Cls *Dss2,
+                    sstRec04Cls *Dss3);
+     // ----------------------------------------------------------------------------
+     /**
+     * @brief Add list object to header object
+     *
+     * @param iKey     [in] For the moment 0
+     * @param RecNoEle [in] ID of List
+     * @param RecNoHed [in] ID of Header
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int List2Header( int          iKey,
+                       dREC04RECNUMTYP RecNoEle,
+                       dREC04RECNUMTYP RecNoHed);
+//                      char         name[],
+//                      unsigned int iname);
+
+     // ----------------------------------------------------------------------------
+     /**
+     * @brief Insert new target object to element list
+     *
+     * @param iKey     [in] For the moment 0
+     * @param RecNoEle [in] ID of list element
+     * @param RecNoTar [in] ID of target element
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int Target2List( int          iKey,
+                       dREC04RECNUMTYP RecNoEle,
+                       dREC04RECNUMTYP RecNoTar);
+
+     //==============================================================================
+     /**
+     * @brief Set Number of uses for target record
+     *
+     * @param iKey      [in]  For the moment 0
+     * @param dNumUse   [out] Number of uses
+     * @param dRecNoTar [in]  Record number of target
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int GetTarNumUse(int           iKey,
+                       dREC04RECNUMTYP *dNumUse,
+                       dREC04RECNUMTYP  dRecNoTar);
+     //==============================================================================
+     /**
+     * @brief Set Number of uses for target record
+     *
+     * @param iKey      [in] For the moment 0
+     * @param dNumUse   [in] Number of uses
+     * @param dRecNoTar [in] Record number of target
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetTarNumUse(int          iKey,
+                       dREC04RECNUMTYP dNumUse,
+                       dREC04RECNUMTYP dRecNoTar);
+     //==============================================================================
+     /**
+     * @brief Set all attributes for element record
+     *
+     * iStat = oLinkedList.SetEleAll ( iKey, dRecNoEle, dMaster, dNext, dPrev, dTarget);
+     *
+     * @param iKey      [in] For the moment 0
+     * @param dRecNoEle [in] record number of element
+     * @param dMaster   [in] Master of list
+     * @param dNext     [in] Next element
+     * @param dPrev     [in] Previous element
+     * @param dTarget   [in] Previous element
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetEleAll (int          iKey,
+                     dREC04RECNUMTYP dRecNoEle,
+                     dREC04RECNUMTYP dMaster,
+                     dREC04RECNUMTYP dNext,
+                     dREC04RECNUMTYP dPrev,
+                     dREC04RECNUMTYP dTarget);
+
+     //==============================================================================
+     /**
+     * @brief Shortstory
+     *
+     * @param iKey       [in] For the moment 0
+     * @param dRecNoEle  [in] For the moment 0
+     * @param dMaster    [out] For the moment 0
+     * @param dNext      [out] For the moment 0
+     * @param dPrev      [out] For the moment 0
+     * @param dTarget    [out] For the moment 0
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int ListNodeGetEleAll (int              iKey,
+                    dREC04RECNUMTYP  dRecNoEle,
+                    dREC04RECNUMTYP *dMaster,
+                    dREC04RECNUMTYP *dNext,
+                    dREC04RECNUMTYP *dPrev,
+                    dREC04RECNUMTYP *dTarget);
+     //==============================================================================
+     /**
+     * @brief Set all attributes for element record
+     *
+     * @param iKey       [in] For the moment 0
+     * @param dRecNoHed  [in] Master of list
+     * @param dEntry1    [in] Start / Begin of linked list
+     * @param dEntry2    [in] Exit / End of linked list
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetHedAll (int          iKey,
+                     dREC04RECNUMTYP dRecNoHed,
+                     dREC04RECNUMTYP dEntry1,
+                     dREC04RECNUMTYP dEntry2);
+     //==============================================================================
+     /**
+     * @brief Shortstory
+     *
+     * @param iKey      [in] For the moment 0
+     * @param dRecNoHed [in] For the moment 0
+     * @param dEntry1   [out] For the moment 0
+     * @param dEntry2   [out] For the moment 0
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int getEntriesInLinkList ( int              iKey,
+                                dREC04RECNUMTYP  dRecNoHed,
+                                dREC04RECNUMTYP *dEntry1,
+                                dREC04RECNUMTYP *dEntry2);
+     //==============================================================================
+     /**
+     * @brief // Extend Linked List at end  <BR>
+     * iStat = oLinkList.ExtendAtEnd ( iKey, dRecNoHead, dRecNoEle, dRecNoTarget);
+     *
+     * @param iKey          [in] For the moment 0
+     * @param dRecNoHead    [in] Extend Linked List named by dRecNoHead
+     * @param dRecNoEle     [in] Linked List node in insert
+     * @param dRecNoTarget  [in] Extend with Target object
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int ExtendAtEnd(int             iKey,
+                     dREC04RECNUMTYP dRecNoHead,
+                     dREC04RECNUMTYP dRecNoEle,
+                     dREC04RECNUMTYP dRecNoTarget);
+     //==============================================================================
+
+private:  // Private Member
+     dREC04RECNUMTYP dLiLstEntry2;  /**< Second entry in linked list */
+     dREC04RECNUMTYP dLiLstEntry1;  /**< First Entry in linked list */
+
+     sstRec04CargoKeyInternCls *poLstTarKey;  /**< Cargo Linked List target LLTA   */
+     sstRec04CargoKeyInternCls *poLstEleKey;  /**< Cargo Linked List element LLEL  */
+     sstRec04CargoKeyInternCls *poLstHedKey;  /**< Cargo Linked List Head LLHE     */
+
+     sstRec04InternCls *poRecMemHed; /**<  RecMem for Target elements      */
+     sstRec04InternCls *poRecMemEle; /**<  RecMem for Target list elements */
+     sstRec04InternCls *poRecMemTar; /**<  RecMem for Header elements      */
 };
 //==============================================================================
 // iStat = Test_VectorSys_Stack ( iKey);

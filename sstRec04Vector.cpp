@@ -95,6 +95,7 @@ int sstRec04VectSysCls::AddCargoSys( int             iKey,
   {
     Adr = realloc(this->vVectorAdr ,this->dVectorSize);
     if (Adr <= NULL) assert(0);
+    // memset(Adr,0,this->dVectorSize);
 
   }
   this->vVectorAdr = Adr;
@@ -107,6 +108,9 @@ int sstRec04VectSysCls::AddCargoSys( int             iKey,
     this->poMemAdr[ii-1].SetCargoAdr(Adr);
     iCargoOffs = iCargoOffs + this->poMemAdr[ii-1].GetCargoSize();
   }
+
+  // Reset new cargo packet in vector
+  memset( Adr, 0, uiSize);
 
   // set cargo key
   oCargoKey->iKey = uiNumCargoSys;

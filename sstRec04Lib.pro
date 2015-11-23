@@ -21,7 +21,12 @@ SOURCES		+=  sstRec04.cpp \
     sstRec04CompValue.cpp \
     sstRec04Tree.cpp \
     sstRec04TreeKeyIntern.cpp \
-    sstRec04TreeKey.cpp
+    sstRec04TreeKey.cpp \
+    sstRec04LiLst.cpp \
+    sstRec04LiLstHed.cpp \
+    sstRec04LiLstEle.cpp \
+    sstRec04LiLstTar.cpp \
+    sstRec04LiLstInt.cpp
     #sstRec02Cargo.cpp
 SOURCES		+=  sstRec04CargoKey.cpp
 SOURCES		+=  sstRec04CargoKeyInt.cpp

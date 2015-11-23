@@ -246,3 +246,9 @@ int sstRec04Cls::TreDelNumber ( int                      iKey,
   return this->poRec01Intern->TreDelNumber( iKey, dRecNo);
 }
 //==============================================================================
+sstRec04InternCls* sstRec04Cls::GetInternObjAdr()
+{
+  return this->poRec01Intern;
+}
+//==============================================================================
+

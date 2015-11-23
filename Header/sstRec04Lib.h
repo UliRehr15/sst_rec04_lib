@@ -51,6 +51,7 @@ typedef unsigned long  dREC04RECSIZTYP;    /**< Record Size Type: Int, Unsigned,
 
 class sstRec04InternCls;
 class sstRec04CargoKeyInternCls;
+class sstRec04LiLstIntCls;
 
 //------------------------------------------------------------------------------
 
@@ -127,7 +128,7 @@ public:
 };
 //==============================================================================
 /**
-* @brief sst Record Memory Vers. 3
+* @brief sst Record Memory Vers. 4
 *
 * record storage <BR>
 *
@@ -620,6 +621,14 @@ public:
   // ----------------------------------------------------------------------------
   int TreDelNumber ( int                      iKey,
                      dREC04RECNUMTYP          dRecNo);
+  //==============================================================================
+  /**
+  * @brief Get Adress of intern object
+  *
+  * @retval   Return adress of intern object
+  */
+  // ----------------------------------------------------------------------------
+  sstRec04InternCls* GetInternObjAdr();
   //=============================================================================
 
 private:
@@ -685,6 +694,114 @@ class sstRec04TestRec2Cls
     unsigned int uiValue;   /**< Test Unsigned Value */
     double dValue;          /**< Test Double Value */
     char cVal[10];         /**< Test Character Value */
+};
+//==============================================================================
+/**
+* @brief Linked List object for 3 MemRec objects
+*
+* Changed: 19.11.15  Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @author Re.
+*
+* @date 19.11.15
+*/
+// ----------------------------------------------------------------------------
+class sstRec04LiLstCls
+{
+  public:   // Öffentliche Funktionen
+     sstRec04LiLstCls();  // Konstruktor
+     ~sstRec04LiLstCls();  // Destruktor
+
+     // ----------------------------------------------------------------------------
+     /**
+     * @brief // Initialize Linked List with Header, List element and target RecMem objects  <BR>
+     * iStat = oLiList.Define3( iKey, *oRecMem1Hed, *oRecMem2Ele, *oRecMem3Tar);
+     *
+     * @param iKey [in] For the moment 0
+     * @param oRecMem1Hed [in out] Store linked list header data in RecMem1
+     * @param oRecMem2Ele [in out] Store linked list list element data in RecMem2
+     * @param oRecMem3Tar [in out] Store linked list target data in RecMem3
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int Define3(int          iKey,
+                 sstRec04Cls *oRecMem1Hed,
+                 sstRec04Cls *oRecMem2Ele,
+                 sstRec04Cls *oRecMem3Tar);
+     //==============================================================================
+     /**
+     * @brief // Get entry Data for Linked list object  <BR>
+     *  oLinkList.getEntriesInLinkList(int iKey, dRecNoHed, *dEntry1, *dEntry2);
+     *
+     * @param iKey      [in] For the moment 0
+     * @param dRecNoHed [in] Number of Linked List Header object
+     * @param dEntry1   [out] Return entry 1 in LinkList
+     * @param dEntry2   [out] Return entry 2 in LinkList
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int getEntriesInLinkList(int              iKey,
+                              dREC04RECNUMTYP  dRecNoHed,
+                              dREC04RECNUMTYP *dEntry1,
+                              dREC04RECNUMTYP *dEntry2);
+     //==============================================================================
+     /**
+     * @brief // Get all data from element node  <BR>
+     * iStat = oLinkList.ListNodeGetEleAll ( iKey, dRecNoEle, *dMaster, *dNext, *dPrev, *dTarget);
+     *
+     * @param iKey       [in] For the moment 0
+     * @param dRecNoEle  [in] node number in list
+     * @param dMaster    [out] Master object of linked list
+     * @param dNext      [out] Next node in linked list
+     * @param dPrev      [out] Previous node in linked list
+     * @param dTarget    [out] Target object
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int ListNodeGetEleAll (int              iKey,
+                            dREC04RECNUMTYP  dRecNoEle,
+                            dREC04RECNUMTYP *dMaster,
+                            dREC04RECNUMTYP *dNext,
+                            dREC04RECNUMTYP *dPrev,
+                            dREC04RECNUMTYP *dTarget);
+     //==============================================================================
+     /**
+     * @brief // Extend Linked List at end  <BR>
+     * iStat = oLinkList.ExtendAtEnd ( iKey, dRecNoHead, dRecNoEle, dRecNoTarget);
+     *
+     * @param iKey          [in] For the moment 0
+     * @param dRecNoHead    [in] Extend Linked List named by dRecNoHead
+     * @param dRecNoEle     [in] Extend Linked List named by dRecNoHead
+     * @param dRecNoTarget  [in] Extend with Target object
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int ExtendAtEnd(int             iKey,
+                     dREC04RECNUMTYP dRecNoHead,
+                     dREC04RECNUMTYP dRecNoEle,
+                     dREC04RECNUMTYP dRecNoTarget);
+     //==============================================================================
+private:  // Private Funktionen
+     sstRec04LiLstIntCls *poRec04LiLstInt;   /**< Pointer to intern object */
+
 };
 //==============================================================================
 
