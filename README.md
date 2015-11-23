@@ -18,3 +18,4 @@ November 2015, Hanover, Germany, Uli Rehr
 
 Versions <BR>
 20151117: 4.0 Fork from sstRec03 <BR>
+20151123: 4.1 Add doubly linked list with 3 RemMem objects (Head, List Element, Target) <BR>
