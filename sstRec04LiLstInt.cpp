@@ -71,8 +71,8 @@ int sstRec04LiLstIntCls::Define3(int          iKey,
 }
 //=============================================================================
 int sstRec04LiLstIntCls::Target2List( int              iKey,
-                                      dREC04RECNUMTYP  dRecNoTar,
-                                      dREC04RECNUMTYP  dRecNoEle)
+                                      dREC04RECNUMTYP  dRecNoEle,
+                                      dREC04RECNUMTYP  dRecNoTar)
 {
   dREC04RECNUMTYP dSaveLastRecNoEle=0;  // Store last adress
   dREC04RECNUMTYP dNumRec = 0;
@@ -102,7 +102,7 @@ int sstRec04LiLstIntCls::Target2List( int              iKey,
 
     iStat = this->poRecMemEle->ReadInt( 0, dNumRec, this->poRecMemEle->GetVectorAdr());
 
-    iStat = poEleRec2->Set(0,0,0,0);
+    iStat = poEleRec2->Set(0,0,0,0,0);
     iStat = poEleRec2->SetTarget(0,dRecNoTar);
 
     this->poRecMemEle->WritInt( 0, this->poRecMemEle->GetVectorAdr(), dNumRec);
@@ -118,7 +118,7 @@ int sstRec04LiLstIntCls::Target2List( int              iKey,
 
       iStat = this->poRecMemEle->ReadInt( 0, dRecNoEle, this->poRecMemEle->GetVectorAdr());
 
-      iStat = poEleRec2->Set( 0, 0, 0, 0);
+      iStat = poEleRec2->Set( 0, 0, 0, 0, 0);
       iStat = poEleRec2->SetTarget(0,dRecNoTar);
 
       this->poRecMemEle->WritInt( 0, this->poRecMemEle->GetVectorAdr(), dRecNoEle);
@@ -138,7 +138,7 @@ int sstRec04LiLstIntCls::Target2List( int              iKey,
 
       iStat = this->poRecMemEle->ReadInt( 0, dRecNoEle, this->poRecMemEle->GetVectorAdr());
 
-      iStat = poEleRec2->Set(0, 0, dSaveLastRecNoEle, 0);
+      iStat = poEleRec2->Set(0, 0, dSaveLastRecNoEle, 0, 0);
       iStat = poEleRec2->SetTarget ( 0, dRecNoTar);
 
       this->poRecMemEle->WritInt( 0, this->poRecMemEle->GetVectorAdr(), dRecNoEle);
@@ -153,7 +153,7 @@ int sstRec04LiLstIntCls::Target2List( int              iKey,
 
   // Reset Data in Vector
   poTarRec3->ulNumEle = 0;
-  iStat = poEleRec2->Set(0, 0, 0, 0);
+  iStat = poEleRec2->Set(0, 0, 0, 0, 0);
 
   // Fatal Errors goes to an assert
   if (iRet < 0)
@@ -259,7 +259,7 @@ int sstRec04LiLstIntCls::List2Header ( int              iKey,
     poHedRec1->SetEntry1(0,0);
     poHedRec1->SetEntry2(0,0);
 
-    poEleRec2->Set(0,0,0,0);
+    poEleRec2->Set(0,0,0,0,0);
 
     // Fatal Errors goes to an assert
     if (iRet < 0)
@@ -351,7 +351,7 @@ int sstRec04LiLstIntCls::SetEleAll (int          iKey,
   // iStat = this->oEleDss2->LesAbs( 0, this->oEleDss2->oVector->GetAdr(), dRecNoEle);
   iStat = this->poRecMemEle->ReadInt( 0, dRecNoEle, this->poRecMemEle->GetVectorAdr());
 
-  iStat = pEleRec2->Set(0, dTmpMaster, dTmpPrev, dTmpNext);
+  iStat = pEleRec2->Set(0, dTmpMaster, dTmpPrev, dTmpNext, 0);
   iStat = pEleRec2->SetTarget(0,dTmpTarget);
 
   // Write vector to record
@@ -473,6 +473,10 @@ int sstRec04LiLstIntCls::getEntriesInLinkList(int               iKey,
 
     *dTmpEntry1 = pHedRec1->GetEntry1();
     *dTmpEntry2 = pHedRec1->GetEntry2();
+
+    // Reset Vector memory
+    pHedRec1->SetEntry1(0,0);
+    pHedRec1->SetEntry2(0,0);
   }
   return iStat;
 }

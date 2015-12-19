@@ -68,17 +68,19 @@ int sstRec04LiLstEleCls::SetTarget(int iKey,  dREC04RECNUMTYP  dTmpTarget)
   return 0;
 }
 //=============================================================================
-int sstRec04LiLstEleCls::Set(int           iKey,
-                        dREC04RECNUMTYP  dTmpMaster,
-                        dREC04RECNUMTYP  dTmpPrev,
-                        dREC04RECNUMTYP  dTmpNext)
+int sstRec04LiLstEleCls::Set(int              iKey,
+                             dREC04RECNUMTYP  dTmpMaster,
+                             dREC04RECNUMTYP  dTmpPrev,
+                             dREC04RECNUMTYP  dTmpNext,
+                             dREC04RECNUMTYP  dTmpTarget)
 {
   //-----------------------------------------------------------------------------
   if ( iKey != 0) return -1;
 
   master = dTmpMaster;
-  ulPrev = dTmpPrev;  // nachbar[1]
-  ulNext = dTmpNext;  // nachbar[0]
+  ulPrev = dTmpPrev;
+  ulNext = dTmpNext;
+  ulTarget = dTmpTarget;
   return 0;
 }
 //=============================================================================

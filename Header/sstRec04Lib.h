@@ -737,7 +737,7 @@ class sstRec04LiLstCls
      //==============================================================================
      /**
      * @brief // Get entry Data for Linked list object  <BR>
-     *  oLinkList.getEntriesInLinkList(int iKey, dRecNoHed, *dEntry1, *dEntry2);
+     *  iStat = oLinkList.getEntriesInLinkList( iKey, dRecNoHed, &dEntry1, &dEntry2);
      *
      * @param iKey      [in] For the moment 0
      * @param dRecNoHed [in] Number of Linked List Header object

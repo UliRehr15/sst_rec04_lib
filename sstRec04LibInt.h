@@ -1693,6 +1693,7 @@ class sstRec04LiLstEleCls
      * @param dMaster [in] Head or Master object
      * @param dPrev   [in] Previous in linked list
      * @param dNext   [in] Next in linked list
+     * @param dTarget [in] Set Link to Target
      *
      * @return Errorstate
      *
@@ -1700,10 +1701,11 @@ class sstRec04LiLstEleCls
      * @retval   < 0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
-     int Set(int iKey,
-              dREC04RECNUMTYP  dMaster,
-              dREC04RECNUMTYP  dPrev,
-              dREC04RECNUMTYP  dNext);
+     int Set(int              iKey,
+             dREC04RECNUMTYP  dMaster,
+             dREC04RECNUMTYP  dPrev,
+             dREC04RECNUMTYP  dNext,
+             dREC04RECNUMTYP  dTarget);
      //==============================================================================
      /**
      * @brief Get Master

@@ -11,9 +11,9 @@
  * See the COPYING file for more information.
  *
  **********************************************************************/
-// sst_rec03_lib_test.cpp    13.09.15  Re.    13.09.15  Re.
+// sst_rec04_lib_test.cpp    13.09.15  Re.    13.09.15  Re.
 //
-// test frame for sstRec03Lib
+// test frame for sstRec04Lib
 
 #include <stdio.h>
 #include <stdlib.h>

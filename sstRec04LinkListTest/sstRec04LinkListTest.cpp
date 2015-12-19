@@ -11,9 +11,9 @@
  * See the COPYING file for more information.
  *
  **********************************************************************/
-// sst_rec03_lib_test.cpp    13.09.15  Re.    13.09.15  Re.
+// sst_rec04_lib_test.cpp    13.09.15  Re.    13.09.15  Re.
 //
-// test frame for sstRec03Lib
+// test frame for sstRec04Lib linked list fuctions.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +24,7 @@
 
 #include "sstRec04LinkListTest.h"
 
-#define BUFSIZE 100
+// #define BUFSIZE 100
 
 int main()
 {
@@ -64,10 +64,10 @@ int main()
 
     // Write some data into this 3 RecMem objects
     iStat = oRecMem2.WritNew(0,&ulTestVal,&dRecNoEle);
-    iStat = oRecMem2.WritNew(0,&ulTestVal,&dRecNoEle);
+    // iStat = oRecMem2.WritNew(0,&ulTestVal,&dRecNoEle);
 
     iStat = oRecMem3.WritNew(0,&dTestVal,&dRecNoTar);
-    iStat = oRecMem3.WritNew(0,&dTestVal,&dRecNoTar);
+    // iStat = oRecMem3.WritNew(0,&dTestVal,&dRecNoTar);
 
     iStat = oRecMem1.WritNew(0,&iTestVal,&dRecNoHed);
     assert(iStat == 0);
@@ -78,19 +78,66 @@ int main()
     // === Create new linked list
     // Extend Linked List at end
     iStat = oLinkList.ExtendAtEnd ( 0, 1, 1, 1);
+    assert(iStat == 0);
 
     // Get Element Data for Linked list object
     iStat = oLinkList.getEntriesInLinkList( 0, dRecNoHed, &dLinkListEntry1, &dLinkListEntry2);
 
-    iStat = oLinkList.ExtendAtEnd ( 0, 1, 2, 2);
+    assert(iStat == 0);
+    assert(dLinkListEntry1 == 1);
+    assert(dLinkListEntry2 == 1);
 
-    // === Read linked list =====================================================
+    iStat = oRecMem3.WritNew(0,&dTestVal,&dRecNoTar);
+    iStat = oRecMem2.WritNew(0,&ulTestVal,&dRecNoEle);
+
+    iStat = oLinkList.ExtendAtEnd ( 0, 1, 2, 2);
+    assert(iStat == 0);
 
     // Get Element Data for Linked list object
     iStat = oLinkList.getEntriesInLinkList( 0, dRecNoHed, &dLinkListEntry1, &dLinkListEntry2);
     assert(iStat == 0);
     assert(dLinkListEntry1 == 1);
     assert(dLinkListEntry2 == 2);
+
+    // === fill second header list ============================================
+
+    // Write some data into this 3 RecMem objects
+    iStat = oRecMem2.WritNew(0,&ulTestVal,&dRecNoEle);
+    iStat = oRecMem3.WritNew(0,&dTestVal,&dRecNoTar);
+    iStat = oRecMem1.WritNew(0,&iTestVal,&dRecNoHed);
+    assert(iStat == 0);
+
+    iStat = oLinkList.getEntriesInLinkList( 0, dRecNoHed, &dLinkListEntry1, &dLinkListEntry2);
+    // no linked list of dRecNoHed
+
+    // === Create new linked list
+    // Extend Linked List at end
+    iStat = oLinkList.ExtendAtEnd ( 0, dRecNoHed, dRecNoEle, dRecNoTar);
+    assert(iStat == 0);
+
+    // Get Element Data for Linked list object
+    iStat = oLinkList.getEntriesInLinkList( 0, dRecNoHed, &dLinkListEntry1, &dLinkListEntry2);
+
+    assert(iStat == 0);
+    assert(dLinkListEntry1 == 3);
+    assert(dLinkListEntry2 == 3);
+
+    iStat = oRecMem3.WritNew(0,&dTestVal,&dRecNoTar);
+    iStat = oRecMem2.WritNew(0,&ulTestVal,&dRecNoEle);
+
+    iStat = oLinkList.ExtendAtEnd ( 0, dRecNoHed, dRecNoEle, dRecNoTar);
+    assert(iStat == 0);
+
+    // Get Element Data for Linked list object
+    iStat = oLinkList.getEntriesInLinkList( 0, dRecNoHed, &dLinkListEntry1, &dLinkListEntry2);
+    assert(iStat == 0);
+    assert(dLinkListEntry1 == 3);
+    assert(dLinkListEntry2 == 4);
+
+    // === Read linked list =====================================================
+
+    // Get entry Data for Linked list object
+    iStat = oLinkList.getEntriesInLinkList( 0, 1, &dLinkListEntry1, &dLinkListEntry2);
 
     dREC04RECNUMTYP  	dRecNoElePrev = 0;
     dREC04RECNUMTYP  	dRecNoEleNext = 0;
