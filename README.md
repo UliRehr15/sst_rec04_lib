@@ -20,3 +20,4 @@ Versions <BR>
 20151117: 4.0 Fork from sstRec03 <BR>
 20151123: 4.1 Add doubly linked list with 3 RemMem objects (Head, List Element, Target) <BR>
 20151219: 4.2 Small corrections. Test linked list functions while dxf analyzing. <BR>
+20151220: 4.3 Small corrections. More comments for dxf analyzing. <BR>
