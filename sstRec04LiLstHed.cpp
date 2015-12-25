@@ -11,7 +11,7 @@
  * See the COPYING file for more information.
  *
  **********************************************************************/
-// sstRec04LiLstHed.cpp    17.11.15  Re.    17.10.15  Re.
+// sstRec04LiLstHed.cpp    22.12.15  Re.    17.10.15  Re.
 //
 
 #include <assert.h>
@@ -23,18 +23,13 @@
 #include "sstRec04LibInt.h"
 
 //=============================================================================
-// Complete function description is in headerfile
-//-----------------------------------------------------------------------------
 sstRec04LiLstHedCls::sstRec04LiLstHedCls()
 {
-    // this->code = 0;
-    // this->state = 0;
-    this->chain_loc[0] = 0;
-    this->chain_loc[1] = 0;
+  this->chain_loc[0] = 0;
+  this->chain_loc[1] = 0;
+  this->dNumListElements = 0;
 }
 //=============================================================================
-// Complete function description is in headerfile
-//-----------------------------------------------------------------------------
 int sstRec04LiLstHedCls::SetEntry1(int iKey,  dREC04RECNUMTYP dTmpEntry1)
 {
   //-----------------------------------------------------------------------------
@@ -44,8 +39,6 @@ int sstRec04LiLstHedCls::SetEntry1(int iKey,  dREC04RECNUMTYP dTmpEntry1)
   return 0;
 }
 //=============================================================================
-// Complete function description is in headerfile
-//-----------------------------------------------------------------------------
 int sstRec04LiLstHedCls::SetEntry2(int iKey,  dREC04RECNUMTYP dTmpEntry2)
 {
   //-----------------------------------------------------------------------------
@@ -55,18 +48,29 @@ int sstRec04LiLstHedCls::SetEntry2(int iKey,  dREC04RECNUMTYP dTmpEntry2)
   return 0;
 }
 //=============================================================================
-// Complete function description is in headerfile
-//-----------------------------------------------------------------------------
- dREC04RECNUMTYP sstRec04LiLstHedCls::GetEntry1()
+dREC04RECNUMTYP sstRec04LiLstHedCls::GetEntry1()
 {
   return this->chain_loc[0];
 }
 //=============================================================================
-// Complete function description is in headerfile
-//-----------------------------------------------------------------------------
- dREC04RECNUMTYP sstRec04LiLstHedCls::GetEntry2()
+dREC04RECNUMTYP sstRec04LiLstHedCls::GetEntry2()
 {
   return this->chain_loc[1];
+}
+//=============================================================================
+void sstRec04LiLstHedCls::AddElement()
+{
+  this->dNumListElements++;
+}
+//=============================================================================
+void sstRec04LiLstHedCls::ReduceElement()
+{
+  this->dNumListElements--;
+}
+//=============================================================================
+dREC04RECNUMTYP sstRec04LiLstHedCls::GetNumListElements()
+{
+  return this->dNumListElements;
 }
 //=============================================================================
 

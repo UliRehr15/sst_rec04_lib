@@ -250,16 +250,18 @@ int sstRec04LiLstIntCls::List2Header ( int              iKey,
     poHedRec1->SetEntry1(0, dStartStop[0]);
     poHedRec1->SetEntry2(0, dStartStop[1]);
 
+    // Number of list elements plus one
+    poHedRec1->AddElement();
+
     iStat = this->poRecMemHed->WritInt( 0, this->poRecMemHed->GetVectorAdr(),dRecNoHed);
 
-    // Linked list finished, reset all infos
+    // Linked list finished, reset all infos in vector
+    memset(poHedRec1,0,sizeof(sstRec04LiLstHedCls));
+    memset(poEleRec2,0,sizeof(sstRec04LiLstEleCls));
+
+    // Linked list finished, reset Header infos in main object
     this->dLiLstEntry2 = 0;
     this->dLiLstEntry1 = 0;
-
-    poHedRec1->SetEntry1(0,0);
-    poHedRec1->SetEntry2(0,0);
-
-    poEleRec2->Set(0,0,0,0,0);
 
     // Fatal Errors goes to an assert
     if (iRet < 0)
@@ -275,8 +277,9 @@ int sstRec04LiLstIntCls::List2Header ( int              iKey,
 }
 //=============================================================================
 int sstRec04LiLstIntCls::GetTarNumUse(int              iKey,
-                                      dREC04RECNUMTYP *dNumUse,
-                                      dREC04RECNUMTYP  RecNoTar)
+                                      dREC04RECNUMTYP  RecNoTar,
+                                      dREC04RECNUMTYP *dNumUse)
+//-----------------------------------------------------------------------------
 {
   sstRec04LiLstTarCls *pTarRec3;
   void *pCargoAdr;
@@ -450,6 +453,31 @@ int sstRec04LiLstIntCls::SetHedAll (int             iKey,
   iRet = iStat;
 
   return iRet;
+}
+//=============================================================================
+int sstRec04LiLstIntCls::GetHedListLength (int              iKey,
+                                           dREC04RECNUMTYP  dRecNoHed,
+                                           dREC04RECNUMTYP *dListLength)
+//-----------------------------------------------------------------------------
+{
+  if ( iKey != 0) return -1;
+
+  sstRec04LiLstHedCls *pHedRec1 = NULL;
+  void *pCargoAdr = NULL;
+
+  int iStat = 0;
+  // int iRet = 0;
+  //-----------------------------------------------------------------------------
+
+  iStat = this->poRecMemHed->GetCargoAdr( 0, this->poLstHedKey, &pCargoAdr);
+  pHedRec1 = (sstRec04LiLstHedCls*) pCargoAdr;
+
+  // Read record to vector
+  iStat = this->poRecMemHed->ReadInt( 0, dRecNoHed, this->poRecMemHed->GetVectorAdr());
+
+  *dListLength = pHedRec1->GetNumListElements();
+
+  return iStat;
 }
 //=============================================================================
 int sstRec04LiLstIntCls::getEntriesInLinkList(int               iKey,

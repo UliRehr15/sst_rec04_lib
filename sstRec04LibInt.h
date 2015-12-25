@@ -1605,8 +1605,12 @@ class sstRec04LiLstHedCls
      */
      // ----------------------------------------------------------------------------
       dREC04RECNUMTYP GetEntry2();
+      void AddElement();
+      void ReduceElement();
+      dREC04RECNUMTYP GetNumListElements();
   private:  // Private Funktionen
-      dREC04RECNUMTYP chain_loc[2];  /**< Entry and exit in linked list */
+      dREC04RECNUMTYP chain_loc[2];      /**< Entry and exit in linked list */
+      dREC04RECNUMTYP dNumListElements;  /**< Number of List elements */
 };
 //==============================================================================
 /**
@@ -1850,11 +1854,11 @@ class sstRec04LiLstIntCls
 
      //==============================================================================
      /**
-     * @brief Set Number of uses for target record
+     * @brief Get Number of uses for target record
      *
      * @param iKey      [in]  For the moment 0
-     * @param dNumUse   [out] Number of uses
      * @param dRecNoTar [in]  Record number of target
+     * @param dNumUse   [out] Number of uses
      *
      * @return Errorstate
      *
@@ -1862,9 +1866,9 @@ class sstRec04LiLstIntCls
      * @retval   < 0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
-     int GetTarNumUse(int           iKey,
-                       dREC04RECNUMTYP *dNumUse,
-                       dREC04RECNUMTYP  dRecNoTar);
+     int GetTarNumUse (int              iKey,
+                       dREC04RECNUMTYP  dRecNoTar,
+                       dREC04RECNUMTYP *dNumUse);
      //==============================================================================
      /**
      * @brief Set Number of uses for target record
@@ -1950,6 +1954,23 @@ class sstRec04LiLstIntCls
                      dREC04RECNUMTYP dRecNoHed,
                      dREC04RECNUMTYP dEntry1,
                      dREC04RECNUMTYP dEntry2);
+     //==============================================================================
+     /**
+     * @brief Get Number of list elements for list header
+     *
+     * @param iKey        [in]  For the moment 0
+     * @param dRecNoHed   [in]  Record number of list heaser
+     * @param dListLength [out] Number of list elements
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int GetHedListLength (int              iKey,
+                           dREC04RECNUMTYP  dRecNoHed,
+                           dREC04RECNUMTYP *dListLength);
      //==============================================================================
      /**
      * @brief Shortstory

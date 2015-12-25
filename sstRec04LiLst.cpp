@@ -71,3 +71,19 @@ int sstRec04LiLstCls::ExtendAtEnd(int             iKey,
   return this->poRec04LiLstInt->ExtendAtEnd( iKey,  dRecNoHead, dRecNoEle, dRecNoTarget);
 }
 //=============================================================================
+int sstRec04LiLstCls::GetHedListLength (int              iKey,
+                                        dREC04RECNUMTYP  dRecNoHed,
+                                        dREC04RECNUMTYP *dListLength)
+//-----------------------------------------------------------------------------
+{
+  return this->poRec04LiLstInt->GetHedListLength ( iKey, dRecNoHed, dListLength);
+}
+//=============================================================================
+int sstRec04LiLstCls::GetTarNumUse (int              iKey,
+                                    dREC04RECNUMTYP  dRecNoTar,
+                                    dREC04RECNUMTYP *dNumUse)
+//-----------------------------------------------------------------------------
+{
+  return this->poRec04LiLstInt->GetTarNumUse(iKey,dRecNoTar,dNumUse);
+}
+//=============================================================================

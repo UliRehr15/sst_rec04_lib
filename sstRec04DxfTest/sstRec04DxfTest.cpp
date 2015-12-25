@@ -83,7 +83,7 @@ int main (int argc, char *argv [])
     // Read next row from file
     iStat1 = oDxfFilIn.Rd_StrDS1(0,&oDxfRowIn);
     ulDxfRowNum++;
-    if(ulDxfRowNum >= 3) iStat1 = -1;  // Break at row num
+    if(ulDxfRowNum >= 10) iStat1 = -1;  // Break at row num
 
     // one row is one word
     ulDxfRowLen = oDxfRowIn.length();
@@ -102,9 +102,37 @@ int main (int argc, char *argv [])
   }
 
   oDxfFilIn.fcloseFil(0);
-  printf("Read Dxf into Record Memory\n");
+  printf("Read Dxf into Linked list\n");
+  printf("Row: ListHead, Use of Letters: ListElement, LetterTable: ListTarget. \n\n");
 
+  // === Get some statistic data =============================================================
 
+  printf("Test: Count use of letters. \n\n");
+
+  dREC04RECNUMTYP  	dNumUse=0;
+  // loop from letter "A" to "F"
+  for (dREC04RECNUMTYP ll=65;ll <= 70; ll++)
+  {
+    // Get Number of uses for target record
+    iStat = oTDB.GetTarNumUse ( 0, ll, &dNumUse);
+    int iVal = (int) ll;
+    printf("Char %c Number of uses: %lu \n", iVal, dNumUse);
+  }
+
+  printf("\n");
+  printf("Test: Calculate row length. \n\n");
+
+  // Get Number of list elements for list header
+  dREC04RECNUMTYP  	dListLength=0;
+  dWordPos = oRM1_Word.count();
+
+  for (dREC04RECNUMTYP ll=1;ll <= dWordPos; ll++)
+  {
+    // Get Number of uses for target record
+    // iStat = oTDB.GetTarNumUse ( 0, ll, &dNumUse);
+    iStat = oTDB.GetHedListLength ( 0, ll, &dListLength);
+    printf("Row %lu : Length of row: %lu \n",ll, dListLength);
+  }
   // === Read dxf data from linked list and write dxf file ===================================
 
   iStat = oDxfFilOut.fopenWr (0,(char*)"Test_Output.dxf");
@@ -143,6 +171,7 @@ int main (int argc, char *argv [])
   }
 
   oDxfFilOut.fcloseFil(0);
+  printf("\n");
   printf("Write Contents of Record Memory into mirror dxf. \n");
 
   //=== Read both dxf files and compare rows

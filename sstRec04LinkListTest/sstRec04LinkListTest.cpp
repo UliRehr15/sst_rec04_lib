@@ -87,6 +87,11 @@ int main()
     assert(dLinkListEntry1 == 1);
     assert(dLinkListEntry2 == 1);
 
+    // Get Number of uses for target record
+    dREC04RECNUMTYP  	dNumUse=0;
+    iStat = oLinkList.GetTarNumUse ( 0, dRecNoTar, &dNumUse);
+    assert(dNumUse == 1);  // Target Element is one time used by link List
+
     iStat = oRecMem3.WritNew(0,&dTestVal,&dRecNoTar);
     iStat = oRecMem2.WritNew(0,&ulTestVal,&dRecNoEle);
 

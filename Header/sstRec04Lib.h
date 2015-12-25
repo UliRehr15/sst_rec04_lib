@@ -799,9 +799,44 @@ class sstRec04LiLstCls
                      dREC04RECNUMTYP dRecNoEle,
                      dREC04RECNUMTYP dRecNoTarget);
      //==============================================================================
-private:  // Private Funktionen
+     /**
+     * @brief // Get Number of list elements for list header <BR>
+     * iStat = oLinkList = GetHedListLength ( iKey, dRecNoHed, &dListLength);
+     *
+     * @param iKey        [in]  For the moment 0
+     * @param dRecNoHed   [in]  Record number of list heaser
+     * @param dListLength [out] Number of list elements
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int GetHedListLength (int              iKey,
+                           dREC04RECNUMTYP  dRecNoHed,
+                           dREC04RECNUMTYP *dListLength);
+     //==============================================================================
+     /**
+     * @brief // Get Number of uses for target record <BR>
+     * iStat = oLinkList.GetTarNumUse ( iKey, dRecNoTar, &dNumUse);
+     *
+     * @param iKey      [in]  For the moment 0
+     * @param dRecNoTar [in]  Record number of target
+     * @param dNumUse   [out] Number of uses
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int GetTarNumUse (int              iKey,
+                       dREC04RECNUMTYP  dRecNoTar,
+                       dREC04RECNUMTYP *dNumUse);
+     //==============================================================================
+private:  // Private Functions
      sstRec04LiLstIntCls *poRec04LiLstInt;   /**< Pointer to intern object */
-
 };
 //==============================================================================
 
