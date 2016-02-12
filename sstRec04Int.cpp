@@ -2175,7 +2175,11 @@ int sstRec04InternCls::resetRecord(int iKey, void *vRecAdr)
 {
   if ( iKey != 0) return -1;
 
-  memset(vRecAdr,0,this->poVector->GetSize());
-  return 0;
+  unsigned long ulSize = 0;
+  int iStat = this->poVector->GetCargoSize(0,this->poRecMemUsrKey,&ulSize);
+  // memset(vRecAdr,0,this->poVector->GetSize());
+  memset( vRecAdr, 0, ulSize);
+  // unsigned long ulSize = this->poMemAdr[oDataKey->iKey-1].GetCargoSize();
+  return iStat;
 }
 //=============================================================================

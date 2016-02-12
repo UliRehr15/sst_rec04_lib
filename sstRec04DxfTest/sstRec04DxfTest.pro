@@ -11,8 +11,8 @@ INCLUDEPATH += ../../sst_misc01_lib/Header
 INCLUDEPATH += ../../sst_rec04_lib/Header
 
 debug{
-  LIBS        += ../../libs/libsst_rec04_lib_d.a
   LIBS        += ../../libs/libsst_misc01_lib_d.a
+  LIBS        += ../../libs/libsst_rec04_lib_d.a
   LIBS        += ../../libs/libsst_str01_lib_d.a
 }
 release{
@@ -23,9 +23,9 @@ release{
   win32-g++:QMAKE_CXXFLAGS_EXCEPTIONS_ON -= -mthreads
   
   
-  LIBS        += ../../libs/libsst_rec04_lib_r.a
   LIBS        += ../../libs/libsst_misc01_lib_r.a
-  # LIBS        += ../../libs/libsst_str01_lib_r.a
+  LIBS        += ../../libs/libsst_rec04_lib_r.a
+  LIBS        += ../../libs/libsst_str01_lib_r.a
 }
 
 HEADERS    += \

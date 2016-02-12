@@ -22,3 +22,4 @@ Versions <BR>
 20151219: 4.2 Small corrections. Test linked list functions while dxf analyzing. <BR>
 20151220: 4.3 Small corrections. More comments for dxf analyzing. <BR>
 20151225: 4.4 Extend dxf analyzing: count letters, calculate row length. <BR>
+20160212: 4.5 Error in Heap Management corrected. <BR>

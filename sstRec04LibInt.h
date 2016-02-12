@@ -436,6 +436,23 @@ class sstRec04VectSysCls
                       void            **vCargoAdr);
      //=============================================================================
      /**
+     * @brief Get Record size of named cargo system
+     *
+     * @param iKey      [in]   For the moment 0
+     * @param oDataKey  [in]   Key of cargo object
+     * @param vCargoAdr [out]  Record Size of cargo system
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int GetCargoSize (int               iKey,
+                       sstRec04CargoKeyInternCls  *oDataKey,
+                       unsigned long            *ulRecSize);
+     //=============================================================================
+     /**
      * @brief Get offset of cargo system
      *
      * @param iKey     [in]     For the moment 0
@@ -1526,7 +1543,19 @@ class sstRec04InternCls
     void CalcSetPos ( void   *BasPtr,
                       void  **IdxPtr,
                       long    Offs) const;
-    //=============================================================================
+    //==============================================================================
+    /**
+    * @brief Reset User record
+    *
+    * @param iKey [in]     For the moment 0
+    * @param iKey [in out] Adress of user record
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
     int resetRecord(int iKey, void *vRecAdr);
     //=============================================================================
 
@@ -1597,17 +1626,35 @@ class sstRec04LiLstHedCls
      */
      // ----------------------------------------------------------------------------
       dREC04RECNUMTYP GetEntry1();
-     //==============================================================================
-     /**
-     * @brief Get Entry 2
-     *
-     * @return Entry 2
-     */
-     // ----------------------------------------------------------------------------
+      //==============================================================================
+      /**
+      * @brief Get Entry 2
+      *
+      * @return Entry 2
+      */
+      // ----------------------------------------------------------------------------
       dREC04RECNUMTYP GetEntry2();
+      //==============================================================================
+      /**
+      * @brief AddElement
+      */
+      // ----------------------------------------------------------------------------
       void AddElement();
+      //==============================================================================
+      /**
+      * @brief ReduceElement
+      */
+      // ----------------------------------------------------------------------------
       void ReduceElement();
+      //==============================================================================
+      /**
+      * @brief GetNumListElements
+      *
+      * @return NumListElements
+      */
+      // ----------------------------------------------------------------------------
       dREC04RECNUMTYP GetNumListElements();
+      //==============================================================================
   private:  // Private Funktionen
       dREC04RECNUMTYP chain_loc[2];      /**< Entry and exit in linked list */
       dREC04RECNUMTYP dNumListElements;  /**< Number of List elements */

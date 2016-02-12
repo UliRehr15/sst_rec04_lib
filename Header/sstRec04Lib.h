@@ -488,24 +488,28 @@ public:
                   dREC04RECNUMTYP      *dRecNo);
   //=============================================================================
   /**
-  * @brief Get next greater or equal <BR>
+  * @brief Read next greater or equal record <BR>
   * iStat = iRecMem.TreReadNxtGE ( iKey, *poTre, *vRecAdr, *dRecNo);
+  *
+  * dRecNo = 0: First Record <BR>
   *
   * @param iKey     [in]     For the moment 0
   * @param poTre    [in]     Tree key
-  * @param vRecAdr  [in out] return record at given adress
-  * @param dRecNo   [in out] Return next greater or equal
+  * @param vRecAdr  [in out] return record at given record no
+  * @param dRecNo   [in out] Return next greater or equal record no
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =  0: OK
+  * @retval   = -1: Wrong Key
+  * @retval   = -2: No (more) record found (end of tree?)
+  * @retval   <  0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
-  int TreReadNxtGE (int               iKey,
-                    sstRec04TreeKeyCls    *poTre,
-                    void             *vRecAdr,
-                    dREC04RECNUMTYP  *dRecNo);
+  int TreReadNxtGE (int                 iKey,
+                    sstRec04TreeKeyCls *poTre,
+                    void               *vRecAdr,
+                    dREC04RECNUMTYP    *dRecNo);
   //=============================================================================
   /**
   * @brief // Return first record number <BR>

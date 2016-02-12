@@ -208,11 +208,29 @@ int sstRec04VectSysCls::GetCargoAdr(int                iKey,
   *vCargoAdr = this->poMemAdr[oDataKey->iKey-1].GetCargoAdr();
   return 0;
 }
-
 //=============================================================================
-int sstRec04VectSysCls::GetOffset (int                iKey,
-                                 sstRec04CargoKeyInternCls   *oDataKey,
-                                 int               *iOffset)
+int sstRec04VectSysCls::GetCargoSize(int                          iKey,
+                                     sstRec04CargoKeyInternCls   *oDataKey,
+                                     unsigned long               *ulRecSize)
+//-----------------------------------------------------------------------------
+{
+  int iStat = 0;
+
+  if ( iKey != 0) return -1;
+
+  if (oDataKey->poCargoAdr != this) return -2;
+
+  iStat = strncmp( oDataKey->cNam, this->poMemAdr[oDataKey->iKey-1].GetCargoSysNam(),4);
+  if (iStat != 0) return -3;
+
+  *ulRecSize = this->poMemAdr[oDataKey->iKey-1].GetCargoSize();
+  return 0;
+}
+//=============================================================================
+int sstRec04VectSysCls::GetOffset (int                        iKey,
+                                   sstRec04CargoKeyInternCls *oDataKey,
+                                   int                       *iOffset)
+//-----------------------------------------------------------------------------
 {
   int iStat = 0;
 
