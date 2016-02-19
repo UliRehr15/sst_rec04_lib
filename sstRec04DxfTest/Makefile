@@ -15,10 +15,10 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG
 CFLAGS        = -pipe -g -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -g -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -I../../str_lib/Header -I../../sst_misc01_lib/Header -I../../sst_rec04_lib/Header
+INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -I../../sst_str01_lib/Header -I../../sst_misc01_lib/Header -I../../sst_rec04_lib/Header
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) ../../libs/libsst_misc01_lib_d.a ../../libs/libsst_rec04_lib_d.a ../../libs/libsst_str01_lib_d.a 
+LIBS          = $(SUBLIBS) ../../libs/libsst_rec04_lib_d.a ../../libs/libsst_misc01_lib_d.a ../../libs/libsst_str01_lib_d.a 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/i386-linux-gnu/qt5/bin/qmake
@@ -281,7 +281,8 @@ compiler_clean:
 
 ####### Compile
 
-sstRec04DxfTest.o: sstRec04DxfTest.cpp ../../sst_misc01_lib/Header/sstMisc01Lib.h \
+sstRec04DxfTest.o: sstRec04DxfTest.cpp ../../sst_str01_lib/Header/sstStr01Lib.h \
+		../../sst_misc01_lib/Header/sstMisc01Lib.h \
 		../../sst_rec04_lib/Header/sstRec04Lib.h \
 		sstRec04DxfTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04DxfTest.o sstRec04DxfTest.cpp

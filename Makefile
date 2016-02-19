@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG
 CFLAGS        = -pipe -g -fPIC -Wall -W $(DEFINES)
 CXXFLAGS      = -pipe -g -fPIC -Wall -W $(DEFINES)
-INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -IHeader
+INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -IHeader -I../sst_str01_lib/Header -I../sst_misc01_lib/Header
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/i386-linux-gnu/qt5/bin/qmake
@@ -318,75 +318,94 @@ compiler_clean:
 
 ####### Compile
 
-sstRec04.o: sstRec04.cpp Header/sstRec04Lib.h \
+sstRec04.o: sstRec04.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04.o sstRec04.cpp
 
-sstRec04TestIntern.o: sstRec04TestIntern.cpp Header/sstRec04Lib.h \
+sstRec04TestIntern.o: sstRec04TestIntern.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04TestIntern.o sstRec04TestIntern.cpp
 
-sstRec04TestRec.o: sstRec04TestRec.cpp Header/sstRec04Lib.h \
+sstRec04TestRec.o: sstRec04TestRec.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		../sst_misc01_lib/Header/sstMisc01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04TestRec.o sstRec04TestRec.cpp
 
-sstRec04Header.o: sstRec04Header.cpp Header/sstRec04Lib.h \
+sstRec04Header.o: sstRec04Header.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04Header.o sstRec04Header.cpp
 
-sstRec04CargoMem.o: sstRec04CargoMem.cpp Header/sstRec04Lib.h \
+sstRec04CargoMem.o: sstRec04CargoMem.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04CargoMem.o sstRec04CargoMem.cpp
 
-sstRec04CompValue.o: sstRec04CompValue.cpp Header/sstRec04Lib.h \
+sstRec04CompValue.o: sstRec04CompValue.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04CompValue.o sstRec04CompValue.cpp
 
-sstRec04Tree.o: sstRec04Tree.cpp Header/sstRec04Lib.h \
+sstRec04Tree.o: sstRec04Tree.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04Tree.o sstRec04Tree.cpp
 
-sstRec04TreeKeyIntern.o: sstRec04TreeKeyIntern.cpp Header/sstRec04Lib.h \
+sstRec04TreeKeyIntern.o: sstRec04TreeKeyIntern.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04TreeKeyIntern.o sstRec04TreeKeyIntern.cpp
 
-sstRec04TreeKey.o: sstRec04TreeKey.cpp Header/sstRec04Lib.h \
+sstRec04TreeKey.o: sstRec04TreeKey.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04TreeKey.o sstRec04TreeKey.cpp
 
-sstRec04LiLst.o: sstRec04LiLst.cpp Header/sstRec04Lib.h \
+sstRec04LiLst.o: sstRec04LiLst.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04LiLst.o sstRec04LiLst.cpp
 
-sstRec04LiLstHed.o: sstRec04LiLstHed.cpp Header/sstRec04Lib.h \
+sstRec04LiLstHed.o: sstRec04LiLstHed.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04LiLstHed.o sstRec04LiLstHed.cpp
 
-sstRec04LiLstEle.o: sstRec04LiLstEle.cpp Header/sstRec04Lib.h \
+sstRec04LiLstEle.o: sstRec04LiLstEle.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04LiLstEle.o sstRec04LiLstEle.cpp
 
-sstRec04LiLstTar.o: sstRec04LiLstTar.cpp Header/sstRec04Lib.h \
+sstRec04LiLstTar.o: sstRec04LiLstTar.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04LiLstTar.o sstRec04LiLstTar.cpp
 
-sstRec04LiLstInt.o: sstRec04LiLstInt.cpp Header/sstRec04Lib.h \
+sstRec04LiLstInt.o: sstRec04LiLstInt.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04LiLstInt.o sstRec04LiLstInt.cpp
 
-sstRec04CargoKey.o: sstRec04CargoKey.cpp Header/sstRec04Lib.h \
+sstRec04CargoKey.o: sstRec04CargoKey.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04CargoKey.o sstRec04CargoKey.cpp
 
-sstRec04CargoKeyInt.o: sstRec04CargoKeyInt.cpp Header/sstRec04Lib.h \
+sstRec04CargoKeyInt.o: sstRec04CargoKeyInt.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04CargoKeyInt.o sstRec04CargoKeyInt.cpp
 
-sstRec04Int.o: sstRec04Int.cpp Header/sstRec04Lib.h \
+sstRec04Int.o: sstRec04Int.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04Int.o sstRec04Int.cpp
 
-sstRec04Vector.o: sstRec04Vector.cpp Header/sstRec04Lib.h \
+sstRec04Vector.o: sstRec04Vector.cpp ../sst_str01_lib/Header/sstStr01Lib.h \
+		Header/sstRec04Lib.h \
 		sstRec04LibInt.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04Vector.o sstRec04Vector.cpp
 

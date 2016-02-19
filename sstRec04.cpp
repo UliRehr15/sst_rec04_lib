@@ -19,6 +19,9 @@
 #include <string.h>
 #include <stdio.h>
 
+#include <string>
+
+#include "sstStr01Lib.h"
 #include "sstRec04Lib.h"
 #include "sstRec04LibInt.h"
 
@@ -249,6 +252,11 @@ int sstRec04Cls::TreDelNumber ( int                      iKey,
 sstRec04InternCls* sstRec04Cls::GetInternObjAdr()
 {
   return this->poRec01Intern;
+}
+//==============================================================================
+dREC04RECNUMTYP sstRec04Cls::GetUserRecordSize()
+{
+  return this->poRec01Intern->GetUserRecordSize();
 }
 //==============================================================================
 

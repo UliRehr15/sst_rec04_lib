@@ -23,3 +23,4 @@ Versions <BR>
 20151220: 4.3 Small corrections. More comments for dxf analyzing. <BR>
 20151225: 4.4 Extend dxf analyzing: count letters, calculate row length. <BR>
 20160212: 4.5 Error in Heap Management corrected. <BR>
+20160219: 4.6 Test functions extended. sst_rec04_lib now based on sst_str01_lib and sst_misc01_lib. <BR>

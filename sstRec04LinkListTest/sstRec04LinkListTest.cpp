@@ -20,6 +20,9 @@
 #include <string.h>
 #include <assert.h>
 
+#include <string>
+
+#include <sstStr01Lib.h>
 #include <sstRec04Lib.h>
 
 #include "sstRec04LinkListTest.h"

@@ -20,6 +20,9 @@
 #include <string.h>
 #include <assert.h>
 
+#include <string>
+
+#include <sstStr01Lib.h>
 #include <sstRec04Lib.h>
 
 #include "sstRec04LibTest.h"
@@ -149,12 +152,12 @@ int main()
         assert(iStat==0);
 
         // write cargo packet 1 to vector Memory
-        oTestRec1.iValue = 10;
+        oTestRec1.iVal = 10;
         strncpy(oTestRec1.cVal,"ABC",5);
         iStat = oRecMem_Int.WrtCargo ( 0, &oTestCargo1Key, &oTestRec1);
 
         // write cargo packet 2 to vector Memory
-        oTestRec2.dValue = 3.3;
+        oTestRec2.dVal = 3.3;
         strncpy(oTestRec2.cVal,"ABC DEF",10);
         iStat = oRecMem_Int.WrtCargo ( 0, &oTestCargo2Key, &oTestRec2);
 
@@ -166,12 +169,12 @@ int main()
         }
 
         // write cargo packet 1 to vector Memory
-        oTestRec1.iValue = 20;
+        oTestRec1.iVal = 20;
         strncpy(oTestRec1.cVal,"DEF",5);
         iStat = oRecMem_Int.WrtCargo ( 0, &oTestCargo1Key, &oTestRec1);
 
         // write cargo packet 2 to vector Memory
-        oTestRec2.dValue = 5.5;
+        oTestRec2.dVal = 5.5;
         strncpy(oTestRec2.cVal,"GHI JKL",10);
         iStat = oRecMem_Int.WrtCargo ( 0, &oTestCargo2Key, &oTestRec2);
 
@@ -194,7 +197,7 @@ int main()
         oRecMem_Int.Read(0,5,&iValue);
         assert(iValue == 5);
         oRecMem_Int.RedCargo(0,&oTestCargo1Key,&oTestRec1);
-        assert(oTestRec1.iValue == 10);
+        assert(oTestRec1.iVal == 10);
         oRecMem_Int.RedCargo(0,&oTestCargo2Key,&oTestRec2);
         iStat = strncmp((char*)"ABC DEF", oTestRec2.cVal, 10);
         assert(iStat == 0);
@@ -203,7 +206,7 @@ int main()
         oRecMem_Int.Read(0,15,&iValue);
         assert(iValue == 15);
         oRecMem_Int.RedCargo(0,&oTestCargo1Key,&oTestRec1);
-        assert(oTestRec1.iValue == 20);
+        assert(oTestRec1.iVal == 20);
         oRecMem_Int.RedCargo(0,&oTestCargo2Key,&oTestRec2);
         iStat = strncmp((char*)"GHI JKL", oTestRec2.cVal, 10);
         assert(iStat == 0);
@@ -274,27 +277,27 @@ int main()
       assert(iStat == 0);
       // Initialize new Sorttree 2 in RecMem for test Record 1
       // Sorting value should be iValue
-      iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iValue, sizeof(oTstRec11.iValue), sstRecTyp_I2, &oTriKey_I2);
+      iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
       assert(iStat == 0);
 
       // insert test record 1 (int,char)
-      iStat = oTstRec11.SetAllValues(20,(char*)"dscr");
+      iStat = oTstRec11.SetAll(20,(char*)"dscr");
       iStat = oTestRecMem1.WritNew( 0, &oTstRec11, &dRecNo);
 
       // insert test record 2 (int,char)
-      iStat = oTstRec11.SetAllValues(30,(char*)"cscr");
+      iStat = oTstRec11.SetAll(30,(char*)"cscr");
       iStat = oTestRecMem1.WritNew( 0, &oTstRec11, &dRecNo);
 
       // insert test record 3 (int,char)
-      iStat = oTstRec11.SetAllValues(10,(char*)"escr");
+      iStat = oTstRec11.SetAll(10,(char*)"escr");
       iStat = oTestRecMem1.WritNew( 0, &oTstRec11, &dRecNo);
 
       // insert test record 4 (int,char)
-      iStat = oTstRec11.SetAllValues(20,(char*)"ascr");
+      iStat = oTstRec11.SetAll(20,(char*)"ascr");
       iStat = oTestRecMem1.WritNew( 0, &oTstRec11, &dRecNo);
 
       // insert test record 5 (int,char)
-      iStat = oTstRec11.SetAllValues(15,(char*)"cscr");
+      iStat = oTstRec11.SetAll(15,(char*)"cscr");
       iStat = oTestRecMem1.WritNew( 0, &oTstRec11, &dRecNo);
 
       // Full rebuild of sorting tree 1 oTriKey_CC (chars) in RecMem
@@ -391,23 +394,23 @@ int main()
       // Start with record 0
       dRecNo1 = 0;
       iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-      assert(oTstRec12.iValue == 10);
+      assert(oTstRec12.iVal == 10);
       assert(dRecNo1==3);
 
       iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-      assert(oTstRec12.iValue == 15);
+      assert(oTstRec12.iVal == 15);
       assert(dRecNo1==5);
 
       iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-      assert(oTstRec12.iValue == 20);
+      assert(oTstRec12.iVal == 20);
       assert(dRecNo1==1);
 
       iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-      assert(oTstRec12.iValue == 20);
+      assert(oTstRec12.iVal == 20);
       assert(dRecNo1==4);
 
       iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-      assert(oTstRec12.iValue == 30);
+      assert(oTstRec12.iVal == 30);
       assert(dRecNo1==2);
 
 
@@ -452,23 +455,23 @@ int main()
     iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.cVal, sizeof(oTstRec11.cVal), sstRecTyp_CC, &oTriKey_CC);
     assert(iStat == 0);
     // Sorting value should be iValue
-    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iValue, sizeof(oTstRec11.iValue), sstRecTyp_I2, &oTriKey_I2);
+    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
     assert(iStat == 0);
 
     // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAllValues(20,(char*)"dscr");
+    iStat = oTstRec11.SetAll(20,(char*)"dscr");
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
 
     // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAllValues(30,(char*)"cscr");
+    iStat = oTstRec11.SetAll(30,(char*)"cscr");
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
 
     // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAllValues(10,(char*)"escr");
+    iStat = oTstRec11.SetAll(10,(char*)"escr");
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
 
     // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAllValues(40,(char*)"ascr");
+    iStat = oTstRec11.SetAll(40,(char*)"ascr");
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
 
     // Traverse throuh given tree 1 from small to great
@@ -499,19 +502,19 @@ int main()
 
     dRecNo1 = 0;
     iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-    assert(oTstRec12.iValue == 10);
+    assert(oTstRec12.iVal == 10);
     assert(dRecNo1==3);
 
     iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-    assert(oTstRec12.iValue == 20);
+    assert(oTstRec12.iVal == 20);
     assert(dRecNo1==1);
 
     iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-    assert(oTstRec12.iValue == 30);
+    assert(oTstRec12.iVal == 30);
     assert(dRecNo1==2);
 
     iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-    assert(oTstRec12.iValue == 40);
+    assert(oTstRec12.iVal == 40);
     assert(dRecNo1==4);
   }
   {
@@ -529,23 +532,23 @@ int main()
     iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.cVal, sizeof(oTstRec11.cVal), sstRecTyp_CC, &oTriKey_CC);
     assert(iStat == 0);
     // Sorting value should be iValue
-    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iValue, sizeof(oTstRec11.iValue), sstRecTyp_I2, &oTriKey_I2);
+    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
     assert(iStat == 0);
 
     // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAllValues(20,(char*)"dscr");
+    iStat = oTstRec11.SetAll(20,(char*)"dscr");
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
 
     // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAllValues(30,(char*)"cscr");
+    iStat = oTstRec11.SetAll(30,(char*)"cscr");
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
 
     // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAllValues(10,(char*)"escr");
+    iStat = oTstRec11.SetAll(10,(char*)"escr");
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
 
     // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAllValues(40,(char*)"ascr");
+    iStat = oTstRec11.SetAll(40,(char*)"ascr");
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
 
     // Find record with exact search value
@@ -584,25 +587,25 @@ int main()
 
     dRecNo1 = 0;
     iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-    assert(oTstRec12.iValue == 10);
+    assert(oTstRec12.iVal == 10);
     assert(dRecNo1==3);
 
     iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-    assert(oTstRec12.iValue == 20);
+    assert(oTstRec12.iVal == 20);
     assert(dRecNo1==1);
 
     iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-    assert(oTstRec12.iValue == 30);
+    assert(oTstRec12.iVal == 30);
     assert(dRecNo1==2);
 
     iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
-    assert(oTstRec12.iValue == 40);
+    assert(oTstRec12.iVal == 40);
     assert(dRecNo1==4);
 
     // Tree 1: 4,2,1,3
 
     // Rewrite record at position 4 with big value and update tree(s)
-    iStat = oTstRec11.SetAllValues(30,(char*)"xscr");
+    iStat = oTstRec11.SetAll(30,(char*)"xscr");
     iStat = oTestRecMem1.TreWritAtPos ( 0 , &oTstRec11, 4);
 
     // Traverse throuh given tree 1 from small to great
@@ -673,11 +676,11 @@ int main()
     iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.cVal, sizeof(oTstRec11.cVal), sstRecTyp_CC, &oTriKey_CC);
     assert(iStat == 0);
     // Sorting value should be iValue
-    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iValue, sizeof(oTstRec11.iValue), sstRecTyp_I2, &oTriKey_I2);
+    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
     assert(iStat == 0);
 
     // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAllValues(20,(char*)"dscr");
+    iStat = oTstRec11.SetAll(20,(char*)"dscr");
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
     iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);

@@ -23,6 +23,7 @@
 
 #include <string>
 
+#include <sstStr01Lib.h>
 #include <sstMisc01Lib.h>
 #include <sstRec04Lib.h>
 

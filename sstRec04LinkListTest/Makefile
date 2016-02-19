@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG
 CFLAGS        = -pipe -g -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -g -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -I../Header
+INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -I../../sst_str01_lib/Header -I../Header
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) ../../libs/libsst_rec04_lib_d.a 
@@ -281,7 +281,8 @@ compiler_clean:
 
 ####### Compile
 
-sstRec04LinkListTest.o: sstRec04LinkListTest.cpp ../Header/sstRec04Lib.h \
+sstRec04LinkListTest.o: sstRec04LinkListTest.cpp ../../sst_str01_lib/Header/sstStr01Lib.h \
+		../Header/sstRec04Lib.h \
 		sstRec04LinkListTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04LinkListTest.o sstRec04LinkListTest.cpp
 

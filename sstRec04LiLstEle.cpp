@@ -19,10 +19,13 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "sstRec04Lib.h"
+#include <string>
+
+#include <sstStr01Lib.h>
+#include <sstRec04Lib.h>
+
 #include "sstRec04LibInt.h"
 
-// Complete function description is in headerfile
 //-----------------------------------------------------------------------------
 sstRec04LiLstEleCls::sstRec04LiLstEleCls()
 {

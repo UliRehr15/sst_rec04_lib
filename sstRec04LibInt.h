@@ -436,11 +436,12 @@ class sstRec04VectSysCls
                       void            **vCargoAdr);
      //=============================================================================
      /**
-     * @brief Get Record size of named cargo system
+     * @brief // Get Record size of named cargo system <BR>
+     * iStat = oMemVector.GetCargoSize ( iKey, &oDataKey, &ulRecSize);
      *
      * @param iKey      [in]   For the moment 0
      * @param oDataKey  [in]   Key of cargo object
-     * @param vCargoAdr [out]  Record Size of cargo system
+     * @param ulRecSize [out]  Record Size of cargo system
      *
      * @return Errorstate
      *
@@ -448,9 +449,9 @@ class sstRec04VectSysCls
      * @retval   < 0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
-     int GetCargoSize (int               iKey,
+     int GetCargoSize (int                         iKey,
                        sstRec04CargoKeyInternCls  *oDataKey,
-                       unsigned long            *ulRecSize);
+                       unsigned long              *ulRecSize);
      //=============================================================================
      /**
      * @brief Get offset of cargo system
@@ -1523,7 +1524,15 @@ class sstRec04InternCls
                         sstRec04TreeHeaderCls   *oTreHead,
                         dREC04RECNUMTYP          dRecNo);
      //==============================================================================
-
+     /**
+     * @brief // Get Size of user data record <BR>
+     * dUserRecSize = oRecMem.GetUserRecordSize();
+     *
+     * @return User Record size
+     */
+     // ----------------------------------------------------------------------------
+     dREC04RECNUMTYP GetUserRecordSize();
+     //==============================================================================
 
   private:  // Private functions
      //==============================================================================

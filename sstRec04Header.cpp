@@ -20,7 +20,11 @@
 #include <time.h>
 #include <assert.h>
 
-#include "sstRec04Lib.h"
+#include <string>
+
+#include <sstStr01Lib.h>
+#include <sstRec04Lib.h>
+
 #include "sstRec04LibInt.h"
 
 //=============================================================================

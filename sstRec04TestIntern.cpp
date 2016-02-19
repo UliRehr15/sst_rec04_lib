@@ -19,6 +19,9 @@
 #include <string.h>
 #include <assert.h>
 
+#include <string>
+
+#include "sstStr01Lib.h"
 #include "sstRec04Lib.h"
 #include "sstRec04LibInt.h"
 
@@ -72,33 +75,33 @@ int Test_VectorSys_Stack (int iKey) // v  -> For the moment 0
 
   if(iStat != 0)  {    assert(0);  }
 
-  oCargoData11.iValue = 55;
+  oCargoData11.iVal = 55;
   strncpy(oCargoData11.cVal,"abc", 5);
 
   iStat = oDssDataSys.WrtCargo ( 0, &oDssDataKey1, &oCargoData11);
 
   iStat = oDssDataSys.RedCargo ( 0, &oDssDataKey1, &oCargoData12);
-  if(oCargoData11.iValue != oCargoData12.iValue) assert(0);
+  if(oCargoData11.iVal != oCargoData12.iVal) assert(0);
 
   iStat = oDssDataSys.AddCargoSys( 0, sizeof(oCargoData21), (char*) "YYYY", &oDssDataKey2);
 
   iStat = oDssDataSys.RedCargo ( 0, &oDssDataKey1, &oCargoData12);
-  if(oCargoData11.iValue != oCargoData12.iValue) assert(0);
+  if(oCargoData11.iVal != oCargoData12.iVal) assert(0);
 
   iStat = oDssDataSys.AddCargoSys( 0, sizeof(oCargoData21), (char*) "ZZZ", &oDssDataKey2);
 
-  oCargoData21.dValue = 55.5;
+  oCargoData21.dVal = 55.5;
   strncpy(oCargoData21.cVal,"dcba", 10);
 
   iStat = oDssDataSys.WrtCargo ( 0, &oDssDataKey2, &oCargoData21);
 
   iStat = oDssDataSys.RedCargo ( 0, &oDssDataKey1, &oCargoData12);
 
-  if(oCargoData11.iValue != oCargoData12.iValue) assert(0);
+  if(oCargoData11.iVal != oCargoData12.iVal) assert(0);
 
   iStat = oDssDataSys.RedCargo ( 0, &oDssDataKey2, &oCargoData22);
 
-  if(oCargoData21.dValue != oCargoData22.dValue) assert(0);
+  if(oCargoData21.dVal != oCargoData22.dVal) assert(0);
 
   // Fatal Errors goes to an assert
   if (iRet < 0)
@@ -142,31 +145,31 @@ int Test_VectorSys_Heap (int iKey) // v  -> For the moment 0
 
   if(iStat != 0)  {    assert(0);  }
 
-  oCargoData11.iValue = 55;
+  oCargoData11.iVal = 55;
   strncpy(oCargoData11.cVal,"abc", 5);
 
   iStat = oDssDataSys->WrtCargo ( 0, oDssDataKey1, &oCargoData11);
 
   iStat = oDssDataSys->RedCargo ( 0, oDssDataKey1, &oCargoData12);
 
-  if(oCargoData11.iValue != oCargoData12.iValue) assert(0);
+  if(oCargoData11.iVal != oCargoData12.iVal) assert(0);
 
   iStat = oDssDataSys->AddCargoSys( 0, sizeof(oCargoData21), (char*) "YYYY", oDssDataKey2);
 
   iStat = oDssDataSys->AddCargoSys( 0, sizeof(oCargoData21), (char*) "ZZZ", oDssDataKey2);
 
-  oCargoData21.dValue = 55.5;
+  oCargoData21.dVal = 55.5;
   strncpy(oCargoData21.cVal,"dcba", 10);
 
   iStat = oDssDataSys->WrtCargo ( 0, oDssDataKey2, &oCargoData21);
 
   iStat = oDssDataSys->RedCargo ( 0, oDssDataKey1, &oCargoData12);
 
-  if(oCargoData11.iValue != oCargoData12.iValue) assert(0);
+  if(oCargoData11.iVal != oCargoData12.iVal) assert(0);
 
   iStat = oDssDataSys->RedCargo ( 0, oDssDataKey2, &oCargoData22);
 
-  if(oCargoData21.dValue != oCargoData22.dValue) assert(0);
+  if(oCargoData21.dVal != oCargoData22.dVal) assert(0);
 
   delete(oDssDataKey2);
   delete(oDssDataKey1);

@@ -15,10 +15,10 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG
 CFLAGS        = -pipe -g -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -g -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -I../Header
+INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -I../../sst_str01_lib/Header -I../Header
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) ../../libs/libsst_rec04_lib_d.a 
+LIBS          = $(SUBLIBS) ../../libs/libsst_rec04_lib_d.a ../../libs/libsst_misc01_lib_d.a ../../libs/libsst_str01_lib_d.a 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/i386-linux-gnu/qt5/bin/qmake
@@ -281,7 +281,8 @@ compiler_clean:
 
 ####### Compile
 
-sstRec04LibTest.o: sstRec04LibTest.cpp ../Header/sstRec04Lib.h \
+sstRec04LibTest.o: sstRec04LibTest.cpp ../../sst_str01_lib/Header/sstStr01Lib.h \
+		../Header/sstRec04Lib.h \
 		sstRec04LibTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04LibTest.o sstRec04LibTest.cpp
 

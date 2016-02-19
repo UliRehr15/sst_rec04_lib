@@ -19,7 +19,11 @@
 #include <string.h>
 #include <assert.h>
 
-#include "sstRec04Lib.h"
+#include <string>
+
+#include <sstStr01Lib.h>
+#include <sstRec04Lib.h>
+
 #include "sstRec04LibInt.h"
 
 //=============================================================================
@@ -2183,3 +2187,9 @@ int sstRec04InternCls::resetRecord(int iKey, void *vRecAdr)
   return iStat;
 }
 //=============================================================================
+dREC04RECNUMTYP sstRec04InternCls::GetUserRecordSize()
+{
+  unsigned long ulSize = 0;
+  this->poVector->GetCargoSize(0,this->poRecMemUsrKey,&ulSize);
+  return ulSize;
+}

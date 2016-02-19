@@ -8,7 +8,9 @@ CONFIG    -= release  # DEBUG is active
 
 CONFIG    += staticlib
 
-INCLUDEPATH = ./Header
+INCLUDEPATH += ./Header
+INCLUDEPATH += ../sst_str01_lib/Header
+INCLUDEPATH += ../sst_misc01_lib/Header
 
 HEADERS		+=  ./Header/sstRec04Lib.h
 HEADERS		+= sstRec04LibInt.h

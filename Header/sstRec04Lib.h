@@ -634,6 +634,13 @@ public:
   // ----------------------------------------------------------------------------
   sstRec04InternCls* GetInternObjAdr();
   //=============================================================================
+  /**
+  * @brief Get Size of User Record
+  *
+  * @retval   Return Size of User Record
+  */
+  //=============================================================================
+  dREC04RECNUMTYP GetUserRecordSize();
 
 private:
   sstRec04InternCls *poRec01Intern;   /**< Pointer to intern object */
@@ -653,30 +660,30 @@ private:
 * @date 16.10
 */
 // ----------------------------------------------------------------------------
-class sstRec04TestRec1Cls
-{
-  public:   // Public functions
-     sstRec04TestRec1Cls();  // Constructor
-     //==============================================================================
-     /**
-     * @brief // Set all Values for test record 1 <BR>
-     * oTestRecord1.SetAllValues(iTstValue,cTstValue)
-     *
-     * @param iTstVal [in] Set Integer Test Value
-     * @param cTstVal [in] Set Character Test Value
-     *
-     * @return Errorstate
-     *
-     * @retval   = 0: OK
-     * @retval   < 0: Unspecified Error
-     */
-     // ----------------------------------------------------------------------------
-     int SetAllValues(int iTstVal, char *cTstVal);
+//class sstRec04sstRec04TestRec1Cls
+//{
+//  public:   // Public functions
+//     sstRec04sstRec04TestRec1Cls();  // Constructor
+//     //==============================================================================
+//     /**
+//     * @brief // Set all Values for test record 1 <BR>
+//     * oTestRecord1.SetAllValues(iTstValue,cTstValue)
+//     *
+//     * @param iTstVal [in] Set Integer Test Value
+//     * @param cTstVal [in] Set Character Test Value
+//     *
+//     * @return Errorstate
+//     *
+//     * @retval   = 0: OK
+//     * @retval   < 0: Unspecified Error
+//     */
+//     // ----------------------------------------------------------------------------
+//     int SetAllValues(int iTstVal, char *cTstVal);
 
-     int iValue;        /**< Test Integer Value */
-     char cVal[5];     /**< Test Character Value */
+//     int iValue;        /**< Test Integer Value */
+//     char cVal[5];     /**< Test Character Value */
 
-};
+//};
 //==============================================================================
 /**
 * @brief Full test record class
@@ -690,15 +697,15 @@ class sstRec04TestRec1Cls
 * @date 16.10.15
 */
 // ----------------------------------------------------------------------------
-class sstRec04TestRec2Cls
-{
-  public:   // Public functions
-    sstRec04TestRec2Cls();  // Constructor
-    int    iValue;          /**< Test Integer Value */
-    unsigned int uiValue;   /**< Test Unsigned Value */
-    double dValue;          /**< Test Double Value */
-    char cVal[10];         /**< Test Character Value */
-};
+//class sstRec04sstRec04TestRec2Cls
+//{
+//  public:   // Public functions
+//    sstRec04sstRec04TestRec2Cls();  // Constructor
+//    int    iValue;          /**< Test Integer Value */
+//    unsigned int uiValue;   /**< Test Unsigned Value */
+//    double dValue;          /**< Test Double Value */
+//    char cVal[10];         /**< Test Character Value */
+//};
 //==============================================================================
 /**
 * @brief Linked List object for 3 MemRec objects
@@ -842,6 +849,519 @@ class sstRec04LiLstCls
 private:  // Private Functions
      sstRec04LiLstIntCls *poRec04LiLstInt;   /**< Pointer to intern object */
 };
+//==============================================================================
+/**
+* @brief Small Test Record Class (Double,Char)
+*
+* TestSys;TestRecCls;dVal;DD;8;4  <BR>
+* TestSys;TestRecCls;cVal;CC;9;0  <BR>
+*
+* Changed: 19.02.10  Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @author Re.
+*
+* @date 19.02.10
+*/
+// ----------------------------------------------------------------------------
+class sstRec04TestRec1Cls
+{
+  public:   // Public functions
+  sstRec04TestRec1Cls();  // Constructor
+    // ~X();   // Destructor
+  //==============================================================================
+  /**
+  * @brief Shortstory
+  *
+  * @param iVal  [in] Integer Value
+  * @param cVal  [in] Character Value
+  *
+  * @return Errorstate
+  *
+  * @retval   = 0: OK
+  * @retval   < 0: Unspecified Error
+  */
+  // ----------------------------------------------------------------------------
+  int SetAll(int            iVal,
+             char          *cVal);
+  //==============================================================================
+  /**
+  * @brief Shortstory
+  *
+  * @param iKey         [in] Double Value
+  * @param sTestSys_Str [in] Character Value
+  *
+  * @return Errorstate
+  *
+  * @retval   = 0: OK
+  * @retval   < 0: Unspecified Error
+  */
+  // ----------------------------------------------------------------------------
+  int Csv_Read(int iKey, std::string *sTestSys_Str);
+  //==============================================================================
+  /**
+  * @brief Shortstory
+  *
+  * @param iKey         [in] Double Value
+  * @param sTestSys_Str [in] Character Value
+  *
+  * @return Errorstate
+  *
+  * @retval   = 0: OK
+  * @retval   < 0: Unspecified Error
+  */
+  // ----------------------------------------------------------------------------
+  int Csv_Write(int iKey, std::string *sTestSys_Str);
+  // ----------------------------------------------------------------------------
+  // double dVal;       /**< double test value */
+  int  iVal;       /**< integer test value */
+  char cVal[21];     /**< Test-Char */
+private:  // Private functions
+};
+
+//==============================================================================
+/**
+* @brief Full Test Record Class (All Types)
+*
+* TestSys;TestRecCls;iVal;II;5;0  <BR>
+* TestSys;TestRecCls;uiVal;UI;5;0 <BR>
+* TestSys;TestRecCls;lVal;LL;10;0 <BR>
+* TestSys;TestRecCls;ulVal;UL;10;0 <BR>
+* TestSys;TestRecCls;fVal;FF;3;2 <BR>
+* TestSys;TestRecCls;dVal;DD;8;4 <BR>
+* TestSys;TestRecCls;bVal;BB;1;0 <BR>
+* TestSys;TestRecCls;cVal;CC;9;0 <BR>
+*
+* use function sst_generate_csv_lib filename
+*
+* Changed: 07.06.10  Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @author Re.
+*
+* @date 07.06.10
+*/
+// ----------------------------------------------------------------------------
+class sstRec04TestRec2Cls
+{
+  public:   // Public functions
+     sstRec04TestRec2Cls();  // Constructor
+     //==============================================================================
+     /**
+     * @brief Shortstory
+     *
+     * @param iVal  [in] Integer Value
+     * @param uiVal [in] Unsigned Int Value
+     * @param lVal  [in] Long Int Value
+     * @param ulVal [in] Unsigned long Int Value
+     * @param fVal  [in] Float Value
+     * @param dVal  [in] Double Value
+     * @param bVal  [in] Bool Value
+     * @param cVal  [in] Character Value
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int SetAll(int            iVal,
+                unsigned int   uiVal,
+                long           lVal,
+                unsigned long  ulVal,
+                float          fVal,
+                double         dVal,
+                bool           bVal,
+                char          *cVal);
+     // int Csv_Read(int iKey, sstFormatInfoCls *oFrmtTyp, std::string *sErrTxt, std::string *sTestSys_Str);
+     // int Csv_Write(int iKey, sstFormatInfoCls *oFrmtTyp, std::string *sTestSys_Str, std::string *sErrStr);
+
+
+     int iVal;                 /**< Test value Integer */
+     unsigned int uiVal;       /**< Test value Unsigned Integer */
+     long int lVal;            /**< Test value Long Integer */
+     unsigned long int ulVal;  /**< Test value Unsigned Long Integer */
+     float  fVal;      /**< Test value Float  */
+     double dVal;      /**< Test value Double  */
+     bool   bVal;      /**< Test value Bool */
+     char   cVal[10];  /**< Test value Char/Text */
+private:  // Private functions
+};
+
+//==============================================================================
+/**
+* @brief recmem class for storing and managing test record1 class
+*
+* More Comment
+*
+* Changed:   Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @author Re.
+*
+* @date
+*/
+// ----------------------------------------------------------------------------
+class sstRec04TestRec1FncCls
+{
+  public:
+    sstRec04TestRec1FncCls();  // Constructor
+    //==============================================================================
+    /**
+    * @brief open existing csv file and read all filerows into new dss, close csv file
+    *
+    * iStat = oTestRecCsv.OpenReadCsvFile( iKey, *sCsvFilNam);
+    *
+    * @param iKey       [in] For the moment 0
+    * @param sCsvFilNam [in] CSV File Name
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int OpenReadCsvFile(int   iKey,
+                        char *sCsvFilNam);
+    //==============================================================================
+    /**
+    * @brief open csv file and write all data to file, close file and dss
+    *
+    * iStat = oTestRec1Csv.CloseCsvFile( iKey, *sCsvFilNam);
+    *
+    * @param iKey       [in] For the moment 0
+    * @param sCsvFilNam [in] name of new csv file
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int CloseCsvFile(int   iKey,
+                     char *sCsvFilNam);
+    //==============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int ReadRecPos(int           iKey,
+                   dREC04RECNUMTYP  dRecNo,
+                   sstRec04TestRec1Cls  *oTestRec1) const;
+    //==============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int ReadRecNext(int           iKey,
+                    dREC04RECNUMTYP *dRecNo,
+                    sstRec04TestRec1Cls  *oTestRec1);
+    //==============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int WriteNew(int iKey,
+                 dREC04RECNUMTYP *dRecNo,
+                 sstRec04TestRec1Cls *oTestRec1);
+    //==============================================================================
+    /**
+    * @brief Write Record at position into sstDs2
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int WriteRecPos(int            iKey,
+                    dREC04RECNUMTYP   dRecNo,
+                    sstRec04TestRec1Cls   *oTestRec1);
+    //==============================================================================
+    /**
+    * @brief Delete Record in sstDs2
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] record for mark as delete
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int DeleteRecPos(int            iKey,
+                    dREC04RECNUMTYP   dRecNo);
+    //============================================================================
+    /**
+    * @brief // Get Number of stored Records in sstRec04TestRec1Cls <BR>
+    * dNumRecords = oTestRec1Mem.RecordCount();
+    *
+    * @return Number of records in TestRec1Fnc object
+    */
+    // ----------------------------------------------------------------------------
+    dREC04RECNUMTYP RecordCount() const;
+    //============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param sCsvRow    [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int Csv_Read(int               iKey,
+                 std::string      *sCsvRow,
+                 sstRec04TestRec1Cls      *oTestRec1);
+    //==============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    * @param sCsvRow    [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int Csv_Write(int               iKey,
+                  sstRec04TestRec1Cls      *oTestRec1,
+                  std::string      *sCsvRow);
+    //==============================================================================
+  private:
+    sstRec04Cls* poRecDss;
+    sstStr01Cls oFrmtTyp;
+    std::string sErrStr;
+    dREC04RECNUMTYP dActRecNo;
+};
+//==============================================================================
+/**
+* @brief recmem class for storing and managing test record2 class
+*
+* More Comment
+*
+* Changed:   Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @author Re.
+*
+* @date
+*/
+// ----------------------------------------------------------------------------
+class sstRec04TestRec2FncCls
+{
+  public:
+    sstRec04TestRec2FncCls();  // Constructor
+    //==============================================================================
+    /**
+    * @brief open existing csv file and read all filerows into new dss, close csv file
+    *
+    * iStat = oTestRecCsv.OpenReadCsvFile( iKey, *sCsvFilNam);
+    *
+    * @param iKey       [in] For the moment 0
+    * @param sCsvFilNam [in] CSV File Name
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int OpenReadCsvFile(int   iKey,
+                        char *sCsvFilNam);
+    //==============================================================================
+    /**
+    * @brief open csv file and write all data to file, close file and dss
+    *
+    * iStat = oTestRecCsv.CloseCsvFile( iKey, *sCsvFilNam);
+    *
+    * @param iKey       [in] For the moment 0
+    * @param sCsvFilNam [in] name of new csv file
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int CloseCsvFile(int   iKey,
+                     char *sCsvFilNam);
+    //==============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int ReadRecPos(int           iKey,
+                   dREC04RECNUMTYP  dRecNo,
+                   sstRec04TestRec2Cls  *oTestRec1) const;
+    //==============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int ReadRecNext(int           iKey,
+                    dREC04RECNUMTYP *dRecNo,
+                    sstRec04TestRec2Cls  *oTestRec1);
+    //==============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int WriteNew(int iKey,
+                 dREC04RECNUMTYP *dRecNo,
+                 sstRec04TestRec2Cls *oTestRec1);
+    //==============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int WriteRecPos(int            iKey,
+                    dREC04RECNUMTYP   dRecNo,
+                    sstRec04TestRec2Cls   *oTestRec1);
+    //==============================================================================
+    /**
+    * @brief Delete Record in sstDs2
+    *
+    * @param iKey       [in] For the moment 0
+    * @param dRecNo     [in] record for mark as delete
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int DeleteRecPos(int            iKey,
+                    dREC04RECNUMTYP   dRecNo);
+    //============================================================================
+    /**
+    * @brief // Get Number of stored Records in sstRec04TestRec2FncCls <BR>
+    * dNumRecords = oTestRec2Mem.RecordCound();
+    *
+    * @return Stored records
+    */
+    // ----------------------------------------------------------------------------
+    dREC04RECNUMTYP RecordCount() const;
+    //============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param sCsvRow    [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int Csv_Read(int               iKey,
+                 std::string      *sCsvRow,
+                 sstRec04TestRec2Cls      *oTestRec1);
+    //==============================================================================
+    /**
+    * @brief Shortstory
+    *
+    * @param iKey       [in] For the moment 0
+    * @param oTestRec1  [in] For the moment 0
+    * @param sCsvRow    [in] For the moment 0
+    *
+    * @return Errorstate
+    *
+    * @retval   = 0: OK
+    * @retval   < 0: Unspecified Error
+    */
+    // ----------------------------------------------------------------------------
+    int Csv_Write(int               iKey,
+                  sstRec04TestRec2Cls      *oTestRec1,
+                  std::string      *sCsvRow);
+  private:
+    sstRec04Cls* poRecDss;
+    sstStr01Cls oFrmtTyp;
+    std::string sErrStr;
+    dREC04RECNUMTYP dActRecNo;
+};
+
 //==============================================================================
 
 // Do some intern Tests
