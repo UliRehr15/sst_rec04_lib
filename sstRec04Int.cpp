@@ -22,6 +22,7 @@
 #include <string>
 
 #include <sstStr01Lib.h>
+#include <sstMisc01Lib.h>
 #include <sstRec04Lib.h>
 
 #include "sstRec04LibInt.h"
@@ -65,8 +66,9 @@ sstRec04InternCls::~sstRec04InternCls()
   delete (this->poRecMemUsrKey);
   delete (this->poRecMemSysKey);
 
-    if(ucStorage) {
-      puts("freeing storage");
+    if(ucStorage)
+    {
+      // puts("freeing storage");
       free(ucStorage);
     }
 
@@ -123,7 +125,7 @@ int sstRec04InternCls::WritNewVector(int iKey, void* vRecAdr, dREC04RECNUMTYP *d
   this->poHeader->SetChangeDate();
 
   // Reset full intern vector with all cargo packets
-  // no good idea, some cargo data are stored in vector
+  // no good idea, some user cargo data are stored in vector
   // this->poVector->ResetMem(0);
 
   // write record into vector memory
@@ -131,6 +133,13 @@ int sstRec04InternCls::WritNewVector(int iKey, void* vRecAdr, dREC04RECNUMTYP *d
 
   // write record into vector memory
   iStat = this->poVector->WrtCargo( 0, this->poRecMemUsrKey, vRecAdr);
+
+  // Reset all trees cargos in vector
+  sstRec04TreeNodeCls oTreeNode;
+  for(int iTreNo=1; iTreNo <= this->iTriAnz; iTreNo++)
+  {
+     iStat = this->poVector->WrtCargo( 0, this->poTre[iTreNo-1].poDataKey, &oTreeNode);
+  }
 
   // Write new record into intern sstRec memory
   iStat = this->WritNewInt( iKey, this->poVector->GetAdr(), dRecNo);
@@ -603,7 +612,6 @@ int sstRec04InternCls::TreBld ( int              iKey,
 //.............................................................................
   if (iKey != 0) return -1;
 
-  // Root = NIL;
   Root = 0;
 
   for( ii=1; ii<=this->dActStored; ii++)
@@ -618,7 +626,6 @@ int sstRec04InternCls::TreBld ( int              iKey,
     this->poVector->CalcSetPos( vUsrAdr, &Adr1, this->poTre[oTre->iTriNo-1].iOffset);
 
     // Insert new record ii in tree otre with root record
-    // Root = DSiTreIns2( 0, oTre, Root , ii, Adr1);
     Root = DSiTreInsert( 0, &this->poTre[oTre->iTriNo-1], Root , ii, Adr1);
   }
   return iStat;
@@ -1174,33 +1181,26 @@ int sstRec04InternCls::DSiVarCompEQ (int iKey, sstRec04CompTyp_enum *cTyp, void 
   return AltGleich;
 }
 //=============================================================================
-/**
-* @brief Vergleicht zwei Variablen
-*/
-//-----------------------------------------------------------------------------
-int sstRec04InternCls::DSiVarCompNE (int               iKey,
-                              sstRec04CompTyp_enum *cTyp,
-                              void             *AdrAlt,
-                              void             *AdrNeu)
+int sstRec04InternCls::DSiVarCompNE (int                   iKey,
+                                     sstRec04CompTyp_enum *cTyp,
+                                     void                 *AdrAlt,
+                                     void                 *AdrNeu)
 //-----------------------------------------------------------------------------
 {
-  // CompValue_stru ValSet;
-  // CompValue_stru CompValSet;
   sstRec04CompValueCls ValSet;
   sstRec04CompValueCls CompValSet;
 
   int AltUngleich;
-  // int iRet  = 0;
-  // int iStat = 0;
 //-----------------------------------------------------------------------------
   if ( iKey != 0) return -1;
 
-//  DSi_CompValue ( 0, AdrAlt, cTyp, &ValSet);
-//  DSi_CompValue ( 0, AdrNeu, cTyp, &CompValSet);
   DSiCompValue ( 0, AdrAlt, cTyp, &ValSet);
   DSiCompValue ( 0, AdrNeu, cTyp, &CompValSet);
 
-    AltUngleich = 0;
+  // if value1 is not equal value2 return true = 1
+  // if value1 is equal value2 return false = 0
+
+  AltUngleich = 0;
     switch (*cTyp)
     {
       // Comp2 ist größer Comp1
@@ -2193,3 +2193,120 @@ dREC04RECNUMTYP sstRec04InternCls::GetUserRecordSize()
   this->poVector->GetCargoSize(0,this->poRecMemUsrKey,&ulSize);
   return ulSize;
 }
+//=============================================================================
+int sstRec04InternCls::TreeLog(int                   iKey,
+                               sstRec04TreeKeyCls   *oTre,
+                               char                 *cLogFilNam)
+{
+  void *Adr1 = NULL;        // adress of compare value in vector
+  // dREC04RECNUMTYP  Root = 0;
+  sstRec04TreeNodeCls *oTreeNode;
+  sstMisc01AscFilCls oAscFil;
+  std::string oFilRow;
+  sstStr01Cls oCsvConvert;
+
+  dREC04RECNUMTYP  ii = 0;
+  dREC04RECNUMTYP  dRecNo1 = 0;
+  dREC04RECNUMTYP  dRecNo2 = 0;
+  dREC04RECNUMTYP  dLoops = 0;
+  int   iStat = 0;
+//.............................................................................
+  if ( iKey != 0) return -1;
+
+  // Open Asc File for Writing
+  iStat = oAscFil.fopenWr ( 0, cLogFilNam);
+  assert(iStat==0);
+
+  // Root = 0;
+
+  for( ii=1; ii<=this->dActStored; ii++)
+  {
+    // record record from RecMem into vector
+    iStat = this->ReadInt(  0, ii, this->poVector->GetAdr());
+
+    // Get adress of user data
+    void *vUsrAdr = NULL;
+    iStat = this->poVector->GetCargoAdr(0,this->poRecMemUsrKey,&vUsrAdr);
+    // Get Adress of compare value in user data
+    this->poVector->CalcSetPos( vUsrAdr, &Adr1, this->poTre[oTre->iTriNo-1].iOffset);
+    char* pcCompValue;
+    pcCompValue = (char*) Adr1;
+
+    // Get adress of Tree data
+    void *vTreAdr = NULL;
+    iStat = this->poVector->GetCargoAdr(0, this->poTre[oTre->iTriNo-1].poDataKey,&vTreAdr);
+    oTreeNode = (sstRec04TreeNodeCls*) vTreAdr;
+    // Get Adress of compare value in user data
+    // this->poVector->CalcSetPos( vUsrAdr, &Adr1, this->poTre[oTre->iTriNo-1].iOffset);
+
+    // Insert new record ii in tree otre with root record
+    // Root = DSiTreInsert( 0, &this->poTre[oTre->iTriNo-1], Root , ii, Adr1);
+
+    // convert long int to csv-formatted string and append to string
+    oFilRow.clear();
+    iStat = oCsvConvert.Csv_Int4_2String ( 0, ii, &oFilRow);
+    iStat = oCsvConvert.Csv_Int4_2String ( 0, oTreeNode->dLeft_LT, &oFilRow);
+    iStat = oCsvConvert.Csv_Int4_2String ( 0, oTreeNode->dRight_GE, &oFilRow);
+    iStat = oCsvConvert.Csv_Char_2String( 0, pcCompValue, &oFilRow);
+
+    // Write Str1 structure to file
+    iStat = oAscFil.Wr_StrDS1 ( 0, &oFilRow);
+
+  }
+
+  // Write empty row
+  oFilRow.clear();
+  iStat = oAscFil.Wr_StrDS1 ( 0, &oFilRow);
+
+  dRecNo1 = 0;
+  // return record number for smallest value for tree oTriKey_CC
+  iStat = this->TreSeaFrst ( 0, oTre, &dRecNo1);
+
+  while (dRecNo1 > 0)
+  {
+    // record record from RecMem into vector
+    iStat = this->ReadInt(  0, dRecNo1, this->poVector->GetAdr());
+
+    // Get adress of user data
+    void *vUsrAdr = NULL;
+    iStat = this->poVector->GetCargoAdr(0,this->poRecMemUsrKey,&vUsrAdr);
+    // Get Adress of compare value in user data
+    this->poVector->CalcSetPos( vUsrAdr, &Adr1, this->poTre[oTre->iTriNo-1].iOffset);
+    char* pcCompValue;
+    pcCompValue = (char*) Adr1;
+
+    // Get adress of Tree data
+    void *vTreAdr = NULL;
+    iStat = this->poVector->GetCargoAdr(0, this->poTre[oTre->iTriNo-1].poDataKey,&vTreAdr);
+    oTreeNode = (sstRec04TreeNodeCls*) vTreAdr;
+
+    // convert long int to csv-formatted string and append to string
+    oFilRow.clear();
+    iStat = oCsvConvert.Csv_Int4_2String ( 0, dRecNo1, &oFilRow);
+    iStat = oCsvConvert.Csv_Int4_2String ( 0, oTreeNode->dLeft_LT, &oFilRow);
+    iStat = oCsvConvert.Csv_Int4_2String ( 0, oTreeNode->dRight_GE, &oFilRow);
+    iStat = oCsvConvert.Csv_Char_2String( 0, pcCompValue, &oFilRow);
+
+    // Write Str1 structure to file
+    iStat = oAscFil.Wr_StrDS1 ( 0, &oFilRow);
+
+    // Return record number for next greater/equal value
+    iStat = this->TreSeaNxtGE ( 0, oTre, dRecNo1, &dRecNo2);
+
+    dRecNo1 = dRecNo2;
+    dLoops++;
+    if(dLoops > this->dActStored)
+    {
+      dRecNo1 = 0;
+      oFilRow = "ERROR: Hard break!";
+      iStat = oAscFil.Wr_StrDS1 ( 0, &oFilRow);
+    }
+
+  }
+
+  // Close file
+  iStat = oAscFil.fcloseFil ( 0);
+
+  return 0;
+}
+//=============================================================================

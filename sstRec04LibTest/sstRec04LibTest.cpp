@@ -661,81 +661,81 @@ int main()
 //    assert(dRecNo1==4);
 
   }
-//=============================================================================
-  // Tree Tests with equal values
-  {
-    sstRec04TreeKeyCls oTriKey_CC;  // new tree identification object for sorting chars
-    sstRec04TreeKeyCls oTriKey_I2;  // new tree identification object for sorting ints
-    dREC04RECNUMTYP dRecNo = 0;
-    sstRec04TestRec1Cls oTstRec11;
-    sstRec04TestRec1Cls oTstRec12;
-    sstRec04Cls oTestRecMem1(sizeof(oTstRec11));  // new sstRecMem Table for TstRec11 records
+  //=============================================================================
+    // Tree Tests with equal values
+    {
+      sstRec04TreeKeyCls oTriKey_CC;  // new tree identification object for sorting chars
+      sstRec04TreeKeyCls oTriKey_I2;  // new tree identification object for sorting ints
+      dREC04RECNUMTYP dRecNo = 0;
+      sstRec04TestRec1Cls oTstRec11;
+      sstRec04TestRec1Cls oTstRec12;
+      sstRec04Cls oTestRecMem1(sizeof(oTstRec11));  // new sstRecMem Table for TstRec11 records
 
-    // Initialize new Sorttree for RecMem
-    // Sorting value should be cVal
-    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.cVal, sizeof(oTstRec11.cVal), sstRecTyp_CC, &oTriKey_CC);
-    assert(iStat == 0);
-    // Sorting value should be iValue
-    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
-    assert(iStat == 0);
+      // Initialize new Sorttree for RecMem
+      // Sorting value should be cVal
+      iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.cVal, sizeof(oTstRec11.cVal), sstRecTyp_CC, &oTriKey_CC);
+      assert(iStat == 0);
+      // Sorting value should be iValue
+      iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
+      assert(iStat == 0);
 
-    // insert test record (int,char) and update trees
-    iStat = oTstRec11.SetAll(20,(char*)"dscr");
-    iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
-    iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
-    iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
-    iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
+      // insert test record (int,char) and update trees
+      iStat = oTstRec11.SetAll(20,(char*)"dscr");
+      iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
+      iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
+      iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
+      iStat = oTestRecMem1.TreWriteNew ( 0, &oTstRec11, &dRecNo);
 
-    dREC04RECNUMTYP dRecNo1 = 0;
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-    iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
-    assert(iStat == 0);
-    assert(dRecNo1==1);
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-    iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
-    assert(iStat == 0);
-    assert(dRecNo1==2);
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-    iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
-    assert(iStat == 0);
-    assert(dRecNo1==3);
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-    iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
-    assert(iStat == 0);
-    assert(dRecNo1==4);
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-    assert(iStat == -2);
-    iStat = strncmp((char*)"", oTstRec12.cVal, 5);
-    assert(iStat == 0);
-    assert(dRecNo1==0);
+      dREC04RECNUMTYP dRecNo1 = 0;
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+      iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
+      assert(iStat == 0);
+      assert(dRecNo1==1);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+      iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
+      assert(iStat == 0);
+      assert(dRecNo1==2);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+      iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
+      assert(iStat == 0);
+      assert(dRecNo1==3);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+      iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
+      assert(iStat == 0);
+      assert(dRecNo1==4);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+      assert(iStat == -2);
+      iStat = strncmp((char*)"", oTstRec12.cVal, 5);
+      assert(iStat == 0);
+      assert(dRecNo1==0);
 
-    // Delete record 3 from all trees
-    iStat = oTestRecMem1.TreDelNumber ( 0, 3);
+      // Delete record 3 from all trees
+      iStat = oTestRecMem1.TreDelNumber ( 0, 3);
 
-    dRecNo1 = 0;
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-    iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
-    assert(iStat == 0);
-    assert(dRecNo1==1);
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-    iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
-    assert(iStat == 0);
-    assert(dRecNo1==2);
-//    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-//    iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
-//    assert(iStat == 0);
-//    assert(dRecNo1==3);
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-    iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
-    assert(iStat == 0);
-    assert(dRecNo1==4);
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
-    assert(iStat == -2);
-    iStat = strncmp((char*)"", oTstRec12.cVal, 5);
-    assert(iStat == 0);
-    assert(dRecNo1==0);
+      dRecNo1 = 0;
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+      iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
+      assert(iStat == 0);
+      assert(dRecNo1==1);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+      iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
+      assert(iStat == 0);
+      assert(dRecNo1==2);
+  //    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+  //    iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
+  //    assert(iStat == 0);
+  //    assert(dRecNo1==3);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+      iStat = strncmp((char*)"dscr", oTstRec12.cVal, 5);
+      assert(iStat == 0);
+      assert(dRecNo1==4);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_CC, &oTstRec12, &dRecNo1);
+      assert(iStat == -2);
+      iStat = strncmp((char*)"", oTstRec12.cVal, 5);
+      assert(iStat == 0);
+      assert(dRecNo1==0);
 
-  }
+    }
   return 0;
 }
 //=============================================================================

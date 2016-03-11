@@ -11,6 +11,8 @@ INCLUDEPATH +=  ../Header
 
 debug{
   LIBS        += ../../libs/libsst_rec04_lib_d.a
+  LIBS        += ../../libs/libsst_misc01_lib_d.a
+  LIBS        += ../../libs/libsst_str01_lib_d.a
 }
 release{
   
@@ -21,6 +23,8 @@ release{
   
   
   LIBS        += ../../libs/libsst_rec04_lib_r.a
+  LIBS        += ../../libs/libsst_misc01_lib_r.a
+  LIBS        += ../../libs/libsst_str01_lib_r.a
 }
 
 HEADERS    += \  

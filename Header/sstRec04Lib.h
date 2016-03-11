@@ -641,6 +641,12 @@ public:
   */
   //=============================================================================
   dREC04RECNUMTYP GetUserRecordSize();
+  //=============================================================================
+  int TreeLog(int                   iKey,
+              sstRec04TreeKeyCls   *oTre,
+              char                 *cLogFilNam);
+  //==============================================================================
+
 
 private:
   sstRec04InternCls *poRec01Intern;   /**< Pointer to intern object */
@@ -916,7 +922,8 @@ class sstRec04TestRec1Cls
   // ----------------------------------------------------------------------------
   // double dVal;       /**< double test value */
   int  iVal;       /**< integer test value */
-  char cVal[21];     /**< Test-Char */
+  // char cVal[21];     /**< Test-Char */
+  char cVal[251];     /**< Test-Char */
 private:  // Private functions
 };
 

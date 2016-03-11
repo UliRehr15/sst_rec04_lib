@@ -1270,13 +1270,14 @@ class sstRec04InternCls
      * iStat = oRecMem.DSiVarCompNE ( iKey, eType, vAdrOld, vAdrNew)
      *
      * @param iKey    [in] For the moment 0
-     * @param eType   [in] For the moment 0
-     * @param vAdrOld [in] For the moment 0
-     * @param vAdrNew [in] For the moment 0
+     * @param eType   [in] value type
+     * @param vAdrOld [in] old value
+     * @param vAdrNew [in] new (compare) value
      *
      * @return Errorstate
      *
-     * @retval   = 0: OK
+     * @retval   = 1: true: values are not equal
+     * @retval   = 0: false: values are equal
      * @retval   < 0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
@@ -1533,6 +1534,11 @@ class sstRec04InternCls
      // ----------------------------------------------------------------------------
      dREC04RECNUMTYP GetUserRecordSize();
      //==============================================================================
+     int TreeLog(int                   iKey,
+                 sstRec04TreeKeyCls   *oTre,
+                 char                 *cLogFilNam);
+     //==============================================================================
+
 
   private:  // Private functions
      //==============================================================================
@@ -2086,6 +2092,10 @@ int Test_VectorSys_Stack (int iKey);
 
 // iStat = Test_VectorSys_Heap ( iKey);
 int Test_VectorSys_Heap (int iKey);
+
+// Test Compare functions
+int Test_CompareFunctions (int iKey);
+
 //==============================================================================
 
 #endif

@@ -39,7 +39,7 @@ sstRec04TestRec1Cls::sstRec04TestRec1Cls()
 int sstRec04TestRec1Cls::SetAll(int iTmpVal, char *cTmpVal)
 {
   iVal = iTmpVal;
-  strncpy(cVal,cTmpVal,10);
+  strncpy(cVal,cTmpVal,251);
   return 0;
 }
 //=============================================================================

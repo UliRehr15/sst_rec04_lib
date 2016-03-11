@@ -259,4 +259,11 @@ dREC04RECNUMTYP sstRec04Cls::GetUserRecordSize()
   return this->poRec01Intern->GetUserRecordSize();
 }
 //==============================================================================
+int sstRec04Cls::TreeLog(int                   iKey,
+                         sstRec04TreeKeyCls   *oTre,
+                         char                 *cLogFilNam)
+{
+  return this->poRec01Intern->TreeLog(iKey, oTre, cLogFilNam);
+}
+//=============================================================================
 

@@ -36,6 +36,9 @@ int sstRec04_DoSomeInternTests (int iKey) // v  -> For the moment 0
 //-----------------------------------------------------------------------------
   if ( iKey != 0) return -1;
 
+  // Test Compare functions
+  iStat = Test_CompareFunctions( 0);
+
   // Test writ cargo systems into vector
   iStat = Test_VectorSys_Stack ( 0);
 
@@ -182,6 +185,57 @@ int Test_VectorSys_Heap (int iKey) // v  -> For the moment 0
     // Expression (iRet >= 0) has to be fullfilled
     assert(0);
   }
+
+  // Small Errors will given back
+  iRet = iStat;
+
+  return iRet;
+}
+//=============================================================================
+int Test_CompareFunctions (int iKey)
+//-----------------------------------------------------------------------------
+{
+  int iRet  = 0;
+  int iStat = 0;
+  //-----------------------------------------------------------------------------
+  if ( iKey != 0) return -1;
+  sstRec04InternCls oRecMem(20);
+  sstRec04CompTyp_enum eCompTyp;
+
+  eCompTyp = sstRecTyp_CC;
+  iStat = oRecMem.DSiVarCompNE(0, &eCompTyp,(char*)"abc",(char*)"abc");
+  assert(iStat==0);
+  iStat = oRecMem.DSiVarCompNE(0, &eCompTyp,(char*)"abc",(char*)"cba");
+  assert(iStat==1);
+
+  // "_" 137, "-" 45
+  iStat = oRecMem.DSiVarCompNE(0, &eCompTyp,(char*)"___",(char*)"---");
+  assert(iStat==1);
+
+  // "_" 137, "-" 45
+  iStat = oRecMem.DSiVarCompLT(0, &eCompTyp,(char*)"___",(char*)"---");
+  assert(iStat==0);
+
+  iStat = oRecMem.DSiVarCompGT(0, &eCompTyp,(char*)"___",(char*)"---");
+  assert(iStat==1);
+
+  eCompTyp = sstRecTyp_I2;
+  int iVal1=1;  int iVal2=1;
+  iStat = oRecMem.DSiVarCompNE(0, &eCompTyp,&iVal1,&iVal2);
+  assert(iStat==0);
+  iVal1=1;  iVal2=2;
+  iStat = oRecMem.DSiVarCompNE(0, &eCompTyp,(char*)"abc",(char*)"cba");
+  assert(iStat==1);
+
+
+
+  // Fatal Errors goes to an assert
+
+  // Pipe |
+  // Smaller <
+  // Greater >
+
+  assert(iRet >= 0);
 
   // Small Errors will given back
   iRet = iStat;
