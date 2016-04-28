@@ -528,7 +528,6 @@ public:
   int TreSeaFrst ( int               iKey,
                    sstRec04TreeKeyCls    *poTre,
                    dREC04RECNUMTYP  *dRecNo);
-
   //=============================================================================
   /**
   * @brief // Seach next greater / equal  <BR>
@@ -627,7 +626,8 @@ public:
                      dREC04RECNUMTYP          dRecNo);
   //==============================================================================
   /**
-  * @brief Get Adress of intern object
+  * @brief // Get Adress of intern object <BR>
+  * poObjectAdr = oRecMem.GetInternObjAdr();
   *
   * @retval   Return adress of intern object
   */
@@ -635,18 +635,32 @@ public:
   sstRec04InternCls* GetInternObjAdr();
   //=============================================================================
   /**
-  * @brief Get Size of User Record
+  * @brief // Get Size of User Record  <BR>
+  * dUserRecSize = oRecMem.GetUserRecordSize();
   *
   * @retval   Return Size of User Record
   */
   //=============================================================================
   dREC04RECNUMTYP GetUserRecordSize();
-  //=============================================================================
+  //==============================================================================
+  /**
+  * @brief // Log Tree sorting into file <BR>
+  * iStat = oRecMem.TreeLog( iKey, oTre, cLogFilNam);
+  *
+  * @param iKey       [in] For the moment 0
+  * @param oTre       [in] Tree for logging
+  * @param cLogFilNam [in] Target file name for logging output
+  *
+  * @return Errorstate
+  *
+  * @retval   = 0: OK
+  * @retval   < 0: Unspecified Error
+  */
+  // ----------------------------------------------------------------------------
   int TreeLog(int                   iKey,
               sstRec04TreeKeyCls   *oTre,
               char                 *cLogFilNam);
   //==============================================================================
-
 
 private:
   sstRec04InternCls *poRec01Intern;   /**< Pointer to intern object */

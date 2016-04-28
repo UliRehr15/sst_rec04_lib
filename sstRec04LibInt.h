@@ -1534,6 +1534,20 @@ class sstRec04InternCls
      // ----------------------------------------------------------------------------
      dREC04RECNUMTYP GetUserRecordSize();
      //==============================================================================
+     /**
+     * @brief // Log Tree sorting into file <BR>
+     * iStat = oRecMem.TreeLog( iKey, oTre, cLogFilNam);
+     *
+     * @param iKey       [in] For the moment 0
+     * @param oTre       [in] Tree for logging
+     * @param cLogFilNam [in] Target file name for logging output
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
      int TreeLog(int                   iKey,
                  sstRec04TreeKeyCls   *oTre,
                  char                 *cLogFilNam);
