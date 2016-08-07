@@ -60,7 +60,7 @@ class sstRec04LiLstIntCls;
 /**
 * @brief Definition Enum CompTyp_enum
 *
-* All possible compare types
+* All possible compare types for sort trees
 *
 * Changed: 30.10.15  Re.
 *
@@ -1029,7 +1029,8 @@ private:  // Private functions
 class sstRec04TestRec1FncCls
 {
   public:
-    sstRec04TestRec1FncCls();  // Constructor
+    sstRec04TestRec1FncCls();   // Constructor
+    ~sstRec04TestRec1FncCls();  // Destructor
     //==============================================================================
     /**
     * @brief open existing csv file and read all filerows into new dss, close csv file
@@ -1049,8 +1050,7 @@ class sstRec04TestRec1FncCls
                         char *sCsvFilNam);
     //==============================================================================
     /**
-    * @brief open csv file and write all data to file, close file and dss
-    *
+    * @brief // open new csv file and write all table data to file, close file
     * iStat = oTestRec1Csv.CloseCsvFile( iKey, *sCsvFilNam);
     *
     * @param iKey       [in] For the moment 0
@@ -1192,7 +1192,7 @@ class sstRec04TestRec1FncCls
                   std::string      *sCsvRow);
     //==============================================================================
   private:
-    sstRec04Cls* poRecDss;
+    sstRec04Cls* poTestRec1Table;
     sstStr01Cls oFrmtTyp;
     std::string sErrStr;
     dREC04RECNUMTYP dActRecNo;
@@ -1215,7 +1215,8 @@ class sstRec04TestRec1FncCls
 class sstRec04TestRec2FncCls
 {
   public:
-    sstRec04TestRec2FncCls();  // Constructor
+    sstRec04TestRec2FncCls();   // Constructor
+    ~sstRec04TestRec2FncCls();  // Destructor
     //==============================================================================
     /**
     * @brief open existing csv file and read all filerows into new dss, close csv file
@@ -1377,7 +1378,7 @@ class sstRec04TestRec2FncCls
                   sstRec04TestRec2Cls      *oTestRec1,
                   std::string      *sCsvRow);
   private:
-    sstRec04Cls* poRecDss;
+    sstRec04Cls* poTestRec2Table;
     sstStr01Cls oFrmtTyp;
     std::string sErrStr;
     dREC04RECNUMTYP dActRecNo;

@@ -26,3 +26,4 @@ Versions <BR>
 20160219: 4.6 Test functions extended. sst_rec04_lib now based on sst_str01_lib and sst_misc01_lib. <BR>
 20160311: Vers. 4.7: New Tree Log function, patched error in tree reading / writing.  <BR>
 20160428: Vers. 4.8: Doxygen commends extented.  <BR>
+20160807: Vers. 4.9: Corrections working with test records.  <BR>

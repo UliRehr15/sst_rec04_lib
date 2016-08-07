@@ -108,10 +108,16 @@ int sstRec04TestRec1Cls::Csv_Write(int iKey, std::string *sTestSys_Str)
 // Constructor
 sstRec04TestRec1FncCls::sstRec04TestRec1FncCls()
 {
-  // oFrmtTyp.SetBoolTyp(0,2);
-  // this->oRecDss(sizeof(sstRec04TestRec1Cls));
   this->oFrmtTyp.SetBoolTyp(0,2);
-  dActRecNo = 0;
+  this->dActRecNo = 0;
+  this->poTestRec1Table = new sstRec04Cls(sizeof(sstRec04TestRec1Cls));
+  this->sErrStr.clear();
+}
+//=============================================================================
+// Destructor
+sstRec04TestRec1FncCls::~sstRec04TestRec1FncCls()
+{
+  delete(this->poTestRec1Table);
 }
 //=============================================================================
 // Csv Read Function
@@ -216,9 +222,9 @@ int sstRec04TestRec1FncCls::OpenReadCsvFile(int iKey, char *cCsvFilNam)
     // iStat = Str1Cpy( 0, &sRecStr, oImpRow.Txt);
     iStat = oImpRow.Line_toStr1(0,&sRecStr);
 
-    iStat = Csv_Read(0,&sRecStr,&oTestRec1);
+    iStat = this->Csv_Read(0,&sRecStr,&oTestRec1);
 
-    iStat = this->poRecDss->WritNew(0,&oTestRec1,&dRecNo);
+    iStat = this->poTestRec1Table->WritNew(0,&oTestRec1,&dRecNo);
 
     // Eine Zeile aus Ascii-Datei lesen.
     iStat1 = oImpFil.rd_line( 0, &oImpRow);
@@ -238,7 +244,7 @@ int sstRec04TestRec1FncCls::ReadRecPos(int iKey,dREC04RECNUMTYP dRecNo, sstRec04
     if ( iKey != 0) return -1;
 
   // dActRecNo++;
-  iStat = this->poRecDss->Read( 0, dRecNo, oTestRec1);
+  iStat = this->poTestRec1Table->Read( 0, dRecNo, oTestRec1);
 
   return iStat;
 }
@@ -251,7 +257,7 @@ int sstRec04TestRec1FncCls::ReadRecNext(int iKey,dREC04RECNUMTYP *dRecNo, sstRec
     if ( iKey != 0) return -1;
 
   dActRecNo++;
-  iStat = this->poRecDss->Read( 0, dActRecNo, oTestRec1);
+  iStat = this->poTestRec1Table->Read( 0, dActRecNo, oTestRec1);
 
   *dRecNo = dActRecNo;
 
@@ -266,7 +272,7 @@ int sstRec04TestRec1FncCls::WriteNew(int iKey,dREC04RECNUMTYP *dRecNo, sstRec04T
   //-----------------------------------------------------------------------------
   if ( iKey != 0) return -1;
 
-  *dRecNo = this->poRecDss->WritNew( 0, oTestRec1, dRecNo);
+  iStat = this->poTestRec1Table->WritNew( 0, oTestRec1, dRecNo);
 
   return iStat;
 }
@@ -278,7 +284,7 @@ int sstRec04TestRec1FncCls::WriteRecPos(int iKey,dREC04RECNUMTYP dRecNo, sstRec0
   //-----------------------------------------------------------------------------
   if ( iKey != 0) return -1;
 
-  iStat = this->poRecDss->Writ( 0,oTestRec1,dRecNo);
+  iStat = this->poTestRec1Table->Writ( 0,oTestRec1,dRecNo);
 
   return iStat;
 }
@@ -288,7 +294,7 @@ int sstRec04TestRec1FncCls::DeleteRecPos(int            iKey,
 {
   if ( iKey != 0) return -1;
 
-  int iStat = this->poRecDss->RecSetDeleted(0,dRecNo);
+  int iStat = this->poTestRec1Table->RecSetDeleted(0,dRecNo);
 
   return iStat;
 }
@@ -296,7 +302,7 @@ int sstRec04TestRec1FncCls::DeleteRecPos(int            iKey,
 dREC04RECNUMTYP sstRec04TestRec1FncCls::RecordCount() const
 {
   dREC04RECNUMTYP dRecNo = 0;
-  dRecNo = this->poRecDss->count();
+  dRecNo = this->poTestRec1Table->count();
 
   return dRecNo;
 }
@@ -315,17 +321,17 @@ int sstRec04TestRec1FncCls::CloseCsvFile(int iKey, char *cCsvFilNam)
   sstMisc01AscFilCls oExpFil;
   sstMisc01AscRowCls oExpRow;
 
-  dRecNo = this->poRecDss->count();
+  dRecNo = this->poTestRec1Table->count();
   iStat = oExpFil.fopenWr ( 0, cCsvFilNam);
   if(iStat < 0)
   {
-    delete (this->poRecDss);
+    // delete (this->poTestRec1Table);
     return -2;
   }
 
   for (dREC04RECNUMTYP ll = 1; ll <= dRecNo; ll++)
   {
-    this->poRecDss->Read( 0, ll, &oTestRec);
+    this->poTestRec1Table->Read( 0, ll, &oTestRec);
     if (iStat >= 0)
     {  // if no read error and not marked deleted
       // iStat = Str1_Init(0,&sOutStr);
@@ -336,7 +342,7 @@ int sstRec04TestRec1FncCls::CloseCsvFile(int iKey, char *cCsvFilNam)
     }
   }
   // iStat = thisoRecDss.Close(0);
-  delete (this->poRecDss);
+  // delete (this->poTestRec1Table);
   iStat = oExpFil.fcloseFil(0);
 
   return iStat;
@@ -380,8 +386,15 @@ sstRec04TestRec2FncCls::sstRec04TestRec2FncCls()
 {
   oFrmtTyp.SetBoolTyp(0,2);
   dActRecNo = 0;
+  this->poTestRec2Table = new sstRec04Cls(sizeof(sstRec04TestRec2Cls));
+  this->sErrStr.clear();
 }
-
+//=============================================================================
+// Destructor
+sstRec04TestRec2FncCls::~sstRec04TestRec2FncCls()
+{
+  delete(this->poTestRec2Table);
+}
 //=============================================================================
 // Csv Read Function
 int sstRec04TestRec2FncCls::Csv_Read(int iKey, std::string *sTestSys_Str, sstRec04TestRec2Cls *oTestSysTypTestRecCls)
@@ -391,6 +404,7 @@ int sstRec04TestRec2FncCls::Csv_Read(int iKey, std::string *sTestSys_Str, sstRec
 //  std::string sErrTxt;
   // char cDelimit[2]=";";
   // long TPos = 0;
+  // double dVal = 0.0;
   int iRet  = 0;
 //-----------------------------------------------------------------------------
   if ( iKey != 0) return -1;
@@ -404,7 +418,11 @@ int sstRec04TestRec2FncCls::Csv_Read(int iKey, std::string *sTestSys_Str, sstRec
   if (iStat >= 0)
     iStat = this->oFrmtTyp.CsvString2_UInt4( 0, sTestSys_Str, &oTestSysTypTestRecCls->ulVal);
   if (iStat >= 0)
+  {
     iStat = this->oFrmtTyp.CsvString2_Flt( 0, sTestSys_Str, &oTestSysTypTestRecCls->fVal);
+//    iStat = this->oFrmtTyp.CsvString2_Dbl( 0, sTestSys_Str, &dVal);
+//    oTestSysTypTestRecCls->fVal = (float) dVal;
+  }
   if (iStat >= 0)
     iStat = this->oFrmtTyp.CsvString2_Dbl( 0, sTestSys_Str, &oTestSysTypTestRecCls->dVal);
   if (iStat >= 0)
@@ -436,7 +454,7 @@ int sstRec04TestRec2FncCls::Csv_Write(int iKey, sstRec04TestRec2Cls *oTestSysTyp
   char cFrmtStrDbl[20];
   char cFrmtStrFlt[20];
 
-  strncpy(cFrmtStrFlt,"%# 06.2f",20);
+  strncpy(cFrmtStrFlt,"%# 6.2f",20);
   strncpy(cFrmtStrDbl,"%# 015.4f",20);
 
 //  Bloc Function Write Start
@@ -453,6 +471,7 @@ int sstRec04TestRec2FncCls::Csv_Write(int iKey, sstRec04TestRec2Cls *oTestSysTyp
     iStat = this->oFrmtTyp.Csv_UInt4_2String ( 0, oTestSysTypTestRecCls->ulVal, sTestSys_Str);
   if (iStat >= 0)
     iStat = this->oFrmtTyp.Csv_Real_2String ( 0, cFrmtStrFlt, oTestSysTypTestRecCls->fVal, sTestSys_Str);
+  // iStat = this->oFrmtTyp.Csv_Real_2String ( 0, cFrmtStrFlt, oTestSysTypTestRecCls->fVal, sTestSys_Str);
   if (iStat >= 0)
     iStat = this->oFrmtTyp.Csv_Dbl_2String ( 0, oTestSysTypTestRecCls->dVal, sTestSys_Str);
   if (iStat >= 0)
@@ -509,9 +528,9 @@ int sstRec04TestRec2FncCls::OpenReadCsvFile(int iKey, char *cCsvFilNam)
     // iStat = Str1Cpy( 0, &sRecStr, oImpRow.Txt);
     oImpRow.Line_toStr1(0,&sRecStr);
 
-    iStat = Csv_Read(0,&sRecStr,&oTestRec2);
+    iStat = this->Csv_Read(0,&sRecStr,&oTestRec2);
 
-    iStat = this->poRecDss->WritNew( 0, &oTestRec2, &dRecNo);
+    iStat = this->poTestRec2Table->WritNew( 0, &oTestRec2, &dRecNo);
 
     // Eine Zeile aus Ascii-Datei lesen.
     iStat1 = oImpFil.rd_line( 0, &oImpRow);
@@ -531,7 +550,7 @@ int sstRec04TestRec2FncCls::ReadRecPos(int iKey,dREC04RECNUMTYP dRecNo, sstRec04
     if ( iKey != 0) return -1;
 
   // dActRecNo++;
-  iStat = this->poRecDss->Read( 0, dRecNo, oTestRec1);
+  iStat = this->poTestRec2Table->Read( 0, dRecNo, oTestRec1);
 
   return iStat;
 }
@@ -544,7 +563,7 @@ int sstRec04TestRec2FncCls::ReadRecNext(int iKey,dREC04RECNUMTYP *dRecNo, sstRec
     if ( iKey != 0) return -1;
 
   dActRecNo++;
-  iStat = this->poRecDss->Read( 0, dActRecNo, oTestRec1);
+  iStat = this->poTestRec2Table->Read( 0, dActRecNo, oTestRec1);
 
   *dRecNo = dActRecNo;
 
@@ -558,7 +577,7 @@ int sstRec04TestRec2FncCls::WriteNew(int iKey,dREC04RECNUMTYP *dRecNo, sstRec04T
   //-----------------------------------------------------------------------------
   if ( iKey != 0) return -1;
 
-  *dRecNo = this->poRecDss->WritNew( 0, oTestRec1, dRecNo);
+  iStat = this->poTestRec2Table->WritNew( 0, oTestRec1, dRecNo);
 
   return iStat;
 }
@@ -570,7 +589,7 @@ int sstRec04TestRec2FncCls::WriteRecPos(int iKey,dREC04RECNUMTYP dRecNo, sstRec0
   //-----------------------------------------------------------------------------
     if ( iKey != 0) return -1;
 
-  iStat = this->poRecDss->Writ( 0, oTestRec1, dRecNo);
+  iStat = this->poTestRec2Table->Writ( 0, oTestRec1, dRecNo);
 
   return iStat;
 }
@@ -580,7 +599,7 @@ int sstRec04TestRec2FncCls::DeleteRecPos(int            iKey,
 {
   if ( iKey != 0) return -1;
 
-  int iStat = this->poRecDss->RecSetDeleted(0,dRecNo);
+  int iStat = this->poTestRec2Table->RecSetDeleted(0,dRecNo);
   // delete(this->poRecDss);
 
   return iStat;
@@ -589,7 +608,7 @@ int sstRec04TestRec2FncCls::DeleteRecPos(int            iKey,
 dREC04RECNUMTYP sstRec04TestRec2FncCls::RecordCount() const
 {
   dREC04RECNUMTYP dRecNo = 0;
-  dRecNo = this->poRecDss->count();
+  dRecNo = this->poTestRec2Table->count();
 
   return dRecNo;
 }
@@ -608,19 +627,19 @@ int sstRec04TestRec2FncCls::CloseCsvFile(int iKey, char *cCsvFilNam)
   sstMisc01AscFilCls oExpFil;
   sstMisc01AscRowCls oExpRow;
 
-  dRecNo = this->poRecDss->count();
+  dRecNo = this->poTestRec2Table->count();
   iStat = oExpFil.fopenWr ( 0, cCsvFilNam);
   if(iStat < 0)
   {
     // iStat = oRecDss.Close(0);
-    delete (this->poRecDss);
+    // delete (this->poTestRec2Table);
     return -2;
   }
 
   // Loop over all records in table
   for (dREC04RECNUMTYP ll = 1; ll <= dRecNo; ll++)
   {
-    iStat = this->poRecDss->Read( 0, ll, &oTestRec);
+    iStat = this->poTestRec2Table->Read( 0, ll, &oTestRec);
     if (iStat >= 0)
     {  // if no read error and not marked deleted
       // iStat = Str1_Init(0,&sOutStr);
@@ -631,7 +650,7 @@ int sstRec04TestRec2FncCls::CloseCsvFile(int iKey, char *cCsvFilNam)
     }
   }
   // iStat = oRecDss.Close(0);
-  delete (this->poRecDss);
+  // delete (this->poTestRec2Table);
   iStat = oExpFil.fcloseFil(0);
 
   return iStat;
