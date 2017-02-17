@@ -1097,6 +1097,27 @@ class sstRec04InternCls
                        sstRec04TreeKeyCls  *oTre,
                        dREC04RECNUMTYP    SNr1,
                        dREC04RECNUMTYP   *SNr2);
+     //=============================================================================
+     /**
+     * @brief Seach next equal
+     *
+     * @param iKey       [in]     For the moment 0
+     * @param oTre       [in out] Tree system
+     * @param vSearchMin [in]     Min of search
+     * @param vSearchMax [in]     Max of search
+     * @param SNr        [in out] old adn new record number
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int TreSeaNxtEQ ( int                   iKey,
+                       sstRec04TreeKeyCls   *oTre,
+                       void                 *vSearchMin,
+                       void                 *vSearchMax,
+                       dREC04RECNUMTYP      *SNr);
      //==============================================================================
      /**
      * @brief TreSeaGE
@@ -1119,7 +1140,7 @@ class sstRec04InternCls
      //==============================================================================
      /**
      * @brief // Is true, if Compare Value AdrOld is equal than AdrNew  <BR>
-     * iStat = oRecMem.DSiCompIsEqual ( iKey, *oTre, *vAdr1, *vCompAdr);
+     * iStat = oRecMem.DSiCompEQ ( iKey, *oTre, *vAdr1, *vCompAdr);
      *
      * @param iKey     [in] For the moment 0
      * @param oTre     [in] For the moment 0
@@ -1132,14 +1153,14 @@ class sstRec04InternCls
      * @retval   < 0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
-     int DSiCompIsEqual ( int                     iKey,
+     int DSiCompEQ ( int                     iKey,
                          sstRec04TreeHeaderCls  *oTre,
                          void                   *vAdr1,
                          void                   *vCompAdr);
      //==============================================================================
      /**
-     * @brief // Is true, if Compare Value AdrOld is equal than AdrNew  <BR>
-     * iStat = oRecMem.DSiCompNotEqual ( iKey, *oTre, *vAdr1, *vCompAdr);
+     * @brief // Is true, if Compare Value AdrOld is not equal than AdrNew  <BR>
+     * iStat = oRecMem.DSiCompNE ( iKey, *oTre, *vAdr1, *vCompAdr);
      *
      * @param iKey     [in] For the moment 0
      * @param oTre     [in] For the moment 0
@@ -1152,14 +1173,14 @@ class sstRec04InternCls
      * @retval   < 0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
-     int DSiCompNotEqual ( int                     iKey,
+     int DSiCompNE ( int                     iKey,
                            sstRec04TreeHeaderCls  *oTre,
                            void                   *vAdr1,
                            void                   *vCompAdr);
      //==============================================================================
      /**
-     * @brief // Is true, if Compare Value AdrOld is equal than AdrNew  <BR>
-     * iStat = oRecMem.DSiCompSmaller ( iKey, *oTre, *vAdr1, *vCompAdr);
+     * @brief // Is true, if Compare Value AdrOld is smaller than AdrNew  <BR>
+     * iStat = oRecMem.DSiCompLT ( iKey, *oTre, *vAdr1, *vCompAdr);
      *
      * @param iKey     [in] For the moment 0
      * @param oTre     [in] For the moment 0
@@ -1172,7 +1193,27 @@ class sstRec04InternCls
      * @retval   < 0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
-     int DSiCompSmaller ( int                     iKey,
+     int DSiCompLT ( int                     iKey,
+                          sstRec04TreeHeaderCls  *oTre,
+                          void                   *vAdr1,
+                          void                   *vCompAdr);
+     //==============================================================================
+     /**
+     * @brief // Is true, if Compare Value AdrOld is greater/equal than AdrNew  <BR>
+     * iStat = oRecMem.DSiCompGE ( iKey, *oTre, *vAdr1, *vCompAdr);
+     *
+     * @param iKey     [in] For the moment 0
+     * @param oTre     [in] For the moment 0
+     * @param vAdr1    [in] For the moment 0
+     * @param vCompAdr [in] For the moment 0
+     *
+     * @return Errorstate
+     *
+     * @retval   = 0: OK
+     * @retval   < 0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int DSiCompGE ( int                     iKey,
                           sstRec04TreeHeaderCls  *oTre,
                           void                   *vAdr1,
                           void                   *vCompAdr);

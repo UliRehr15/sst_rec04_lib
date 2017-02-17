@@ -265,7 +265,7 @@ int main()
 
     //--- Testing binary tree sorting --------------------------------------------
     sstRec04TreeKeyCls oTriKey_CC;  // new tree identification object for sorting chars
-    sstRec04TreeKeyCls oTriKey_I2;  // new tree identification object for sorting ints
+    sstRec04TreeKeyCls oTriKey_D8;  // new tree identification object for sorting ints
     dREC04RECNUMTYP dRecNo = 0;
     sstRec04TestRec1Cls oTstRec11;  // Test Record 1 Write
     sstRec04TestRec1Cls oTstRec12;  // Test Record 1 Read
@@ -277,7 +277,7 @@ int main()
       assert(iStat == 0);
       // Initialize new Sorttree 2 in RecMem for test Record 1
       // Sorting value should be iValue
-      iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
+      iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_D8);
       assert(iStat == 0);
 
       // insert test record 1 (int,char)
@@ -304,8 +304,8 @@ int main()
       iStat = oTestRecMem1.TreBld ( 0, &oTriKey_CC);
       assert(iStat == 0);
 
-      // Full rebuild of sorting tree 2 oTriKey_I2 (ints) in RecMem
-      iStat = oTestRecMem1.TreBld ( 0, &oTriKey_I2);
+      // Full rebuild of sorting tree 2 oTriKey_D8 (ints) in RecMem
+      iStat = oTestRecMem1.TreBld ( 0, &oTriKey_D8);
       assert(iStat == 0);
 
       // Tree 1: Sort order 4,2,5,1,3
@@ -393,30 +393,30 @@ int main()
       // Return next greater/equal record and number for given record
       // Start with record 0
       dRecNo1 = 0;
-      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
       assert(oTstRec12.iVal == 10);
       assert(dRecNo1==3);
 
-      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
       assert(oTstRec12.iVal == 15);
       assert(dRecNo1==5);
 
-      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
       assert(oTstRec12.iVal == 20);
       assert(dRecNo1==1);
 
-      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
       assert(oTstRec12.iVal == 20);
       assert(dRecNo1==4);
 
-      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+      iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
       assert(oTstRec12.iVal == 30);
       assert(dRecNo1==2);
 
 
       dRecNo1 = 0;
       // return record number for smallest value for tree oTriKey_CC
-      iStat = oTestRecMem1.TreSeaFrst ( 0, &oTriKey_I2, &dRecNo1);
+      iStat = oTestRecMem1.TreSeaFrst ( 0, &oTriKey_D8, &dRecNo1);
 
       // Result should be 4 for value = ascr
       assert(dRecNo1==3);
@@ -424,19 +424,19 @@ int main()
       sRecNo2 = 0;
 
       // Return record number for next greater/equal value
-      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_I2, dRecNo1, &sRecNo2);
+      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_D8, dRecNo1, &sRecNo2);
       dRecNo1 = sRecNo2;
       assert(dRecNo1==5);
-      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_I2, dRecNo1, &sRecNo2);
+      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_D8, dRecNo1, &sRecNo2);
       dRecNo1 = sRecNo2;
       assert(dRecNo1==1);
-      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_I2, dRecNo1, &sRecNo2);
+      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_D8, dRecNo1, &sRecNo2);
       dRecNo1 = sRecNo2;
       assert(dRecNo1==4);
-      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_I2, dRecNo1, &sRecNo2);
+      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_D8, dRecNo1, &sRecNo2);
       dRecNo1 = sRecNo2;
       assert(dRecNo1==2);
-      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_I2, dRecNo1, &sRecNo2);
+      iStat = oTestRecMem1.TreSeaNxtGE ( 0, &oTriKey_D8, dRecNo1, &sRecNo2);
       assert(sRecNo2==0);
 
     }
@@ -444,7 +444,7 @@ int main()
     //--- Testing binary tree sorting (build tree on the fly) --------------------
 
     sstRec04TreeKeyCls oTriKey_CC;  // new tree identification object for sorting chars
-    sstRec04TreeKeyCls oTriKey_I2;  // new tree identification object for sorting ints
+    sstRec04TreeKeyCls oTriKey_D8;  // new tree identification object for sorting ints
     dREC04RECNUMTYP dRecNo = 0;
     sstRec04TestRec1Cls oTstRec11;
     sstRec04TestRec1Cls oTstRec12;
@@ -455,7 +455,7 @@ int main()
     iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.cVal, sizeof(oTstRec11.cVal), sstRecTyp_CC, &oTriKey_CC);
     assert(iStat == 0);
     // Sorting value should be iValue
-    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
+    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_D8);
     assert(iStat == 0);
 
     // insert test record (int,char) and update trees
@@ -501,19 +501,19 @@ int main()
     // Start with record 0
 
     dRecNo1 = 0;
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
     assert(oTstRec12.iVal == 10);
     assert(dRecNo1==3);
 
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
     assert(oTstRec12.iVal == 20);
     assert(dRecNo1==1);
 
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
     assert(oTstRec12.iVal == 30);
     assert(dRecNo1==2);
 
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
     assert(oTstRec12.iVal == 40);
     assert(dRecNo1==4);
   }
@@ -521,7 +521,7 @@ int main()
 //--- Rewrite record and update tree(s), search value in tree
 
     sstRec04TreeKeyCls oTriKey_CC;  // new tree identification object for sorting chars
-    sstRec04TreeKeyCls oTriKey_I2;  // new tree identification object for sorting ints
+    sstRec04TreeKeyCls oTriKey_D8;  // new tree identification object for sorting ints
     dREC04RECNUMTYP dRecNo = 0;
     sstRec04TestRec1Cls oTstRec11;
     sstRec04TestRec1Cls oTstRec12;
@@ -532,7 +532,7 @@ int main()
     iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.cVal, sizeof(oTstRec11.cVal), sstRecTyp_CC, &oTriKey_CC);
     assert(iStat == 0);
     // Sorting value should be iValue
-    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
+    iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_D8);
     assert(iStat == 0);
 
     // insert test record (int,char) and update trees
@@ -586,19 +586,19 @@ int main()
     // Start with record 0
 
     dRecNo1 = 0;
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
     assert(oTstRec12.iVal == 10);
     assert(dRecNo1==3);
 
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
     assert(oTstRec12.iVal == 20);
     assert(dRecNo1==1);
 
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
     assert(oTstRec12.iVal == 30);
     assert(dRecNo1==2);
 
-    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
     assert(oTstRec12.iVal == 40);
     assert(dRecNo1==4);
 
@@ -644,19 +644,19 @@ int main()
     assert(dRecNo1 == 0);
 
 //    dRecNo1 = 0;
-//    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+//    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
 //    assert(oTstRec12.iValue == 10);
 //    assert(dRecNo1==3);
 
-//    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+//    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
 //    assert(oTstRec12.iValue == 20);
 //    assert(dRecNo1==1);
 
-//    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+//    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
 //    assert(oTstRec12.iValue == 30);
 //    assert(dRecNo1==2);
 
-//    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_I2, &oTstRec12, &dRecNo1);
+//    iStat = oTestRecMem1.TreReadNxtGE ( 0, &oTriKey_D8, &oTstRec12, &dRecNo1);
 //    assert(oTstRec12.iValue == 40);
 //    assert(dRecNo1==4);
 
@@ -665,7 +665,7 @@ int main()
     // Tree Tests with equal values
     {
       sstRec04TreeKeyCls oTriKey_CC;  // new tree identification object for sorting chars
-      sstRec04TreeKeyCls oTriKey_I2;  // new tree identification object for sorting ints
+      sstRec04TreeKeyCls oTriKey_D8;  // new tree identification object for sorting ints
       dREC04RECNUMTYP dRecNo = 0;
       sstRec04TestRec1Cls oTstRec11;
       sstRec04TestRec1Cls oTstRec12;
@@ -676,7 +676,7 @@ int main()
       iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.cVal, sizeof(oTstRec11.cVal), sstRecTyp_CC, &oTriKey_CC);
       assert(iStat == 0);
       // Sorting value should be iValue
-      iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_I2);
+      iStat = oTestRecMem1.TreIni ( 0, &oTstRec11, &oTstRec11.iVal, sizeof(oTstRec11.iVal), sstRecTyp_I2, &oTriKey_D8);
       assert(iStat == 0);
 
       // insert test record (int,char) and update trees
@@ -736,6 +736,161 @@ int main()
       assert(dRecNo1==0);
 
     }
+  // Test Class function TriSeaEQ
+  iStat = Test_TreSeaEQ ( 0);
+  assert(iStat == 0);
+
   return 0;
+}
+//=============================================================================
+int Test_TreSeaEQ (int iKey) // v  -> For the moment 0
+//-----------------------------------------------------------------------------
+{
+  char cTest1[5];
+  char cTest2[5];
+  int iRet  = 0;
+  int iStat = 0;
+  //-----------------------------------------------------------------------------
+  if ( iKey != 0) return -1;
+
+  {
+//--- Rewrite record and update tree(s), search value in tree
+
+    sstRec04TreeKeyCls oTriKey_CC;  // new tree identification object for sorting chars
+    sstRec04TreeKeyCls oTriKey_D8;  // new tree identification object for sorting doubles
+    dREC04RECNUMTYP dRecNo = 0;
+    sstRec04TestRec2Cls oTstRec12;
+    sstRec04Cls oTestRecMem1(sizeof(oTstRec12));  // new sstRecMem Table for TstRec12 records
+
+    // Initialize new Sorttrees for RecMem
+
+    // Sorting value should be cVal
+    iStat = oTestRecMem1.TreIni ( 0, &oTstRec12, &oTstRec12.cVal, sizeof(oTstRec12.cVal), sstRecTyp_CC, &oTriKey_CC);
+    assert(iStat == 0);
+
+    // Sorting value should be dVal
+    iStat = oTestRecMem1.TreIni ( 0, &oTstRec12, &oTstRec12.dVal, sizeof(oTstRec12.dVal), sstRecTyp_D8, &oTriKey_D8);
+    assert(iStat == 0);
+
+    oTstRec12.dVal = 4.0;
+    strcpy(oTstRec12.cVal,"dscr");  // RecNo = 1
+    iStat = oTestRecMem1.WritNew ( 0, &oTstRec12,&dRecNo);
+
+    oTstRec12.dVal = 3.0;
+    strcpy(oTstRec12.cVal,"cscr");  // RecNo = 2
+    iStat = oTestRecMem1.WritNew ( 0, &oTstRec12,&dRecNo);
+
+    oTstRec12.dVal = 1.0;
+    strcpy(oTstRec12.cVal,"ascr");  // RecNo = 3
+    iStat = oTestRecMem1.WritNew ( 0, &oTstRec12,&dRecNo);
+
+    oTstRec12.dVal = 5.0;
+    strcpy(oTstRec12.cVal,"escr");  // RecNo = 4
+    iStat = oTestRecMem1.WritNew ( 0, &oTstRec12,&dRecNo);
+
+    oTstRec12.dVal = 1.0;
+    strcpy(oTstRec12.cVal,"ascr");  // RecNo = 5
+    iStat = oTestRecMem1.WritNew ( 0, &oTstRec12,&dRecNo);
+
+    oTstRec12.dVal = 2.0;
+    strcpy(oTstRec12.cVal,"cccc");  // RecNo = 6
+    iStat = oTestRecMem1.WritNew ( 0, &oTstRec12,&dRecNo);
+
+    iStat = oTestRecMem1.TreBld(0,&oTriKey_CC);
+    iStat = oTestRecMem1.TreBld(0,&oTriKey_D8);
+
+    // Search records inside value range ascr-ascr
+    dRecNo = 0;
+    strcpy(cTest1,"ascr");
+    dRecNo = 0;
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0,  &oTriKey_CC, cTest1, cTest1, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 3);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0,  &oTriKey_CC, cTest1, cTest1, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 5);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0,  &oTriKey_CC, cTest1, cTest1, &dRecNo);
+    assert(iStat == 0);
+    assert(dRecNo == 0);
+
+    // search records inside value range cccc-dscr
+    dRecNo = 0;
+    strcpy(cTest1,"cccc");
+    strcpy(cTest2,"dscr");
+    dRecNo = 0;
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_CC, cTest1, cTest2, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 6);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_CC, cTest1, cTest2, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 2);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_CC, cTest1, cTest2, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 1);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_CC, cTest1, cTest2, &dRecNo);
+    assert(iStat == 0);
+    assert(dRecNo == 0);
+
+    // search records inside value range 1.0 - 1.0
+    dRecNo = 0;
+    double dVal1 = 1.0;
+    double dVal2 = 1.0;
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_D8, &dVal1, &dVal2, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 3);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_D8, &dVal1, &dVal2, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 5);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_D8, &dVal1, &dVal2, &dRecNo);
+    assert(iStat == 0);
+    assert(dRecNo == 0);
+
+    // search records inside value range 2.0 - 4.0
+    dRecNo = 0;
+    dVal1 = 2.0;
+    dVal2 = 4.0;
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_D8, &dVal1, &dVal2, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 6);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_D8, &dVal1, &dVal2, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 2);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_D8, &dVal1, &dVal2, &dRecNo);
+    assert(iStat > 0);
+    assert(dRecNo == 1);
+
+    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_CC, &dVal1, &dVal2, &dRecNo);
+    assert(iStat == 0);
+    assert(dRecNo == 0);
+
+
+}
+  iStat = 0;
+
+  // Fatal Errors goes to an assert
+
+  // Pipe |
+  // Smaller <
+  // Greater >
+
+  assert(iRet >= 0);
+
+  // Small Errors will given back
+  iRet = iStat;
+
+  return iRet;
 }
 //=============================================================================

@@ -885,7 +885,79 @@ int sstRec04InternCls::TreSeaNxtGE ( int               eKey,
 
   return iStat;
 }
-//-----------------------------------------------------------------------------
+//=============================================================================
+int sstRec04InternCls::TreSeaNxtEQ ( int                   iKey,
+                                     sstRec04TreeKeyCls   *oTre,
+                                     void                 *vSearchMin,
+                                     void                 *vSearchMax,
+                                     dREC04RECNUMTYP      *SNr)
+{
+  dREC04RECNUMTYP  SeachNr2;
+  void *Satz2Adr;
+  sstRec04TreeHeaderCls *poTreHead;
+  int iKey2 = 0;
+
+  int iRet  = 0;
+  int iStat = 0;
+//.............................................................................
+  if ( iKey != 0) return -1;
+
+  poTreHead = (sstRec04TreeHeaderCls*) &this->poTre[oTre->iTriNo-1];
+
+  if (*SNr == 0)
+  {
+    // Den ersten Satz suchen
+    // iStat = DS1_TreSeaGE ( 0, WorkDss, TreNr, vValMin, SNr);
+    iStat = TreSeaGE ( 0, oTre, vSearchMin, SNr);
+  }
+  else
+  {
+    // Den nächsten Satz suchen
+    Satz2Adr = malloc ( this->poVector->GetSize());
+    assert(Satz2Adr);
+
+    // In Baum TreNr für Datensatz SNr1 den nächst Größeren suchen.
+    // iStat = DS1_TreSeaNxtGT ( 0, WorkDss, TreNr, *SNr, &SeachNr2);
+    iStat = this->DSiTreSeaNxtGT( &iKey2, oTre, 1, *SNr, &SeachNr2);
+
+    if(SeachNr2 <= 0)
+    {
+      iStat = 0;
+      *SNr = 0;
+    }
+    else
+    {
+      // Datensatz an absoluter Position lesen.
+      // iStat = DS1_DsLesAbs ( 0, WorkDss, Satz2Adr, SeachNr2);
+      iStat = this->ReadInt( 0, SeachNr2, Satz2Adr);
+
+      // Vergleich -Kleiner Gleich- der Sortiervariablen
+      // True wenn Alt Kleiner gleich
+      // True wenn Alt Größer gleich: Fund ist kleiner Max-Wert
+      // iStat = DSi_CompGE ( 0, oTre, vSearchMax, Satz2Adr);
+      iStat = this->DSiCompGE ( 0, poTreHead, vSearchMax, Satz2Adr);
+      if (iStat == 1) *SNr = SeachNr2;
+      else *SNr = 0;  // Nix mehr gefunden
+    }
+
+
+    free(Satz2Adr);
+  }
+
+
+  // Heavy Errors goes to an assert
+  if (iRet < 0)
+  {
+    // Expression (iRet >= 0) has to be fullfilled
+    assert("Error in function: xxx");
+  }
+
+  // Small Errors will given back
+  iRet = iStat;
+
+  return iRet;
+}
+//=============================================================================
 int sstRec04InternCls::TreSeaGE ( int                  iKey,
                                   sstRec04TreeKeyCls  *oTre,
                                   void                *Val,
@@ -1313,7 +1385,12 @@ int sstRec04InternCls::DSiTreSeach ( int                   iKey,
 
 
   // Einstiegsdatensatz für Baum TreNr ermitteln
-  SNr = TreVerw[oTre->iTriNo-1].dRoot;
+  // SNr = TreVerw[oTre->iTriNo-1].dRoot;
+  if (*xx_SNr == 0)
+    // SNr = TreVerw[oTre->iTriNo-1].dRoot;
+    SNr = TreVerw->dRoot;
+  else
+    SNr = *xx_SNr;
 
   // read record data into local heap record
   iStat = this->ReadInt(  0, SNr, SAdr);
@@ -1330,11 +1407,11 @@ int sstRec04InternCls::DSiTreSeach ( int                   iKey,
   *xx_SNr = 0;  // Rückgabedatensatz initialisieren
 
   // Vergleich der Sortiervariablen
-  while (DSiCompNotEqual( 0, TreVerw, vSearchVal, SAdr)  && (SNr != 0)  )
+  while (DSiCompNE( 0, TreVerw, vSearchVal, SAdr)  && (SNr != 0)  )
   {
 
     // Vergleich der Sortiervariablen
-    if ( DSiCompSmaller( 0, TreVerw, vSearchVal, SAdr)  )
+    if ( DSiCompLT( 0, TreVerw, vSearchVal, SAdr)  )
     {
 
       // Gefundener Satz hat größeren Wert
@@ -1741,7 +1818,7 @@ int sstRec04InternCls::TreDelValue ( int                   iKey,
 
 
   // Vergleich der Sortiervariablen
-  while (DSiCompNotEqual ( 0, &this->poTre[oTre->iTriNo-1], vSearchValue, v_xx) )
+  while (DSiCompNE ( 0, &this->poTre[oTre->iTriNo-1], vSearchValue, v_xx) )
   //  while (v != x->Key)
   {
     // p = x;
@@ -1752,7 +1829,7 @@ int sstRec04InternCls::TreDelValue ( int                   iKey,
     // x = (v < x->key) ? x->l : x->r;
     // Vergleich der Sortiervariablen
 
-    if ( DSiCompSmaller ( 0, &this->poTre[oTre->iTriNo-1], vSearchValue, v_xx)  )
+    if ( DSiCompLT ( 0, &this->poTre[oTre->iTriNo-1], vSearchValue, v_xx)  )
     {
 
       // Datensatz xx lesen
@@ -1852,7 +1929,7 @@ int sstRec04InternCls::TreDelValue ( int                   iKey,
   if (dRecNo_pp != 0)
   {
     // if (v < p->Key)
-    if ( DSiCompSmaller ( 0, &this->poTre[oTre->iTriNo-1], vSearchValue, v_pp)  )
+    if ( DSiCompLT ( 0, &this->poTre[oTre->iTriNo-1], vSearchValue, v_pp)  )
     {
       // p->l = x;
       oTreNode_pp.dLeft_LT = dRecNo_xx;
@@ -1965,7 +2042,7 @@ int sstRec04InternCls::TreDelIntern ( int                   iKey,
 
   // do loop while true
   // Vergleich der Sortiervariablen
-  while ( !(DSiCompIsEqual ( 0, poTreHead, vSearchValue, v_xx) && dRecNo_xx==dRecNo))
+  while ( !(DSiCompEQ ( 0, poTreHead, vSearchValue, v_xx) && dRecNo_xx==dRecNo))
   {
     // p = x;
     memcpy( v_pp, v_xx, this->poVector->GetSize());
@@ -1975,7 +2052,7 @@ int sstRec04InternCls::TreDelIntern ( int                   iKey,
     // x = (v < x->key) ? x->l : x->r;
     // Vergleich der Sortiervariablen
 
-    if ( DSiCompSmaller ( 0, poTreHead, vSearchValue, v_xx)  )
+    if ( DSiCompLT ( 0, poTreHead, vSearchValue, v_xx)  )
     {
 
       // Datensatz xx lesen
@@ -2076,7 +2153,7 @@ int sstRec04InternCls::TreDelIntern ( int                   iKey,
   if (dRecNo_pp != 0)
   {
     // if (v < p->Key)
-    if ( DSiCompSmaller ( 0, poTreHead, vSearchValue, v_pp)  )
+    if ( DSiCompLT ( 0, poTreHead, vSearchValue, v_pp)  )
     {
       // p->l = x;
       oTreNode_pp.dLeft_LT = dRecNo_xx;
@@ -2105,7 +2182,7 @@ int sstRec04InternCls::TreDelIntern ( int                   iKey,
   else return 0;
 }
 //=============================================================================
-int sstRec04InternCls::DSiCompIsEqual ( int                     Key,
+int sstRec04InternCls::DSiCompEQ ( int                     Key,
                                        sstRec04TreeHeaderCls  *oTre,
                                        void                   *Adr1,
                                        void                   *CompDs)
@@ -2129,7 +2206,7 @@ int sstRec04InternCls::DSiCompIsEqual ( int                     Key,
   return iRet;
 }
 //=============================================================================
-int sstRec04InternCls::DSiCompNotEqual ( int                    Key,
+int sstRec04InternCls::DSiCompNE ( int                    Key,
                                          sstRec04TreeHeaderCls *oTre,
                                          void                  *Adr1,
                                          void                  *CompDs)
@@ -2152,7 +2229,7 @@ int sstRec04InternCls::DSiCompNotEqual ( int                    Key,
   return iRet;
 }
 //=============================================================================
-int sstRec04InternCls::DSiCompSmaller ( int                     iKey,
+int sstRec04InternCls::DSiCompLT ( int                     iKey,
                                         sstRec04TreeHeaderCls  *oTre,
                                         void                   *Adr1,
                                         void                   *CompDs)
@@ -2171,6 +2248,29 @@ int sstRec04InternCls::DSiCompSmaller ( int                     iKey,
 
   // Vergleicht zwei Variablen ( AdrAlt LT AdrNeu).
   iRet = this->DSiVarCompLT ( 0, &oTre->eTyp, Adr1, Adr2);
+
+  return iRet;
+}
+//=============================================================================
+int sstRec04InternCls::DSiCompGE ( int                     iKey,
+                                        sstRec04TreeHeaderCls  *oTre,
+                                        void                   *Adr1,
+                                        void                   *CompDs)
+//.............................................................................
+{
+  void        *Adr2;    //   <-> Vergleichsvariable
+  int        iUsrOfs;   // offset of user data in full record
+
+  int iRet = 0;
+//.............................................................................
+  if (iKey != 0) return -1;
+
+  // Adresse der Vergleichsvariablen in den Zwischenspeichern
+  this->poVector->GetOffset(0,this->poRecMemUsrKey,&iUsrOfs);
+  this->poVector->CalcSetPos(CompDs, &Adr2, (iUsrOfs + oTre->iOffset));
+
+  // Vergleicht zwei Variablen ( AdrAlt LT AdrNeu).
+  iRet = this->DSiVarCompGE ( 0, &oTre->eTyp, Adr1, Adr2);
 
   return iRet;
 }

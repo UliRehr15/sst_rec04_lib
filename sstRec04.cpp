@@ -217,6 +217,16 @@ int sstRec04Cls::TreSeaNxtGE ( int             iKey,
   return this->poRec01Intern->TreSeaNxtGE(iKey,oTre,SNr1,SNr2);
 }
 //==============================================================================
+int sstRec04Cls::TreSeaNxtEQ ( int                   iKey,
+                               sstRec04TreeKeyCls   *oTre,
+                               void                 *vSearchMin,
+                               void                 *vSearchMax,
+                               dREC04RECNUMTYP      *SNr)
+//-----------------------------------------------------------------------------
+{
+  return this->poRec01Intern->TreSeaNxtEQ(iKey,oTre,vSearchMin,vSearchMax,SNr);
+}
+//==============================================================================
 int sstRec04Cls::TreWriteNew( int               iKey,
                             void            *vRecAdr,
                             dREC04RECNUMTYP *dRecNo)

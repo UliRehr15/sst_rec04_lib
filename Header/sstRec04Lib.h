@@ -544,10 +544,33 @@ public:
   * @retval   < 0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
-  int TreSeaNxtGE ( int                iKey,
-                    sstRec04TreeKeyCls     *poTre,
-                    dREC04RECNUMTYP    dRecNo1,
-                    dREC04RECNUMTYP   *dRecNo2);
+  int TreSeaNxtGE ( int                  iKey,
+                    sstRec04TreeKeyCls  *poTre,
+                    dREC04RECNUMTYP      dRecNo1,
+                    dREC04RECNUMTYP     *dRecNo2);
+  //=============================================================================
+  /**
+  * @brief // Seach next equal with search range and sort tree key  <BR>
+  * iStat = oRecMem.TreSeaNxtEQ ( iKey, *poTre, &vSearchMin, &vSearchMar, *dRecNo2);
+  *
+  * @param iKey       [in]     For the moment 0
+  * @param poTre      [in out] Sort Tree Key
+  * @param vSearchMin [in]     Min search value
+  * @param vSearchMax [in]     Max search value
+  * @param dRecNo     [in out] old and new record number
+  *
+  * @return Errorstate
+  *
+  * @retval   = 1: Found next record with value inside search range
+  * @retval   = 0: Nothing more found > dRecNo = 0
+  * @retval   < 0: Unspecified Error
+  */
+  // ----------------------------------------------------------------------------
+  int TreSeaNxtEQ ( int                   iKey,
+                    sstRec04TreeKeyCls   *poTre,
+                    void                 *vSearchMin,
+                    void                 *vSearchMax,
+                    dREC04RECNUMTYP      *dRecNo);
   //=============================================================================
   /**
   * @brief // Write new record into record memory and update all trees  <BR>

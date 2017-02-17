@@ -6,15 +6,17 @@ This lib based on idea "STASH" from bruce eckels book "thinking in c++".
 
 I take this idea as base for small record management system.
 
-This library should be build with QT 5 and qt creator 3.0.
+This library should be build with QT 5.5 and qt creator 3.5.1.
 
 Structure of coding projects should be:
 
 .. [libs] <BR>
-   [sstRec04Lib]<BR>
-   [Doxygen_ouput]
+   [sstStr01Lib] <BR>
+   [sstMisc01Lib] <BR>
+   [sstRec04Lib] <BR>
+   [Doxygen_Output] <BR>
 
-November 2015, Hanover, Germany, Uli Rehr
+August 2016, Hanover, Germany, Uli Rehr
 
 Versions <BR>
 20151117: 4.0 Fork from sstRec03 <BR>
@@ -27,3 +29,4 @@ Versions <BR>
 20160311: Vers. 4.7: New Tree Log function, patched error in tree reading / writing.  <BR>
 20160428: Vers. 4.8: Doxygen commends extented.  <BR>
 20160807: Vers. 4.9: Corrections working with test records.  <BR>
+20170217: Vers. 4.10: New class function "Search next record with equal value in sort tree".  <BR>
