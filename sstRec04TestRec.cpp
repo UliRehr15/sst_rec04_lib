@@ -331,7 +331,7 @@ int sstRec04TestRec1FncCls::CloseCsvFile(int iKey, char *cCsvFilNam)
 
   for (dREC04RECNUMTYP ll = 1; ll <= dRecNo; ll++)
   {
-    this->poTestRec1Table->Read( 0, ll, &oTestRec);
+    iStat = this->poTestRec1Table->Read( 0, ll, &oTestRec);
     if (iStat >= 0)
     {  // if no read error and not marked deleted
       // iStat = Str1_Init(0,&sOutStr);

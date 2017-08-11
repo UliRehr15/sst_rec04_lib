@@ -31,5 +31,8 @@ HEADERS    +=   sstRec04LibTest.h
 
 SOURCES    +=   sstRec04LibTest.cpp
 
-TARGET	  	= sst_rec04_lib_test
+TARGET	  	= sstRec04LibTest
+
+# copy to deployment directory
+#  DESTDIR     = ../../../../local_deploy
 
