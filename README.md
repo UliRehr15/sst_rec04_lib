@@ -31,3 +31,4 @@ Versions <BR>
 20160807: Vers. 4.9: Corrections working with test records.  <BR>
 20170217: Vers. 4.10: New class function "Search next record with equal value in sort tree".  <BR>
 20170811: Vers. 4.11: Small corrections in testing. <BR>
+20180126: Vers. 4.12: Fix problem in reading TestRec Data. <BR>

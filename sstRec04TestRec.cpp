@@ -124,14 +124,12 @@ sstRec04TestRec1FncCls::~sstRec04TestRec1FncCls()
 int sstRec04TestRec1FncCls::Csv_Read(int iKey, std::string *sTestSys_Str, sstRec04TestRec1Cls *oTestSysTypTestRecCls)
 {
   int iStat = 0;
-//  Bloc Function1 Start
-//  std::string sErrTxt;
-  // char cDelimit[2]=";";
   sstStr01Cls oCsvStr;
-  // long TPos = 0;
   int iRet  = 0;
 //-----------------------------------------------------------------------------
   if ( iKey != 0) return -1;
+
+  this->oFrmtTyp.SetReadPositon(0,0);
 
   if (iStat >= 0)
     iStat = oCsvStr.CsvString2_Int2( 0, sTestSys_Str, &oTestSysTypTestRecCls->iVal);
@@ -167,6 +165,8 @@ int sstRec04TestRec1FncCls::Csv_Write(int iKey, sstRec04TestRec1Cls *oTestSysTyp
 //  Bloc Function Write Start
   int iRet  = 0;
   if ( iKey != 0) return -1;
+
+  this->oFrmtTyp.SetReadPositon(0,0);
 
   if (iStat >= 0)
     iStat = oCsvStr.Csv_Int2_2String( 0, oTestSysTypTestRecCls->iVal, sTestSys_Str);
@@ -223,6 +223,7 @@ int sstRec04TestRec1FncCls::OpenReadCsvFile(int iKey, char *cCsvFilNam)
     iStat = oImpRow.Line_toStr1(0,&sRecStr);
 
     iStat = this->Csv_Read(0,&sRecStr,&oTestRec1);
+    assert(iStat == 0);
 
     iStat = this->poTestRec1Table->WritNew(0,&oTestRec1,&dRecNo);
 
@@ -400,14 +401,11 @@ sstRec04TestRec2FncCls::~sstRec04TestRec2FncCls()
 int sstRec04TestRec2FncCls::Csv_Read(int iKey, std::string *sTestSys_Str, sstRec04TestRec2Cls *oTestSysTypTestRecCls)
 {
   int iStat = 0;
-//  Bloc Function1 Start
-//  std::string sErrTxt;
-  // char cDelimit[2]=";";
-  // long TPos = 0;
-  // double dVal = 0.0;
   int iRet  = 0;
 //-----------------------------------------------------------------------------
   if ( iKey != 0) return -1;
+
+  this->oFrmtTyp.SetReadPositon(0,0);
 
   if (iStat >= 0)
     iStat = this->oFrmtTyp.CsvString2_Int2( 0, sTestSys_Str, &oTestSysTypTestRecCls->iVal);
@@ -460,6 +458,8 @@ int sstRec04TestRec2FncCls::Csv_Write(int iKey, sstRec04TestRec2Cls *oTestSysTyp
 //  Bloc Function Write Start
   int iRet  = 0;
   if ( iKey != 0) return -1;
+
+  this->oFrmtTyp.SetReadPositon(0,0);
 
   if (iStat >= 0)
     iStat = this->oFrmtTyp.Csv_Int2_2String( 0, oTestSysTypTestRecCls->iVal, sTestSys_Str);
@@ -529,6 +529,7 @@ int sstRec04TestRec2FncCls::OpenReadCsvFile(int iKey, char *cCsvFilNam)
     oImpRow.Line_toStr1(0,&sRecStr);
 
     iStat = this->Csv_Read(0,&sRecStr,&oTestRec2);
+    assert(iStat == 0);
 
     iStat = this->poTestRec2Table->WritNew( 0, &oTestRec2, &dRecNo);
 
