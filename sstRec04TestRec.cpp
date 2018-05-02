@@ -470,7 +470,7 @@ int sstRec04TestRec2FncCls::Csv_Write(int iKey, sstRec04TestRec2Cls *oTestSysTyp
   if (iStat >= 0)
     iStat = this->oFrmtTyp.Csv_UInt4_2String ( 0, oTestSysTypTestRecCls->ulVal, sTestSys_Str);
   if (iStat >= 0)
-    iStat = this->oFrmtTyp.Csv_Real_2String ( 0, cFrmtStrFlt, oTestSysTypTestRecCls->fVal, sTestSys_Str);
+    iStat = this->oFrmtTyp.Csv_Real_2String ( 0, oTestSysTypTestRecCls->fVal, sTestSys_Str);
   // iStat = this->oFrmtTyp.Csv_Real_2String ( 0, cFrmtStrFlt, oTestSysTypTestRecCls->fVal, sTestSys_Str);
   if (iStat >= 0)
     iStat = this->oFrmtTyp.Csv_Dbl_2String ( 0, oTestSysTypTestRecCls->dVal, sTestSys_Str);

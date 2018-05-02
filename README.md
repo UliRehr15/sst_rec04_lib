@@ -32,3 +32,4 @@ Versions <BR>
 20170217: Vers. 4.10: New class function "Search next record with equal value in sort tree".  <BR>
 20170811: Vers. 4.11: Small corrections in testing. <BR>
 20180126: Vers. 4.12: Fix problem in reading TestRec Data. <BR>
+20180502: Vers. 4.13: Small corrections for sst_str01_lib Version 1.25. <BR>
