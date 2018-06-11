@@ -11,6 +11,7 @@ This library should be build with QT 5.5 and qt creator 3.5.1.
 Structure of coding projects should be:
 
 .. [libs] <BR>
+   [sstMath01Lib] <BR>
    [sstStr01Lib] <BR>
    [sstMisc01Lib] <BR>
    [sstRec04Lib] <BR>
@@ -33,3 +34,4 @@ Versions <BR>
 20170811: Vers. 4.11: Small corrections in testing. <BR>
 20180126: Vers. 4.12: Fix problem in reading TestRec Data. <BR>
 20180502: Vers. 4.13: Small corrections for sst_str01_lib Version 1.25. <BR>
+20180611: Vers. 4.14: Fix problem in tree traversing. <BR>

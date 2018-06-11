@@ -11,7 +11,7 @@
  * See the COPYING file for more information.
  *
  **********************************************************************/
-// sstRec04Int.cpp    17.11.15  Re.    17.10.15  Re.
+// sstRec04Int.cpp    11.06.18  Re.    17.10.15  Re.
 //
 
 #include <stdio.h>
@@ -892,7 +892,7 @@ int sstRec04InternCls::TreSeaNxtEQ ( int                   iKey,
                                      void                 *vSearchMax,
                                      dREC04RECNUMTYP      *SNr)
 {
-  dREC04RECNUMTYP  SeachNr2;
+  dREC04RECNUMTYP  SeachNr2 = 0;
   void *Satz2Adr;
   sstRec04TreeHeaderCls *poTreHead;
   int iKey2 = 0;
@@ -930,6 +930,7 @@ int sstRec04InternCls::TreSeaNxtEQ ( int                   iKey,
       // Datensatz an absoluter Position lesen.
       // iStat = DS1_DsLesAbs ( 0, WorkDss, Satz2Adr, SeachNr2);
       iStat = this->ReadInt( 0, SeachNr2, Satz2Adr);
+      assert(iStat >= 0);
 
       // Vergleich -Kleiner Gleich- der Sortiervariablen
       // True wenn Alt Kleiner gleich
