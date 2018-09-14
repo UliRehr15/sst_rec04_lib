@@ -6,7 +6,7 @@ This lib based on idea "STASH" from bruce eckels book "thinking in c++".
 
 I take this idea as base for small record management system.
 
-This library should be build with QT 5.5 and qt creator 3.5.1.
+This Library is created with QtCreator 4.5.2 and gcc 7.3.0.
 
 Structure of coding projects should be:
 
@@ -35,3 +35,4 @@ Versions <BR>
 20180126: Vers. 4.12: Fix problem in reading TestRec Data. <BR>
 20180502: Vers. 4.13: Small corrections for sst_str01_lib Version 1.25. <BR>
 20180611: Vers. 4.14: Fix problem in tree traversing. <BR>
+20180914: Vers. 4.15: Update to QtCreator 4.5.2 and gcc 7.3.0. <BR>

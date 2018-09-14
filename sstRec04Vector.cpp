@@ -72,7 +72,7 @@ int sstRec04VectSysCls::AddCargoSys( int             iKey,
   {
     iStat = sizeof(sstRec04CargoMemCls);
     Adr = calloc( iStat,1);
-    if (Adr <= NULL) assert(0);
+    if (Adr == NULL) assert(0);
     this->poMemAdr = (sstRec04CargoMemCls*) Adr;
     this->poMemAdr[this->uiNumCargoSys-1].SetOffset(0);
   }
@@ -80,7 +80,7 @@ int sstRec04VectSysCls::AddCargoSys( int             iKey,
   {  // next cargo memory
     iStat = this->uiNumCargoSys * sizeof(sstRec04CargoMemCls);
     Adr = realloc(this->poMemAdr , iStat);
-    if (Adr <= NULL) assert(0);
+    if (Adr == NULL) assert(0);
     this->poMemAdr = (sstRec04CargoMemCls*) Adr;
     this->poMemAdr[this->uiNumCargoSys-1].SetOffset(this->dVectorSize);
   }
@@ -93,12 +93,12 @@ int sstRec04VectSysCls::AddCargoSys( int             iKey,
   if (uiNumCargoSys == 1)
   {
     Adr = calloc( this->dVectorSize,1);
-    if (Adr <= NULL) assert(0);
+    if (Adr == NULL) assert(0);
   }
   else
   {
     Adr = realloc(this->vVectorAdr ,this->dVectorSize);
-    if (Adr <= NULL) assert(0);
+    if (Adr == NULL) assert(0);
     // memset(Adr,0,this->dVectorSize);
 
   }

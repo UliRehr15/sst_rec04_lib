@@ -545,7 +545,7 @@ int sstRec04InternCls::TreIni ( int                iKey,
   {
     iStat = sizeof(sstRec04TreeHeaderCls);
     Adr = calloc( iStat,1);
-    if (Adr <= NULL) assert(0);
+    if (Adr == NULL) assert(0);
     this->poTre = (sstRec04TreeHeaderCls*) Adr;
     // this->poMemAdr[this->uiNumCargoSys-1].SetOffset(0);
   }
@@ -553,7 +553,7 @@ int sstRec04InternCls::TreIni ( int                iKey,
   {  // next cargo memory
     iStat = this->iTriAnz * sizeof(sstRec04TreeHeaderCls);
     Adr = realloc(this->poTre , iStat);
-    if (Adr <= NULL) assert(0);
+    if (Adr == NULL) assert(0);
     this->poTre = (sstRec04TreeHeaderCls*) Adr;
     // this->poMemAdr[this->uiNumCargoSys-1].SetOffset(this->dVectorSize);
   }
