@@ -29,10 +29,11 @@ Versions <BR>
 20160219: 4.6 Test functions extended. sst_rec04_lib now based on sst_str01_lib and sst_misc01_lib. <BR>
 20160311: Vers. 4.7: New Tree Log function, patched error in tree reading / writing.  <BR>
 20160428: Vers. 4.8: Doxygen commends extented.  <BR>
-20160807: Vers. 4.9: Corrections working with test records.  <BR>
+20160807: Vers. 4.9: Corrections working with test records 1 and 2.  <BR>
 20170217: Vers. 4.10: New class function "Search next record with equal value in sort tree".  <BR>
 20170811: Vers. 4.11: Small corrections in testing. <BR>
 20180126: Vers. 4.12: Fix problem in reading TestRec Data. <BR>
 20180502: Vers. 4.13: Small corrections for sst_str01_lib Version 1.25. <BR>
 20180611: Vers. 4.14: Fix problem in tree traversing. <BR>
 20180914: Vers. 4.15: Update to QtCreator 4.5.2 and gcc 7.3.0. <BR>
+20181101: Vers. 4.16: More Tests for Test Record 1 and 2. <BR>

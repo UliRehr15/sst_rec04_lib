@@ -23,6 +23,7 @@
 #include <string>
 
 #include <sstStr01Lib.h>
+#include <sstMisc01Lib.h>
 #include <sstRec04Lib.h>
 
 #include "sstRec04LibTest.h"
@@ -38,6 +39,35 @@ int main()
   // Do some intern Tests
   iStat = sstRec04_DoSomeInternTests ( 0);
   assert(iStat >= 0);
+
+  {
+    sstRec04TestRec1FncCls oRec1Store;
+    sstRec04TestRec1Cls oRec1;
+    dREC04RECNUMTYP dRecNo = 0;
+    std::string oFilNamStr;
+    oFilNamStr = "TestRec1.csv";
+    iStat = oRec1Store.OpenReadCsvFile(0,(char*)oFilNamStr.c_str());
+    if (iStat == -2)
+    { // File not exist
+      iStat = oRec1.SetAll(1,(char*)"Test1");
+      oRec1Store.WriteNew(0,&dRecNo,&oRec1);
+    }
+    iStat = oRec1Store.CloseCsvFile(0,(char*)oFilNamStr.c_str());
+  }
+  {
+    sstRec04TestRec2FncCls oRec2Store;
+    sstRec04TestRec2Cls oRec2;
+    dREC04RECNUMTYP dRecNo = 0;
+    std::string oFilNamStr;
+    oFilNamStr = "TestRec2.csv";
+    iStat = oRec2Store.OpenReadCsvFile(0,(char*)oFilNamStr.c_str());
+    if (iStat == -2)
+    { // File not exist
+      iStat = oRec2.SetAll(1,1,2,2,1.1,2.2,true,(char*)"Test2");
+      oRec2Store.WriteNew(0,&dRecNo,&oRec2);
+    }
+    iStat = oRec2Store.CloseCsvFile(0,(char*)oFilNamStr.c_str());
+  }
 
   {
 

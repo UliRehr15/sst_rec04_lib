@@ -7,6 +7,7 @@ CONFIG       -= windows
 CONFIG       -= release  # DEBUG is active
 
 INCLUDEPATH +=  ../../sst_str01_lib/Header
+INCLUDEPATH +=  ../../sst_misc01_lib/Header
 INCLUDEPATH +=  ../Header
 
 debug{

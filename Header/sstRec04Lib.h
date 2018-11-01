@@ -1251,8 +1251,10 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =  0: OK
+    * @retval   = -1: Wrong Key
+    * @retval   = -2: Open File Error
+    * @retval   <  0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int OpenReadCsvFile(int   iKey,

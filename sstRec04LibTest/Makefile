@@ -15,7 +15,7 @@ CXX           = clang++
 DEFINES       = -DQT_QML_DEBUG
 CFLAGS        = -pipe -g -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I. -I../../sst_str01_lib/Header -I../Header -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-clang
+INCPATH       = -I. -I../../sst_str01_lib/Header -I../../sst_misc01_lib/Header -I../Header -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-clang
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -311,6 +311,7 @@ compiler_clean:
 ####### Compile
 
 sstRec04LibTest.o: sstRec04LibTest.cpp ../../sst_str01_lib/Header/sstStr01Lib.h \
+		../../sst_misc01_lib/Header/sstMisc01Lib.h \
 		../Header/sstRec04Lib.h \
 		sstRec04LibTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sstRec04LibTest.o sstRec04LibTest.cpp

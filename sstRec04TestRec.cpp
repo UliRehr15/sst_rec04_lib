@@ -316,17 +316,14 @@ int sstRec04TestRec1FncCls::CloseCsvFile(int iKey, char *cCsvFilNam)
   dREC04RECNUMTYP dRecNo = 0;
   sstRec04TestRec1Cls oTestRec;
   std::string sOutStr;
-  std::string sErrStr;
 
   // CascObjekt öffnen zum Lesen.
   sstMisc01AscFilCls oExpFil;
-  sstMisc01AscRowCls oExpRow;
 
   dRecNo = this->poTestRec1Table->count();
   iStat = oExpFil.fopenWr ( 0, cCsvFilNam);
   if(iStat < 0)
   {
-    // delete (this->poTestRec1Table);
     return -2;
   }
 
@@ -338,12 +335,10 @@ int sstRec04TestRec1FncCls::CloseCsvFile(int iKey, char *cCsvFilNam)
       // iStat = Str1_Init(0,&sOutStr);
       sOutStr.clear();
       this->Csv_Write( 0, &oTestRec, &sOutStr);
-      oExpRow.Str1_toLine(0,&sOutStr);
-      oExpFil.wr_line( 0, &oExpRow);
+      oExpFil.Wr_StrDS1( 0, &sOutStr);
     }
   }
-  // iStat = thisoRecDss.Close(0);
-  // delete (this->poTestRec1Table);
+
   iStat = oExpFil.fcloseFil(0);
 
   return iStat;
@@ -517,9 +512,6 @@ int sstRec04TestRec2FncCls::OpenReadCsvFile(int iKey, char *cCsvFilNam)
 
   if (iStat < 0) return -2;
 
-  // iStat = this->oRecDss.Open(0,sizeof(sstRec04TestRec2Cls),100,(char*)"RecDss");
-  // if (iStat < 0) return -3;
-
   // Eine Zeile aus Ascii-Datei lesen.
   iStat1 = oImpFil.rd_line( 0, &oImpRow);
 
@@ -622,18 +614,14 @@ int sstRec04TestRec2FncCls::CloseCsvFile(int iKey, char *cCsvFilNam)
   dREC04RECNUMTYP dRecNo = 0;
   sstRec04TestRec2Cls oTestRec;
   std::string sOutStr;
-  std::string sErrStr;
 
   // CascObjekt öffnen zum Lesen.
   sstMisc01AscFilCls oExpFil;
-  sstMisc01AscRowCls oExpRow;
 
   dRecNo = this->poTestRec2Table->count();
   iStat = oExpFil.fopenWr ( 0, cCsvFilNam);
   if(iStat < 0)
   {
-    // iStat = oRecDss.Close(0);
-    // delete (this->poTestRec2Table);
     return -2;
   }
 
@@ -643,15 +631,12 @@ int sstRec04TestRec2FncCls::CloseCsvFile(int iKey, char *cCsvFilNam)
     iStat = this->poTestRec2Table->Read( 0, ll, &oTestRec);
     if (iStat >= 0)
     {  // if no read error and not marked deleted
-      // iStat = Str1_Init(0,&sOutStr);
       sOutStr.clear();
       this->Csv_Write( 0, &oTestRec, &sOutStr);
-      oExpRow.Str1_toLine(0,&sOutStr);
-      oExpFil.wr_line( 0, &oExpRow);
+      oExpFil.Wr_StrDS1( 0, &sOutStr);
     }
   }
-  // iStat = oRecDss.Close(0);
-  // delete (this->poTestRec2Table);
+
   iStat = oExpFil.fcloseFil(0);
 
   return iStat;
