@@ -166,7 +166,7 @@ int sstRec04TestRec1FncCls::Csv_Write(int iKey, sstRec04TestRec1Cls *oTestSysTyp
   int iRet  = 0;
   if ( iKey != 0) return -1;
 
-  this->oFrmtTyp.SetReadPositon(0,0);
+  this->oFrmtTyp.SetReadPositon(0,1);
 
   if (iStat >= 0)
     iStat = oCsvStr.Csv_Int2_2String( 0, oTestSysTypTestRecCls->iVal, sTestSys_Str);
@@ -454,7 +454,7 @@ int sstRec04TestRec2FncCls::Csv_Write(int iKey, sstRec04TestRec2Cls *oTestSysTyp
   int iRet  = 0;
   if ( iKey != 0) return -1;
 
-  this->oFrmtTyp.SetReadPositon(0,0);
+  this->oFrmtTyp.SetReadPositon(0,1);
 
   if (iStat >= 0)
     iStat = this->oFrmtTyp.Csv_Int2_2String( 0, oTestSysTypTestRecCls->iVal, sTestSys_Str);
