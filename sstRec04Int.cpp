@@ -11,7 +11,7 @@
  * See the COPYING file for more information.
  *
  **********************************************************************/
-// sstRec04Int.cpp    11.06.18  Re.    17.10.15  Re.
+// sstRec04Int.cpp    22.02.19  Re.    17.10.15  Re.
 //
 
 #include <stdio.h>
@@ -613,6 +613,19 @@ int sstRec04InternCls::TreBld ( int              iKey,
   if (iKey != 0) return -1;
 
   Root = 0;
+
+  sstRec04TreeNodeCls oNode;
+
+  // Clean all Tree Node Data in actual Tree
+  for( ii=1; ii<=this->dActStored; ii++)
+  {
+    // Read Record from Record memory into intern vector
+    iStat = this->ReadInt(  0, ii, this->poVector->GetAdr());
+    // Write empty node record into vector
+    iStat = this->DSiTreAdrSet(0, &this->poTre[oTre->iTriNo-1], this->poVector->GetAdr(), &oNode);
+    // Rewrite vector into memory
+    iStat = this->WritInt( 0, this->poVector->GetAdr(), ii);
+  }
 
   for( ii=1; ii<=this->dActStored; ii++)
   {

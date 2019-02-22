@@ -981,7 +981,7 @@ class sstRec04InternCls
                   sstRec04TreeKeyCls   *oTre);
      //=============================================================================
      /**
-     * @brief Rebuild Tree system
+     * @brief Clean Tree Data and Rebuild Tree system
      *
      * iStat = oDss.TreBld ( iKey, *oTre);
      *

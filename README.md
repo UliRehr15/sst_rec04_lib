@@ -38,3 +38,4 @@ Versions <BR>
 20180914: Vers. 4.15: Update to QtCreator 4.5.2 and gcc 7.3.0. <BR>
 20181101: Vers. 4.16: More Tests for Test Record 1 and 2. <BR>
 20190125: Vers. 4.17: Small Changes in working with TestRec objects. <BR>
+20190222: Vers. 4.18: Repeat call of TreeBuild should be possible now. <BR>

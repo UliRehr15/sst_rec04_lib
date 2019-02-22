@@ -11,7 +11,7 @@
  * See the COPYING file for more information.
  *
  **********************************************************************/
-// sst_rec04_lib_test.cpp    13.09.15  Re.    13.09.15  Re.
+// sst_rec04_lib_test.cpp    22.02.19  Re.    13.09.15  Re.
 //
 // test frame for sstRec04Lib
 
@@ -335,6 +335,9 @@ int main()
       assert(iStat == 0);
 
       // Full rebuild of sorting tree 2 oTriKey_D8 (ints) in RecMem
+      iStat = oTestRecMem1.TreBld ( 0, &oTriKey_D8);
+      assert(iStat == 0);
+      // Repeat call should be possible now
       iStat = oTestRecMem1.TreBld ( 0, &oTriKey_D8);
       assert(iStat == 0);
 
