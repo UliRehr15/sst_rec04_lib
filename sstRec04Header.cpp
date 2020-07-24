@@ -30,7 +30,7 @@
 //=============================================================================
 sstRec04HeaderCls::sstRec04HeaderCls()
 {
-  strncpy(cVersionstring,(char*)"sstRec02",10);    /**< Version String, for exampe sstRec02 */
+  strncpy(cVersionstring,(char*)"sstRec02",10);    /**< Version String, for example sstRec02 */
   dRecSize = 0;  /**< Size of every Record */
   memset( cRecChgDateTime, 0, 18);    /**< Write Change Date, for exampe 151012 */
   memset( cRecNewDateTime, 0, 18);    /**< Write New Date, for exampe 151012 */

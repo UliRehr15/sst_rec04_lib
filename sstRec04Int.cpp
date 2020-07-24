@@ -66,6 +66,11 @@ sstRec04InternCls::~sstRec04InternCls()
   delete (this->poRecMemUsrKey);
   delete (this->poRecMemSysKey);
 
+  this->poHeader = NULL;
+  this->poVector = NULL;
+  this->poRecMemUsrKey = NULL;
+  this->poRecMemSysKey = NULL;
+
     if(ucStorage)
     {
       // puts("freeing storage");

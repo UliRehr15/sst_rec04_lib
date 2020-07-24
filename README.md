@@ -39,3 +39,4 @@ Versions <BR>
 20181101: Vers. 4.16: More Tests for Test Record 1 and 2. <BR>
 20190125: Vers. 4.17: Small Changes in working with TestRec objects. <BR>
 20190222: Vers. 4.18: Repeat call of TreeBuild should be possible now. <BR>
+20200724: Vers. 4.19: Set pointer to NULL after -delete- for class sstRec04InternCls. <BR>
