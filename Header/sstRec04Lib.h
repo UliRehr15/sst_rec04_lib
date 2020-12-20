@@ -19,6 +19,9 @@
 #ifndef   _SST_REC04_LIB_HEADER
 #define   _SST_REC04_LIB_HEADER
 
+#include <string>
+#include "sstStr01Lib.h"
+
 /**
  * @defgroup sstRecord04Lib sstRecord04Lib: cpp sst record library (Version 4)
  *
@@ -171,8 +174,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int WritNew(int iKey, void* vRecAdr, dREC04RECNUMTYP *dPosition);
@@ -187,10 +190,10 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   =  0: OK
-  * @retval   = -1: Wrong Key
-  * @retval   = -2: Wrong Record positon
-  * @retval   <  0: Unspecified Error
+  * @retval   =0:  OK
+  * @retval   =-1: Wrong Key
+  * @retval   =-2: Wrong Record positon
+  * @retval   <0:  Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int Writ(int iKey, void* vRecAdr, dREC04RECNUMTYP dPosition);
@@ -205,10 +208,10 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   =  0: OK
-  * @retval   = -1: Wrong Key
-  * @retval   = -2: Wrong Record positon
-  * @retval   <  0: Unspecified Error
+  * @retval   =0:  OK
+  * @retval   =-1: Wrong Key
+  * @retval   =-2: Wrong Record positon
+  * @retval   <0:  Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int Read(int iKey, dREC04RECNUMTYP dPosition, void *vRecAdr);
@@ -221,12 +224,12 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   =  0: OK
-  * @retval   = -1: Wrong Key
-  * @retval   = -2: File already open
-  * @retval   = -3: Filename empty
-  * @retval   = -4: sstRec not empty
-  * @retval   <  0: Unspecified Error
+  * @retval   =0:  OK
+  * @retval   =-1: Wrong Key
+  * @retval   =-2: File already open
+  * @retval   =-3: Filename empty
+  * @retval   =-4: sstRec not empty
+  * @retval   <0:  Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int OpenFile(int   iKey,
@@ -240,12 +243,12 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   =  0: OK
-  * @retval   = -1: Wrong Key
-  * @retval   = -2: File already open
-  * @retval   = -3: Filename empty
-  * @retval   = -4: sstRec not empty
-  * @retval   <  0: Unspecified Error
+  * @retval   =0:  OK
+  * @retval   =-1: Wrong Key
+  * @retval   =-2: File already open
+  * @retval   =-3: Filename empty
+  * @retval   =-4: sstRec not empty
+  * @retval   <0:  Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int NewFile(int   iKey,
@@ -258,8 +261,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int SetStoreFile(int iKey);
@@ -275,14 +278,14 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   =   0: OK
-  * @retval   =  -1: Wrong Key
-  * @retval   =  -2: Cargo Packet must not be empty
-  * @retval   =  -3: Cargo Name has to be length 3
-  * @retval   =  -4: Cargo Key should be empty
-  * @retval   =  -5: Cargo Name should be unique
-  * @retval   = -10: sstRecMem is not empty
-  * @retval   <   0: Unspecified Error
+  * @retval   =0:   OK
+  * @retval   =-1:  Wrong Key
+  * @retval   =-2:  Cargo Packet must not be empty
+  * @retval   =-3:  Cargo Name has to be length 3
+  * @retval   =-4:  Cargo Key should be empty
+  * @retval   =-5:  Cargo Name should be unique
+  * @retval   =-10: sstRecMem is not empty
+  * @retval   <0:   Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int AddCargoSys( int                  iKey,
@@ -300,10 +303,10 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   =  0: OK
-  * @retval   = -1: Wrong Key
-  * @retval   = -2: Cargo key not OK for RecMem object
-  * @retval   <  0: Unspecified Error
+  * @retval   =0:  OK
+  * @retval   =-1: Wrong Key
+  * @retval   =-2: Cargo key not OK for RecMem object
+  * @retval   <0:  Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int WrtCargo ( int                  iKey,
@@ -320,10 +323,10 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   =  0: OK
-  * @retval   = -1: Wrong Key
-  * @retval   = -2: Cargo key not OK for RecMem object
-  * @retval   <  0: Unspecified Error
+  * @retval   =0:  OK
+  * @retval   =-1: Wrong Key
+  * @retval   =-2: Cargo key not OK for RecMem object
+  * @retval   <0:  Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int RedCargo ( int                  iKey,
@@ -339,8 +342,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int RecSetDeleted ( int               iKey,
@@ -355,8 +358,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int RecSetMarked( int               iKey,
@@ -371,8 +374,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int RecSetUndeleted( int               iKey,
@@ -387,8 +390,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int RecSetUnmarked( int               iKey,
@@ -403,8 +406,8 @@ public:
   *
   * @return Delete State
   *
-  * @retval   = true:  Record is deleted
-  * @retval   = false: Record is undeleted
+  * @retval   =true:  Record is deleted
+  * @retval   =false: Record is undeleted
   */
   // ----------------------------------------------------------------------------
   bool RecGetDeleteStatus( int               iKey,
@@ -419,8 +422,8 @@ public:
   *
   * @return Mark State
   *
-  * @retval   = true : Record is marked
-  * @retval   = false: Record is unmarked
+  * @retval   =true : Record is marked
+  * @retval   =false: Record is unmarked
   */
   // ----------------------------------------------------------------------------
   bool RecGetMarkStatus( int               iKey,
@@ -439,8 +442,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int TreIni ( int                iKey,
@@ -459,8 +462,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int TreBld ( int                   iKey,
@@ -500,10 +503,10 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   =  0: OK
-  * @retval   = -1: Wrong Key
-  * @retval   = -2: No (more) record found (end of tree?)
-  * @retval   <  0: Unspecified Error
+  * @retval   =0:  OK
+  * @retval   =-1: Wrong Key
+  * @retval   =-2: No (more) record found (end of tree?)
+  * @retval   <0:  Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int TreReadNxtGE (int                 iKey,
@@ -521,8 +524,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int TreSeaFrst ( int               iKey,
@@ -540,8 +543,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int TreSeaNxtGE ( int                  iKey,
@@ -561,9 +564,9 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 1: Found next record with value inside search range
-  * @retval   = 0: Nothing more found > dRecNo = 0
-  * @retval   < 0: Unspecified Error
+  * @retval   =1: Found next record with value inside search range
+  * @retval   =0: Nothing more found > dRecNo = 0
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int TreSeaNxtEQ ( int                   iKey,
@@ -621,9 +624,9 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 1: Record with value found and deleted from tree(s)
-  * @retval   = 0: Value not found in RecMem
-  * @retval   < 0: Unspecified Error
+  * @retval   =1: Record with value found and deleted from tree(s)
+  * @retval   =0: Value not found in RecMem
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int TreDelValue ( int                   iKey,
@@ -640,9 +643,9 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 1: Record with Value found and deleted from tree(s)
-  * @retval   = 0: Value not found
-  * @retval   < 0: Unspecified Error
+  * @retval   =1: Record with Value found and deleted from tree(s)
+  * @retval   =0: Value not found
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int TreDelNumber ( int                      iKey,
@@ -661,7 +664,7 @@ public:
   * @brief // Get Size of User Record  <BR>
   * dUserRecSize = oRecMem.GetUserRecordSize();
   *
-  * @retval   Return Size of User Record
+  * @return   Return Size of User Record
   */
   //=============================================================================
   dREC04RECNUMTYP GetUserRecordSize();
@@ -676,8 +679,8 @@ public:
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int TreeLog(int                   iKey,
@@ -780,8 +783,8 @@ class sstRec04LiLstCls
      *
      * @return Errorstate
      *
-     * @retval   = 0: OK
-     * @retval   < 0: Unspecified Error
+     * @retval   =0: OK
+     * @retval   <0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
      int Define3(int          iKey,
@@ -800,8 +803,8 @@ class sstRec04LiLstCls
      *
      * @return Errorstate
      *
-     * @retval   = 0: OK
-     * @retval   < 0: Unspecified Error
+     * @retval   =0: OK
+     * @retval   <0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
      int getEntriesInLinkList(int              iKey,
@@ -822,8 +825,8 @@ class sstRec04LiLstCls
      *
      * @return Errorstate
      *
-     * @retval   = 0: OK
-     * @retval   < 0: Unspecified Error
+     * @retval   =0: OK
+     * @retval   <0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
      int ListNodeGetEleAll (int              iKey,
@@ -844,8 +847,8 @@ class sstRec04LiLstCls
      *
      * @return Errorstate
      *
-     * @retval   = 0: OK
-     * @retval   < 0: Unspecified Error
+     * @retval   =0: OK
+     * @retval   <0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
      int ExtendAtEnd(int             iKey,
@@ -863,8 +866,8 @@ class sstRec04LiLstCls
      *
      * @return Errorstate
      *
-     * @retval   = 0: OK
-     * @retval   < 0: Unspecified Error
+     * @retval   =0: OK
+     * @retval   <0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
      int GetHedListLength (int              iKey,
@@ -881,8 +884,8 @@ class sstRec04LiLstCls
      *
      * @return Errorstate
      *
-     * @retval   = 0: OK
-     * @retval   < 0: Unspecified Error
+     * @retval   =0: OK
+     * @retval   <0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
      int GetTarNumUse (int              iKey,
@@ -922,8 +925,8 @@ class sstRec04TestRec1Cls
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int SetAll(int            iVal,
@@ -937,8 +940,8 @@ class sstRec04TestRec1Cls
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int Csv_Read(int iKey, std::string *sTestSys_Str);
@@ -951,15 +954,13 @@ class sstRec04TestRec1Cls
   *
   * @return Errorstate
   *
-  * @retval   = 0: OK
-  * @retval   < 0: Unspecified Error
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
   */
   // ----------------------------------------------------------------------------
   int Csv_Write(int iKey, std::string *sTestSys_Str);
   // ----------------------------------------------------------------------------
-  // double dVal;       /**< double test value */
   int  iVal;       /**< integer test value */
-  // char cVal[21];     /**< Test-Char */
   char cVal[251];     /**< Test-Char */
 private:  // Private functions
 };
@@ -1007,8 +1008,8 @@ class sstRec04TestRec2Cls
      *
      * @return Errorstate
      *
-     * @retval   = 0: OK
-     * @retval   < 0: Unspecified Error
+     * @retval   =0: OK
+     * @retval   <0: Unspecified Error
      */
      // ----------------------------------------------------------------------------
      int SetAll(int            iVal,
@@ -1065,8 +1066,8 @@ class sstRec04TestRec1FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int OpenReadCsvFile(int   iKey,
@@ -1081,8 +1082,8 @@ class sstRec04TestRec1FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int CloseCsvFile(int   iKey,
@@ -1097,8 +1098,8 @@ class sstRec04TestRec1FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int ReadRecPos(int           iKey,
@@ -1114,8 +1115,8 @@ class sstRec04TestRec1FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int ReadRecNext(int           iKey,
@@ -1131,8 +1132,8 @@ class sstRec04TestRec1FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int WriteNew(int iKey,
@@ -1148,8 +1149,8 @@ class sstRec04TestRec1FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int WriteRecPos(int            iKey,
@@ -1164,8 +1165,8 @@ class sstRec04TestRec1FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int DeleteRecPos(int            iKey,
@@ -1189,8 +1190,8 @@ class sstRec04TestRec1FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int Csv_Read(int               iKey,
@@ -1206,8 +1207,8 @@ class sstRec04TestRec1FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int Csv_Write(int               iKey,
@@ -1251,10 +1252,10 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   =  0: OK
-    * @retval   = -1: Wrong Key
-    * @retval   = -2: Open File Error
-    * @retval   <  0: Unspecified Error
+    * @retval   =0:  OK
+    * @retval   =-1: Wrong Key
+    * @retval   =-2: Open File Error
+    * @retval   <0:  Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int OpenReadCsvFile(int   iKey,
@@ -1270,8 +1271,8 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int CloseCsvFile(int   iKey,
@@ -1286,8 +1287,8 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int ReadRecPos(int           iKey,
@@ -1303,8 +1304,8 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int ReadRecNext(int           iKey,
@@ -1320,8 +1321,8 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int WriteNew(int iKey,
@@ -1337,8 +1338,8 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int WriteRecPos(int            iKey,
@@ -1353,8 +1354,8 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int DeleteRecPos(int            iKey,
@@ -1378,8 +1379,8 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int Csv_Read(int               iKey,
@@ -1395,8 +1396,8 @@ class sstRec04TestRec2FncCls
     *
     * @return Errorstate
     *
-    * @retval   = 0: OK
-    * @retval   < 0: Unspecified Error
+    * @retval   =0: OK
+    * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
     int Csv_Write(int               iKey,

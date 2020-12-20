@@ -40,3 +40,4 @@ Versions <BR>
 20190125: Vers. 4.17: Small Changes in working with TestRec objects. <BR>
 20190222: Vers. 4.18: Repeat call of TreeBuild should be possible now. <BR>
 20200724: Vers. 4.19: Set pointer to NULL after -delete- for class sstRec04InternCls. <BR>
+20201220: Vers. 4.20: Fixed some Doxygen warnings. <BR>

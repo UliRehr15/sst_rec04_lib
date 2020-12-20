@@ -12,7 +12,8 @@ INCLUDEPATH += ./Header
 INCLUDEPATH += ../sst_str01_lib/Header
 INCLUDEPATH += ../sst_misc01_lib/Header
 
-HEADERS		+=  ./Header/sstRec04Lib.h
+HEADERS		+=  ./Header/sstRec04Lib.h \
+    Header/sst_str01_libFncLib.h
 HEADERS		+= sstRec04LibInt.h
 
 SOURCES		+=  sstRec04.cpp \

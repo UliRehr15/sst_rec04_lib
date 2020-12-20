@@ -113,7 +113,7 @@ int main()
     {
       int iVal=0;
       oRecMem_Int.Read(0,k,&iVal);
-      printf("oRecMem_Int.Read(%d) = %d\n", k, iVal);
+      printf("oRecMem_Int.Read(%ld) = %d\n", k, iVal);
     }
 
     iValue = 0;
@@ -123,7 +123,7 @@ int main()
     for(dREC04RECNUMTYP i = 1; i <= oRecMem_Str.count(); i++)
     {
         oRecMem_Str.Read(0,i,buf);
-        printf("oRecMem_Str.Read(%d) = %s", i, buf);
+        printf("oRecMem_Str.Read(%ld) = %s", i, buf);
     }
     putchar('\n');
     }
@@ -151,8 +151,8 @@ int main()
       for(dREC04RECNUMTYP k = 1; k <= poRecMem_Int->count(); k++)
       { int iVal=0;
         poRecMem_Int->Read(0,k,&iVal);
-        assert (iVal==k);
-        printf("poRecMem_Int->Read(%d) = %d\n", k, iVal);
+        assert ((dREC04RECNUMTYP)iVal==k);
+        printf("poRecMem_Int->Read(%ld) = %d\n", k, iVal);
       }
 
     putchar('\n');
