@@ -813,9 +813,9 @@ int sstRec04InternCls::TreReadNxtGE (int              iKey,
   return iRet;
 }
 //=============================================================================
-int sstRec04InternCls::TreSeaFrst ( int        iKey,
-                             sstRec04TreeKeyCls    *oTre,
-                             dREC04RECNUMTYP  *SNr)
+int sstRec04InternCls::TreSeaFrst ( int                 iKey,
+                                    sstRec04TreeKeyCls *oTre,
+                                    dREC04RECNUMTYP    *SNr)
 //-----------------------------------------------------------------------------
 {
   dREC04RECNUMTYP      IntSNr = 0;        // Local Record number
@@ -859,6 +859,72 @@ int sstRec04InternCls::TreSeaFrst ( int        iKey,
   while ( SBaum.dLeft_LT > 0)
   {
     IntSNr = SBaum.dLeft_LT;
+    *SNr   = IntSNr;
+    // Return tree node data for record IntSNr of tree oTre
+    iStat = DSiTreDatGet ( 0, poTreHead, IntSNr, IntSAdr,  &SBaum);
+  }
+
+  free (IntSAdr);
+
+  // Fatal Errors goes to an assert
+  if (iRet < 0)
+  {
+    // Expression (iRet >= 0) has to be fullfilled
+    assert(0);
+  }
+
+  // Small Errors will given back
+  iRet = iStat;
+
+  return iRet;
+}
+//=============================================================================
+int sstRec04InternCls::TreSeaLast ( int                 iKey,
+                                    sstRec04TreeKeyCls *oTre,
+                                    dREC04RECNUMTYP    *SNr)
+//-----------------------------------------------------------------------------
+{
+  dREC04RECNUMTYP      IntSNr = 0;        // Local Record number
+  void         *IntSAdr;                  // Local record memory
+  sstRec04TreeNodeCls     SBaum;              // Local tree node object
+  sstRec04TreeHeaderCls *poTreHead;
+
+  int iRet;
+  int iStat;
+//.............................................................................
+  if (iKey != 0) return -1;
+  iRet = 0;
+
+  poTreHead = (sstRec04TreeHeaderCls*) &this->poTre[oTre->iTriNo-1];
+  // iStat = 0;
+
+  // Is RecMem empty, no Record number is result: Error
+  if (this->dActStored <= 0)
+  {
+    *SNr = 0;
+    return -2;
+  }
+
+  // Is only one record in RecMem, this is result
+  if (this->dActStored == 1)
+  {
+    *SNr = 1;
+    return 0;
+  }
+
+  // Get Entry record number in Tree oTre
+  // This is first result number
+  IntSNr = this->poTre->dRoot;
+
+  // Start local record memory
+  IntSAdr = malloc(this->poVector->GetSize());
+  assert(IntSAdr);
+
+  SBaum.dRight_GE = IntSNr;
+
+  while ( SBaum.dRight_GE > 0)
+  {
+    IntSNr = SBaum.dRight_GE;
     *SNr   = IntSNr;
     // Return tree node data for record IntSNr of tree oTre
     iStat = DSiTreDatGet ( 0, poTreHead, IntSNr, IntSAdr,  &SBaum);

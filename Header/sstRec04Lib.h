@@ -21,6 +21,7 @@
 
 #include <string>
 #include "sstStr01Lib.h"
+#include "sstMisc01Lib.h"
 
 /**
  * @defgroup sstRecord04Lib sstRecord04Lib: cpp sst record library (Version 4)
@@ -49,7 +50,7 @@ typedef unsigned long  dREC04RECNUMTYP;    /**< Record Number Type: Int, Unsigne
 // typedef long  dREC04RECNUMTYP;    /**< Record Number Type    */
 typedef unsigned long  dREC04RECSIZTYP;    /**< Record Size Type: Int, Unsigned, Long, Unsigned Long  */
 
-
+#define dQSORT_TEXTLEN   30  /**< Fix Lenght of sort string @ingroup sstlib */
 // forward declaration ---------------------------------------------------------
 
 class sstRec04InternCls;
@@ -515,7 +516,7 @@ public:
                     dREC04RECNUMTYP    *dRecNo);
   //=============================================================================
   /**
-  * @brief // Return first record number <BR>
+  * @brief // Return record number of smallest value in tree  <BR>
   * iStat = oRecMem.TreSeaFrst ( iKey, *poTre, *dRecNo);
   *
   * @param iKey    [in]     For the moment 0
@@ -529,6 +530,24 @@ public:
   */
   // ----------------------------------------------------------------------------
   int TreSeaFrst ( int               iKey,
+                   sstRec04TreeKeyCls    *poTre,
+                   dREC04RECNUMTYP  *dRecNo);
+  //=============================================================================
+  /**
+  * @brief // Return record number of greatest value in tree  <BR>
+  * iStat = oRecMem.TreSeaFrst ( iKey, *poTre, *dRecNo);
+  *
+  * @param iKey    [in]     For the moment 0
+  * @param poTre   [in out] Tree system
+  * @param dRecNo  [out]    Return record number
+  *
+  * @return Errorstate
+  *
+  * @retval   =0: OK
+  * @retval   <0: Unspecified Error
+  */
+  // ----------------------------------------------------------------------------
+  int TreSeaLast ( int               iKey,
                    sstRec04TreeKeyCls    *poTre,
                    dREC04RECNUMTYP  *dRecNo);
   //=============================================================================
@@ -1400,9 +1419,9 @@ class sstRec04TestRec2FncCls
     * @retval   <0: Unspecified Error
     */
     // ----------------------------------------------------------------------------
-    int Csv_Write(int               iKey,
-                  sstRec04TestRec2Cls      *oTestRec1,
-                  std::string      *sCsvRow);
+    int Csv_Write(int                   iKey,
+                  sstRec04TestRec2Cls  *oTestRec1,
+                  std::string          *sCsvRow);
   private:
     sstRec04Cls* poTestRec2Table;
     sstStr01Cls oFrmtTyp;
@@ -1411,6 +1430,186 @@ class sstRec04TestRec2FncCls
 };
 
 //==============================================================================
+//==============================================================================
+/**
+* @brief Definition QSortStr_stru
+*
+* More Comment
+*
+* Changed: 21.02.13  Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @author Re.
+*
+* @date 21.02.13
+*/
+// ----------------------------------------------------------------------------
+struct _QSortStr_stru
+{
+  char myStr[dQSORT_TEXTLEN];        /**< Sort String */
+  unsigned long  ulMyLongInt;        /**< Intern Transport information */
+};
+typedef struct _QSortStr_stru sstRec04QSortStr_stru;
+//==============================================================================
+
+//==============================================================================
+/**
+* @brief Definition Class QSortStrCls
+*
+* More Comment
+*
+* Changed: 19.02.10  Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @author Re.
+*
+* @date 19.02.10
+*/
+// ----------------------------------------------------------------------------
+class sstRec04QSortStrCls
+{
+  public:   // Public functions
+     sstRec04QSortStrCls();   // Constructor
+  //  ~X();   // Destructor
+//==============================================================================
+/**
+* @brief // getStr <BR>
+*
+* @return String
+*/
+// ----------------------------------------------------------------------------
+    std::string getStr();
+    //==============================================================================
+    /**
+    * @brief getLong
+    *
+    * @return Long Int
+    */
+    // ----------------------------------------------------------------------------
+    unsigned long int getLong();
+    //==============================================================================
+    /**
+    * @brief setString
+    *
+    * @param oStr       [in] setString
+    */
+    // ----------------------------------------------------------------------------
+    void setString(const std::string oStr);
+    //==============================================================================
+    /**
+    * @brief setLong
+    *
+    * @param ulVal       [in] Long Int Value
+    */
+    // ----------------------------------------------------------------------------
+    void setLong(const unsigned long int ulVal);
+    //==============================================================================
+    /**
+    * @brief set
+    *
+    * @param oStr   [in] set String
+    * @param ulVal  [in] set long int value
+    */
+    // ----------------------------------------------------------------------------
+    void set(const std::string oStr, const unsigned long int ulVal);
+// ----------------------------------------------------------------------------
+  private:  // Private functions
+  char myStr[dQSORT_TEXTLEN];        /**< Sort String */
+  unsigned long int ulMyLongInt;        /**< Intern Transport information */
+};
+//==============================================================================
+/**
+* @brief // sstRec04SrtStrQSort2 Class variante <BR>
+* iStat = sstRec04SrtStrQSort2 ( array, lArrayDim, sConPrgBar);
+*
+* More Comment
+*
+* Changed: 16.02.10  Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @param array      [in out] Array
+* @param lArrayDim  [in] Size of Array
+* @param sConPrgBar [in] Console Progress Bar
+*
+* @return Errorstate
+*
+* @retval   = 0: OK
+* @retval   < 0: Unspecified Error
+*
+* @author Re.
+*
+* @date 16.02.10
+*/
+//------------------------------------------------------------------------------
+void sstRec04SrtStrQSort2( sstRec04QSortStrCls    array[],
+                           long                   lArrayDim,
+                           sstMisc01ConPrgBarCls *sConPrgBar);
+//==============================================================================
+/**
+* @brief // Compare two Asc files and return first diffent file row <BR>
+* iStat = sstMisc01FileCompare( iKey, oFilNam1, oFilNam2, *ulRowNo);
+*
+* iKey = 1: Ignore Different files sizes and return first different row no. <BR>
+*
+* Changed: 09.07.15  Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @param iKey     [in] 0 oder 1
+* @param oFilNam1 [in] File Name 1
+* @param oFilNam2 [in] File Name 2 for comparing
+* @param ulRowNo  [out] Row number
+*
+* @return Errorstate
+*
+* @retval   =0:  Files are equal
+* @retval   =-1: Wrong Key
+* @retval   =-2: File 1 not found
+* @retval   =-3: File 2 not found
+* @retval   =-4: Row length not equal in RowNo
+* @retval   =-5: Row string not equal in RowNo
+* @retval   =-6: File Size not equal
+* @retval   <0:  Unspecified Error
+*
+* @author Re.
+*
+* @date 09.07.15
+*/
+//------------------------------------------------------------------------------
+int sstMisc01FileCompare(int iKey, const std::string oFilNam1, const std::string oFilNam2,
+                         unsigned long *ulRowNo);
+//==============================================================================
+/**
+* @brief // sstRec04SrtStrQSort Structure variante <BR>
+* iStat = sstRec04SrtStrQSort ( array, lArrayDim, sConPrgBar);
+*
+* More Comment
+*
+* Changed: 16.02.10  Re.
+*
+* @ingroup sstRecord04Lib
+*
+* @param array      [in out] Array
+* @param lArrayDim  [in] Size of Array
+* @param sConPrgBar [in] Console Progress Bar
+*
+* @return Errorstate
+*
+* @retval   = 0: OK
+* @retval   < 0: Unspecified Error
+*
+* @author Re.
+*
+* @date 16.02.10
+*/
+//------------------------------------------------------------------------------
+void sstRec04SrtStrQSort( sstRec04QSortStr_stru     array[],
+                     long                           lArrayDim,
+                     sstMisc01ConPrgBarCls         *sConPrgBar);
+
 
 // Do some intern Tests
 int sstRec04_DoSomeInternTests (int iKey);

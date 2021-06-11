@@ -41,3 +41,6 @@ Versions <BR>
 20190222: Vers. 4.18: Repeat call of TreeBuild should be possible now. <BR>
 20200724: Vers. 4.19: Set pointer to NULL after -delete- for class sstRec04InternCls. <BR>
 20201220: Vers. 4.20: Fixed some Doxygen warnings. <BR>
+20210307: Vers. 4.21: New function -GetMaxValue- from sorted tree. <BR>
+                      New funtion -Get/SetTableName-. <BR>
+20210611: Vers. 4.22: Added Quicksort-Functions and Classes to Rec04 Lib. <BR>                      

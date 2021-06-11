@@ -22,6 +22,7 @@
 
 #include <string>
 
+#include <sstMath01Lib.h>
 #include <sstStr01Lib.h>
 #include <sstMisc01Lib.h>
 #include <sstRec04Lib.h>
@@ -773,6 +774,10 @@ int main()
   iStat = Test_TreSeaEQ ( 0);
   assert(iStat == 0);
 
+  // Test Quicksort Class
+  iStat = Test_QuickSort ( 0);
+  assert(iStat == 0);
+
   return 0;
 }
 //=============================================================================
@@ -805,7 +810,7 @@ int Test_TreSeaEQ (int iKey) // v  -> For the moment 0
     iStat = oTestRecMem1.TreIni ( 0, &oTstRec12, &oTstRec12.dVal, sizeof(oTstRec12.dVal), sstRecTyp_D8, &oTriKey_D8);
     assert(iStat == 0);
 
-    oTstRec12.dVal = 4.0;
+    oTstRec12.dVal = 6.0;
     strcpy(oTstRec12.cVal,"dscr");  // RecNo = 1
     iStat = oTestRecMem1.WritNew ( 0, &oTstRec12,&dRecNo);
 
@@ -901,13 +906,42 @@ int Test_TreSeaEQ (int iKey) // v  -> For the moment 0
     assert(iStat > 0);
     assert(dRecNo == 2);
 
-    iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_D8, &dVal1, &dVal2, &dRecNo);
-    assert(iStat > 0);
-    assert(dRecNo == 1);
-
     iStat = oTestRecMem1.TreSeaNxtEQ ( 0, &oTriKey_CC, &dVal1, &dVal2, &dRecNo);
+    assert(iStat == 0);  // Nothing more found in defined range
+    assert(dRecNo == 0); // Nothing more found in defined range
+
+
+    // return record number of first value from character sort tree
+    iStat = oTestRecMem1.TreSeaFrst( 0, &oTriKey_CC, &dRecNo);
     assert(iStat == 0);
-    assert(dRecNo == 0);
+    assert(dRecNo == 3);
+    iStat = oTestRecMem1.Read( 0, dRecNo, &oTstRec12);
+    assert(iStat == 0);
+    iStat = strncmp(oTstRec12.cVal,"ascr",4);
+
+    // return record number of first value from double sort tree
+    iStat = oTestRecMem1.TreSeaFrst( 0, &oTriKey_D8, &dRecNo);
+    assert(iStat == 0);
+    assert(dRecNo == 3);
+    iStat = oTestRecMem1.Read( 0, dRecNo, &oTstRec12);
+    assert(iStat == 0);
+    assert(oTstRec12.dVal == 1.0);
+
+    // return record number of last value from character sort tree
+    iStat = oTestRecMem1.TreSeaLast( 0, &oTriKey_CC, &dRecNo);
+    assert(iStat == 0);
+    assert(dRecNo == 4);
+    iStat = oTestRecMem1.Read( 0, dRecNo, &oTstRec12);
+    assert(iStat == 0);
+    iStat = strncmp(oTstRec12.cVal,"escr",4);
+
+    // return record number of last value from double sort tree
+    iStat = oTestRecMem1.TreSeaLast( 0, &oTriKey_D8, &dRecNo);
+    assert(iStat == 0);
+    assert(dRecNo == 1);
+    iStat = oTestRecMem1.Read( 0, dRecNo, &oTstRec12);
+    assert(iStat == 0);
+    assert(oTstRec12.dVal == 6.0);
 
 
 }
@@ -925,5 +959,105 @@ int Test_TreSeaEQ (int iKey) // v  -> For the moment 0
   iRet = iStat;
 
   return iRet;
+}
+//=============================================================================
+int Test_QuickSort (int iKey)
+//-----------------------------------------------------------------------------
+{
+  sstMisc01ConPrgBarCls oConPrgBar;
+  sstRec04QSortStr_stru  sQSortStr;
+  sstRec04QSortStr_stru *pQSortStrArray;
+  sstRec04QSortStrCls  oQSortStr;
+  sstRec04QSortStrCls *poQSortStrArray;
+  long lSortArrayDim = 0;  // Dimension of sort array
+  // long lAnzDs = 10;
+  void *Adr;
+
+  int iStat = 0;
+//-----------------------------------------------------------------------------
+  if ( iKey != 0) return -1;
+
+  lSortArrayDim = 5;  // Size of Test Array
+
+  Adr = calloc( lSortArrayDim , sizeof(sstRec04QSortStr_stru));
+  assert(Adr);
+  pQSortStrArray = (sstRec04QSortStr_stru*) Adr;
+
+  //===========================================================================
+
+  sQSortStr.ulMyLongInt = 1;  // Record 1
+  strncpy(sQSortStr.myStr,"tegagnqrgnbsk-hgmäh#agmmgasmhahmämwhmmhg",dQSORT_TEXTLEN-1);
+  pQSortStrArray[0] = sQSortStr;
+
+  sQSortStr.ulMyLongInt = 2;  // Record 2
+  strncpy(sQSortStr.myStr,"ab",dQSORT_TEXTLEN-1);
+  pQSortStrArray[1] = sQSortStr;
+
+  sQSortStr.ulMyLongInt = 3;  // Record 3
+  strncpy(sQSortStr.myStr,"cr",dQSORT_TEXTLEN-1);
+  pQSortStrArray[2] = sQSortStr;
+
+  sQSortStr.ulMyLongInt = 4;  // Record 4
+  strncpy(sQSortStr.myStr,"fw",dQSORT_TEXTLEN-1);
+  pQSortStrArray[3] = sQSortStr;
+
+  sQSortStr.ulMyLongInt = 5;  // Record 5
+  strncpy(sQSortStr.myStr,"yq",dQSORT_TEXTLEN-1);
+  pQSortStrArray[4] = sQSortStr;
+
+  //===========================================================================
+  // Quick Sort String Array
+
+  // Open Progress Bar.
+  iStat = oConPrgBar.Open(0, (char*)"Quicksort Data", 50);
+
+  // Quicksort of SortString without recursion (heap variante)
+  sstRec04SrtStrQSort( pQSortStrArray, lSortArrayDim, &oConPrgBar);
+
+  // Close Progress Bar.
+  iStat = oConPrgBar.Close(0, (char*)"Quicksort complett");
+
+  //===========================================================================
+
+  sQSortStr = pQSortStrArray[0];
+  assert(sQSortStr.ulMyLongInt == 2);
+
+  //===========================================================================
+
+  poQSortStrArray = new sstRec04QSortStrCls[lSortArrayDim];
+
+  //===========================================================================
+
+  poQSortStrArray[0].set("tegagnqrgnbsk-hgmäh#agmmgasmhahmämwhmmhg",1);
+  poQSortStrArray[1].set("ab",2);
+  poQSortStrArray[2].set("cr",3);
+  poQSortStrArray[3].set("fw",4);
+  poQSortStrArray[4].set("yq",5);
+
+  //===========================================================================
+  // Quick Sort String Array
+
+  // Open Progress Bar.
+  iStat = oConPrgBar.Open(0, (char*)"Quicksort Data", 50);
+
+  // Quicksort of SortString without recursion (heap variante)
+  sstRec04SrtStrQSort2( poQSortStrArray, lSortArrayDim, &oConPrgBar);
+
+  // Close Progress Bar.
+  iStat = oConPrgBar.Close(0, (char*)"Quicksort complett");
+
+  //===========================================================================
+
+  oQSortStr = poQSortStrArray[0];    // Get first record of sorted array
+  assert(oQSortStr.getLong() == 2);  // Record 2 with string "ab" is after sorting now first in array
+
+  delete []poQSortStrArray;
+
+  //===========================================================================
+
+  // Fatal Errors goes to an assert
+  assert(iStat >= 0);
+
+  return iStat;
 }
 //=============================================================================

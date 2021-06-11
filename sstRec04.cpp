@@ -208,6 +208,14 @@ int sstRec04Cls::TreSeaFrst ( int            iKey,
   return this->poRec01Intern->TreSeaFrst(iKey,oTre,SNr);
 }
 //==============================================================================
+int sstRec04Cls::TreSeaLast ( int            iKey,
+                 sstRec04TreeKeyCls *oTre,
+                 dREC04RECNUMTYP  *SNr)
+//-----------------------------------------------------------------------------
+{
+  return this->poRec01Intern->TreSeaLast(iKey,oTre,SNr);
+}
+//==============================================================================
 int sstRec04Cls::TreSeaNxtGE ( int             iKey,
                   sstRec04TreeKeyCls  *oTre,
                   dREC04RECNUMTYP    SNr1,

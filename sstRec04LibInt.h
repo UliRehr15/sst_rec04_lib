@@ -185,12 +185,12 @@ class sstRec04HeaderCls
 
 
 private:  // Private functions
-     char cVersionstring[10];    /**< Version String, for exampe sstRec02 */
-     dREC04RECSIZTYP dRecSize;  /**< Size of every Record */
-     char cRecChgDateTime[18];    /**< Write Change Date, for exampe 151012 */
-     char cRecNewDateTime[18];    /**< Write New Date, for exampe 151012 */
-     bool bDel;    /**< Delete Flag */
-     bool bMark;   /**< Mark Flag */
+     char cVersionstring[10];     /**< Version String, for exampe sstRec02 */
+     dREC04RECSIZTYP dRecSize;    /**< Size of every Record */
+     char cRecChgDateTime[18];    /**< Write -Change- Date, for exampe 151012 */
+     char cRecNewDateTime[18];    /**< Write -New- Date, for exampe 151012 */
+     bool bDel;                   /**< Delete Flag */
+     bool bMark;                  /**< Mark Flag */
 };
 //==============================================================================
 /**
@@ -1084,6 +1084,23 @@ class sstRec04InternCls
                       dREC04RECNUMTYP  *SNr);
      //=============================================================================
      /**
+     * @brief Return record number of greatest value in tree
+     *
+     * @param iKey [in]     For the moment 0
+     * @param oTre [in out] Tree system
+     * @param SNr  [out]    Return record number
+     *
+     * @return Errorstate
+     *
+     * @retval   =0: OK
+     * @retval   <0: Unspecified Error
+     */
+     // ----------------------------------------------------------------------------
+     int TreSeaLast ( int            iKey,
+                      sstRec04TreeKeyCls *oTre,
+                      dREC04RECNUMTYP  *SNr);
+     //=============================================================================
+     /**
      * @brief Seach next greater
      *
      * @param iKey [in]     For the moment 0
@@ -1635,15 +1652,15 @@ class sstRec04InternCls
 
     // dREC04RECSIZTYP dUsrSize;     /**< Size of each user record */
     dREC04RECNUMTYP dQuantity;     /**< Number of storage spaces */
-    dREC04RECNUMTYP dActStored;   /**< Number of stored records */
-    unsigned char* ucStorage;       /**< Dynamically allocated array of bytes */
+    dREC04RECNUMTYP dActStored;    /**< Number of stored records */
+    unsigned char* ucStorage;      /**< Dynamically allocated array of bytes */
     FILE*          pFilHdl;        /**< File Handle: If not NULL, store in file   */
     bool           bFileNotDelete;  /**< Do File not delete   */
     char cDatnam[dREC04FILNAMMAXLEN]; /**< Filename for storing record data   */
-    sstRec04HeaderCls *poHeader;  /**< Intern Header            */
+    sstRec04HeaderCls *poHeader;   /**< Intern Header            */
     sstRec04VectSysCls *poVector;  /**< Intern memory space for vector            */
     sstRec04CargoKeyInternCls *poRecMemUsrKey;   /**< Identification Key for Header Cargo */
-    sstRec04CargoKeyInternCls *poRecMemSysKey;   /**< Identification Kea for User Data Cargo */
+    sstRec04CargoKeyInternCls *poRecMemSysKey;   /**< Identification Key for User Data Cargo */
     sstRec04TreeHeaderCls     *poTre;            /**< Array with all tree header data    */
     int           iTriAnz;    /**< Number of all defined trees            */
 };
@@ -2156,6 +2173,230 @@ int Test_VectorSys_Heap (int iKey);
 int Test_CompareFunctions (int iKey);
 
 //==============================================================================
+/**
+* @brief Definition Structure ul_node
+*
+* Used from sstLiFoLongCls <BR>
+*
+* Changed: 16.11.12  Re.
+*
+* @ingroup sstRecord04InternLib
+*
+* @author Re.
+*
+* @date 16.11.12
+*/
+// ----------------------------------------------------------------------------
+struct ul_node
+{
+  long            key;    /**< Key */
+  struct ul_node *next;   /**< Adress */
+};
+//==============================================================================
+/**
+* @brief Definition sst_LiFoLong_cls
+*
+* LiFo Storage for long integer
+*
+* Changed: 16.11.12 Re.
+*
+* @ingroup sstRecord04InternLib
+*
+* @author Re.
+*
+* @date 16.11.12
+*/
+// ----------------------------------------------------------------------------
+class sstLiFoIntCls
+{
+  public:   // Öffentliche Funktionen
+     sstLiFoIntCls();  // Konstruktor
+    // ~X();  // Destruktor
+     //==============================================================================
+     /**
+     * @brief Initialize LiFoLong Storage
+     *
+     * call ul_stackinit();
+     *
+     * More Comment
+     *
+     * Changed: 16.11.12  Re.
+     *
+     * @ingroup sstlib
+     *
+     * @author Re.
+     *
+     * @date 16.11.12
+     */
+     //------------------------------------------------------------------------------
+     void stackinit();
+     //==============================================================================
+     /**
+     * @brief Write next element to LiFoLong Storage
+     *
+     * call ul_push( v);
+     *
+     * Changed: 16.11.12  Re.
+     *
+     * @ingroup sstlib
+     *
+     * @param v: [in] long integer element
+     *
+     * @author Re.
+     *
+     * @date 16.11.12
+     */
+     //------------------------------------------------------------------------------
+     void push( long v);
+     //==============================================================================
+     /**
+     * @brief Read last element from LiFoLong Storage
+     *
+     * long elem = ul_pop();
+     *
+     * More Comment
+     *
+     * Changed: 16.11.12  Re.
+     *
+     * @ingroup sstlib
+     *
+     * @retval   = Data element
+     *
+     * @author Re.
+     *
+     * @date 16.11.12
+     */
+     //------------------------------------------------------------------------------
+     long pop();
+     //==============================================================================
+     /**
+     * @brief Test, if LiFoLong Storage is empty
+     *
+     * iStat = ul_stackempty();
+     *
+     * More Comment
+     *
+     * Changed: 16.11.12  Re.
+     *
+     * @ingroup sstRecord04InternLib
+     *
+     * @retval   =1: Stack is empty
+     * @retval   =0: Stack is not empty
+     *
+     * @author Re.
+     *
+     * @date 16.11.12
+     */
+     //------------------------------------------------------------------------------
+     int stackempty();
+  private:  // Private Funktionen
+     long key;   /**< Transport information */
+     struct ul_node *next;   /**< pointer to next element */
+     struct ul_node *head;   /**< pointer  */
+     struct ul_node *zz;     /**< pointer  */
+     struct ul_node *tt;     /**< pointer  */
+};
+//-----------------------------------------------------------------------------
+
+//==============================================================================
+/**
+* @brief Definition sst_LiFoLong_cls
+*
+* LiFo Storage for long integer
+*
+* Changed: 16.11.12 Re.
+*
+* @ingroup sstRecord04InternLib
+*
+* @author Re.
+*
+* @date 16.11.12
+*/
+// ----------------------------------------------------------------------------
+class sstLiFoLongCls
+{
+  public:   // Öffentliche Funktionen
+     sstLiFoLongCls();  // Konstruktor
+    // ~X();  // Destruktor
+     //==============================================================================
+     /**
+     * @brief Initialize LiFoLong Storage
+     *
+     * call ul_stackinit();
+     *
+     * More Comment
+     *
+     * Changed: 16.11.12  Re.
+     *
+     * @author Re.
+     *
+     * @date 16.11.12
+     */
+     //------------------------------------------------------------------------------
+     void stackinit();
+     //==============================================================================
+     /**
+     * @brief Write next element to LiFoLong Storage
+     *
+     * call ul_push( v);
+     *
+     * Changed: 16.11.12  Re.
+     *
+     * @param v: [in] long integer element
+     *
+     * @author Re.
+     *
+     * @date 16.11.12
+     */
+     //------------------------------------------------------------------------------
+     void push( long v);
+     //==============================================================================
+     /**
+     * @brief Read last element from LiFoLong Storage
+     *
+     * long elem = ul_pop();
+     *
+     * More Comment
+     *
+     * Changed: 16.11.12  Re.
+     *
+     * @retval   = Data element
+     *
+     * @author Re.
+     *
+     * @date 16.11.12
+     */
+     //------------------------------------------------------------------------------
+     long pop();
+     //==============================================================================
+     /**
+     * @brief Test, if LiFoLong Storage is empty
+     *
+     * iStat = ul_stackempty();
+     *
+     * More Comment
+     *
+     * Changed: 16.11.12  Re.
+     *
+     * @retval   =1: Stack is empty
+     * @retval   =0: Stack is not empty
+     *
+     * @author Re.
+     *
+     * @date 16.11.12
+     */
+     //------------------------------------------------------------------------------
+     int stackempty();
+
+  private:  // Private Funktionen
+     long            key;   /**< Transport information */
+     struct ul_node *next;   /**< pointer to next element */
+     struct ul_node *head;   /**< pointer  */
+     struct ul_node *zz;     /**< pointer  */
+     struct ul_node *tt;     /**< pointer  */
+};
+//-----------------------------------------------------------------------------
+
 
 #endif
 

@@ -28,6 +28,7 @@
 // Test Class function TriSeaEQ
 int Test_TreSeaEQ (int iKey);
 
+int Test_QuickSort (int iKey);
 
 #endif
 
